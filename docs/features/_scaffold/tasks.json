@@ -1,0 +1,57 @@
+{
+  "slug": "_scaffold",
+  "tasks": [
+    {
+      "id": "S1",
+      "title": "Create the module/folder structure + entry point, remove the SwiftData template",
+      "layer": "scaffold",
+      "deps": [],
+      "acs": [],
+      "dod": "project builds (empty); NetworkObservation/App/, Features/, Core/, Shared/ exist; ContentView.swift and Item.swift removed; NetworkObservationApp.swift uses MenuBarExtra instead of the SwiftData WindowGroup",
+      "files_hint": [
+        "NetworkObservation/App/NetworkObservationApp.swift",
+        "NetworkObservation/Features/",
+        "NetworkObservation/Core/",
+        "NetworkObservation/Shared/"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Wire the test harness + a smoke test",
+      "layer": "scaffold",
+      "deps": ["S1"],
+      "acs": [],
+      "dod": "empty XCTest suite runs green via `xcodebuild test`; a smoke test confirms the app target builds and the MenuBarExtra scene is constructed",
+      "files_hint": [
+        "NetworkObservationTests/NetworkObservationTests.swift"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Set up the migration tool + an initial empty migration",
+      "layer": "scaffold",
+      "deps": ["S1"],
+      "acs": [],
+      "dod": "DROPPED — no datastore in v1: settings persist via UserDefaults (ADR 0003), no schema to migrate",
+      "files_hint": []
+    },
+    {
+      "id": "S4",
+      "title": "Add the CI workflow (build + test + lint)",
+      "layer": "scaffold",
+      "deps": ["S2"],
+      "acs": [],
+      "dod": "DROPPED — user chose to skip CI/lint for v1 (indie project, no App Store gate, SwiftLint not installed); revisit if that changes",
+      "files_hint": []
+    },
+    {
+      "id": "S5",
+      "title": "Extend CLAUDE.md with the project's architecture conventions",
+      "layer": "scaffold",
+      "deps": ["S1"],
+      "acs": [],
+      "dod": "root CLAUDE.md (generic behavioral guidelines, kept as-is) gains a project-specific section pointing to docs/architecture-map.md and .claude/skills/ios-MVI-architecture/SKILL.md as the binding conventions for new code",
+      "files_hint": ["CLAUDE.md"]
+    }
+  ]
+}
