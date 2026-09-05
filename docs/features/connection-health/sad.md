@@ -4,7 +4,7 @@ owner: "ueiktyrj@gmail.com"
 reviewers: ["Tech Lead", "Security Lead"]
 updated_at: "2026-09-05"
 feature_size: "M"
-target_surfaces: []
+target_surfaces: ["desktop-app"]
 ---
 
 # Software Architecture Document — connection-health
@@ -107,5 +107,53 @@ check, never ICMP, per spec §6.1 — the exact probing mechanism per target is 
 The OS Local Network permission boundary sits between the app and both probes and is modeled
 as a crosscutting concept in §8, not a fourth C4 element, since it's a gate on existing
 relationships rather than a party the app talks to.
+
+## 4. Solution strategy
+
+**Target surface — `desktop-app` (decided, no ADR: single obvious option).** The feature is a
+single macOS menu-bar application; there is no backend service, web frontend, or any other
+deployable — every probe, every piece of state, and the UI itself run in one process. No
+alternative surface was realistic given spec §1's "minimal macOS menu-bar app," so this doesn't
+cross the blast-radius gate (no legitimate alternative).
+
+**UI-architecture — native SwiftUI `MenuBarExtra` (decided, no ADR: excluded by an existing
+constraint).** `architecture-map.md` already fixes SwiftUI + `MenuBarExtra` as the project's
+convention for this surface, and no cross-platform or alternative UI toolkit was ever in play —
+the "has legitimate alternative" gate criterion is not met.
+
+**Top strategic choices (the ADR seeds):**
+
+1. **Ship unsandboxed outside the App Store** — the headline diagnostic feature needs
+   raw/ICMP-style network access the App Sandbox restricts. → **ADR-0001**.
+2. **Structured-concurrency `Task` loop for probe scheduling** — a `while` loop over
+   `Task.sleep(interval)`, cancelled via SwiftUI's `.task {}` lifecycle, feeding results to the
+   Store as they complete. → **ADR-0002**.
+3. **Detect Local Network permission via a short-lived `NWBrowser` trigger** — since macOS has
+   no direct "query current grant" API, a Bonjour browse at first-probe time both triggers the
+   OS prompt and is read as the permission signal, kept separate from the real gateway probe so
+   "no permission" and "gateway down" never conflate. → **ADR-0003**.
+4. **ICMP for the gateway probe, a bare TCP/TLS handshake for the external probe** — each target
+   gets the most reliable primitive for its own network context; the external probe stays
+   TCP/HTTPS-based per spec §6.1 and never touches ICMP. → **ADR-0004**.
+5. **Hysteresis on the AC-08-combined state, computed in the Reducer** — the 3-consecutive-cycle
+   rule (AC-04/AC-04b) is applied once, to the already-combined per-cycle candidate, as pure
+   Reducer logic. → **ADR-0005**.
+
+**Other decisions (config-level, no ADR — low cost to change later):**
+
+- **External-host probe target: the fixed IP `1.1.1.1:443`** (Cloudflare's anycast address).
+  The probe is a bare TCP+TLS handshake, no HTTP request — this sidesteps DNS-resolution timing
+  and any dependency on the target's HTTP response body. The host is not user-editable (spec
+  §6.1 abuse cases) and swapping it later is a one-line config change, not a rework.
+- **Gateway degraded-latency threshold (AC-06): 100 ms.** Typical healthy Wi-Fi/LAN latency to
+  a home gateway is tens of milliseconds; 100 ms is a clear signal of local congestion without
+  being so tight that ordinary Wi-Fi jitter trips it. A fixed absolute value, not adaptive, per
+  spec §8's resolution. A plain config constant — changing it later is a one-line edit, not a
+  rework.
+- **Persistence: `UserDefaults` via `@AppStorage`** — already fixed in `architecture-map.md`;
+  carried forward, not re-decided.
+
+Every tactical decision in §5–§8 traces to one of the five strategic choices above; none
+contradicts them.
 
 
