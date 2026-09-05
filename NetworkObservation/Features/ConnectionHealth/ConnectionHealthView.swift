@@ -48,6 +48,9 @@ extension ConnectionHealthDomain.HealthState {
 struct ConnectionHealthView: View {
     @Bindable var store: ConnectionHealthStore
     @State private var intervalText: String = ""
+    /// Chart/stats redraw at 1Hz regardless of probeInterval, decoupling the sparkline's
+    /// Canvas redraw cost from a probe cadence that can run as fast as 0.1s.
+    @State private var displayLatencyHistory: [Double?] = []
 
     /// 8pt grid: 8 between rows within a section, 16 (2×8) between sections and as the
     /// popover's outer margin.
@@ -66,7 +69,8 @@ struct ConnectionHealthView: View {
             }
 
             // Real-time gateway-latency strip chart (last ~60 probes).
-            LatencySparklineView(samples: store.state.latencyHistory)
+            LatencySparklineView(samples: displayLatencyHistory)
+            latencyStatsRow(samples: displayLatencyHistory)
 
             Divider()
 
@@ -108,6 +112,34 @@ struct ConnectionHealthView: View {
         .padding(Spacing.section)
         .frame(minWidth: 240)
         .task { intervalText = String(store.state.probeInterval) }
+        .task {
+            while !Task.isCancelled {
+                displayLatencyHistory = store.state.latencyHistory
+                try? await Task.sleep(for: .seconds(1))
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func latencyStatsRow(samples: [Double?]) -> some View {
+        let values = samples.compactMap { $0 }
+        HStack {
+            latencyStat(label: "Min", value: values.min())
+            Spacer()
+            latencyStat(label: "Avg", value: values.isEmpty ? nil : values.reduce(0, +) / Double(values.count))
+            Spacer()
+            latencyStat(label: "Max", value: values.max())
+        }
+        .font(.caption)
+    }
+
+    @ViewBuilder
+    private func latencyStat(label: String, value: Double?) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(label)
+                .foregroundStyle(.secondary)
+            Text(value.map { String(format: "%.0f ms", $0) } ?? "—")
+        }
     }
 
     @ViewBuilder
