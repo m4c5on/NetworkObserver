@@ -335,4 +335,43 @@ data-growth axis to plan around.
 
 ADR files live under `docs/features/connection-health/adr/`.
 
+## 10. Quality requirements
+
+Numbers below are cited verbatim from spec §6 NFR.
+
+**QG-1. Accuracy (false-positive rate)** — the headline trust goal (§1).
+- **When:** the app runs continuously over a 24-hour window under known-good network
+  conditions.
+- **Then:** ≤ 1 false state transition into degraded/unreachable per 24h.
+- **How verify:** soak-test log compared against known-good network state; counted per false
+  transition, not per probe cycle.
+
+**QG-2. Idle resource overhead — CPU** (§1).
+- **When:** the app is idle at the default probe interval.
+- **Then:** ≤ 1% average CPU.
+- **How verify:** Activity Monitor sample, 1-hour idle soak test at the default interval;
+  probing pauses during system sleep (standard macOS suspend/resume).
+
+**QG-2b. Idle resource overhead — memory** (§1, same goal as QG-2).
+- **When:** the app is idle at the default probe interval.
+- **Then:** ≤ 50 MB resident.
+- **How verify:** Activity Monitor sample, 1-hour idle soak test at the default interval.
+
+**QG-3. Status update latency** (§1).
+- **When:** a probe cycle completes.
+- **Then:** the status bar reflects it within ≤ 250 ms.
+- **How verify:** local instrumentation during development.
+
+**QG-4. Detection latency.**
+- **When:** a real outage begins.
+- **Then:** the status bar reflects the worse state within ≤ 3 probe intervals (≤ 15 s at the
+  default 5 s interval).
+- **How verify:** derived from the AC-04 3-consecutive-probe rule (ADR-0005); verified in soak
+  testing.
+
+**QG-5. Availability (crash-free sessions).**
+- **When:** the app runs continuously.
+- **Then:** ≥ 99% crash-free sessions.
+- **How verify:** soak-test log over a 7-day continuous run.
+
 
