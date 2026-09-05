@@ -287,4 +287,27 @@ actually raises the OS prompt, and its outcome — not a direct query, since non
 read as granted or denied; a denial locks the app into the permission-needed state described in
 AC-03b, since macOS won't prompt a second time.
 
+## 7. Deployment view
+
+There is no server-side topology to scale — the entire system is one signed, notarized `.app`
+bundle running on the operator's own Mac (ADR-0001: unsandboxed, outside the App Store).
+Distribution is a `.dmg` or `.zip` download; there are no replicas, no load balancing, and no
+multi-instance concerns, since each install is a single process on a single machine serving one
+operator. The only "scaling" axis is the probe interval itself (spec US-03, AC-05), which the
+operator controls directly.
+
+**Monitoring:**
+- No remote telemetry (spec §6.1: no data leaves the device) — all NFR verification (spec §6)
+  happens via local instrumentation and Activity-Monitor soak tests during development, not a
+  production monitoring stack.
+- Crash-free-session tracking (spec §6: ≥99%) is measured from local soak-test logs, not a
+  crash-reporting service — none is in scope for v1.
+
+**Scaling thresholds:** N/A — a single-user, single-process local app has no request volume or
+data-growth axis to plan around.
+
+<!-- Distribution mechanics (signing identity, notarization pipeline, entitlements file) are a
+     build/CI concern for the `tasks`/`implement` stages, not an architecture decision — this
+     section records the topology, not the release pipeline. -->
+
 
