@@ -23,6 +23,14 @@ already committed to a non-App-Store distribution for this reason; this ADR reco
 decision at the architecture level so later stages (build settings, entitlements, the probing
 implementation) don't re-litigate it.
 
+**Note on framing:** Option 2 below was already foreclosed by `docs/idea-brief.md` before this
+design session started — the same pre-fixed status as §4's Target-surface and UI-architecture
+decisions, which carry no ADR for exactly this reason. This ADR is kept as a full MADR anyway,
+because the decision is irreversible and consequential enough (it gates the probing techniques
+in ADR-0004 and the entire release pipeline) to deserve a durable audit trail; it **ratifies**
+an existing commitment rather than weighing a live choice, and Option 2 is documented for that
+record, not as a currently-open alternative.
+
 ## Decision drivers
 
 - The headline diagnostic capability (spec §1) needs network primitives the App Sandbox
