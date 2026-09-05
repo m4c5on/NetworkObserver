@@ -323,4 +323,16 @@ data-growth axis to plan around.
 | Events | N/A — single-process MVI Intent/State flow, no cross-module event bus | — |
 | Rate-limiting (analog) | Enforced minimum probe interval (AC-05) protects the local network from excessive probe frequency (spec §6.1 abuse cases) | spec AC-05, §6.1 |
 
+## 9. Architecture decisions
+
+| # | Title | Status | Section |
+|---|---|---|---|
+| 0001 | Ship unsandboxed outside the App Store | Accepted | §4 |
+| 0002 | Use a structured-concurrency probe loop | Accepted | §4 |
+| 0003 | Detect Local Network permission via an NWBrowser trigger | Accepted | §4 |
+| 0004 | ICMP for the gateway probe, TCP/TLS handshake for the external probe | Accepted | §4 |
+| 0005 | Apply the 3-consecutive-cycle hysteresis to the combined state, in the Reducer | Accepted | §4 |
+
+ADR files live under `docs/features/connection-health/adr/`.
+
 
