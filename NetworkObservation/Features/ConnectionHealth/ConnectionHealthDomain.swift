@@ -11,7 +11,13 @@ enum ConnectionHealthDomain {
     /// boundary (green/yellow) since both read the same threshold.
     static let gatewayDegradedThresholdMs: Double = 100
 
-    /// Sparkline window: how many past probe cycles the latency chart keeps.
+    /// Cycle time (gateway + external run concurrently, so this is roughly their max) above
+    /// which a candidate otherwise `.good` is downgraded to `.degraded`; chosen above the
+    /// ~300ms both-probes-`.ok` ceiling so a normal cycle never trips it. Never escalates past
+    /// `.degraded` — an already-`.unreachable`/`.degraded` candidate is unaffected.
+    static let elapsedDegradedThresholdMs: Double = 300
+
+    /// Sparkline window: how many past probe cycles the latency/cycle-time charts keep.
     static let latencyHistoryLimit = 60
 
     enum HealthState: CaseIterable, Equatable {
@@ -42,6 +48,9 @@ enum ConnectionHealthDomain {
         /// AC-04/AC-04b: consecutive cycles a candidate must hold before it becomes `healthState`.
         let hysteresisThreshold: Int
         let hysteresisErrorMessage: String?
+        /// Whole-cycle wall-clock time per completed cycle (gateway + external run
+        /// concurrently), oldest first, capped at `latencyHistoryLimit`.
+        let elapsedHistory: [Double]
     }
 
     enum Intent {
@@ -50,7 +59,7 @@ enum ConnectionHealthDomain {
         case hysteresisThresholdChanged(Int)
 
         // Internal
-        case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult)
+        case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult, elapsedMs: Double)
         case _permissionNeeded
         case _noNetwork
         case _intervalAccepted(TimeInterval)
@@ -80,7 +89,8 @@ extension ConnectionHealthDomain.State {
             pendingCount: 0,
             latencyHistory: [],
             hysteresisThreshold: 3,
-            hysteresisErrorMessage: nil
+            hysteresisErrorMessage: nil,
+            elapsedHistory: []
         )
     }
 }

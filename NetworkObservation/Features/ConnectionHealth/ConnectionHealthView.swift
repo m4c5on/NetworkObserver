@@ -55,6 +55,7 @@ struct ConnectionHealthView: View {
     /// Chart/stats redraw at 1Hz regardless of probeInterval, decoupling the sparkline's
     /// Canvas redraw cost from a probe cadence that can run as fast as 0.1s.
     @State private var displayLatencyHistory: [Double?] = []
+    @State private var displayElapsedHistory: [Double] = []
 
     /// 8pt grid: 8 between rows within a section, 16 (2×8) between sections and as the
     /// popover's outer margin.
@@ -72,10 +73,18 @@ struct ConnectionHealthView: View {
                     .foregroundStyle(store.state.healthState.statusBarColor)
             }
 
-            // Real-time gateway-latency strip chart + latency stats, set apart as one block.
-            VStack(alignment: .leading, spacing: Spacing.row) {
-                LatencySparklineView(samples: displayLatencyHistory)
-                latencyStatsRow(samples: displayLatencyHistory)
+            // Real-time gateway-latency + cycle-time strip charts with their stats, set apart as one block.
+            VStack(alignment: .leading, spacing: Spacing.section) {
+                VStack(alignment: .leading, spacing: Spacing.row) {
+                    Text("Gateway").font(.caption).foregroundStyle(.secondary)
+                    LatencySparklineView(samples: displayLatencyHistory, threshold: ConnectionHealthDomain.gatewayDegradedThresholdMs)
+                    latencyStatsRow(samples: displayLatencyHistory)
+                }
+                VStack(alignment: .leading, spacing: Spacing.row) {
+                    Text("Cycle time").font(.caption).foregroundStyle(.secondary)
+                    LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: ConnectionHealthDomain.elapsedDegradedThresholdMs)
+                    latencyStatsRow(samples: displayElapsedHistory.map { Optional($0) })
+                }
             }
             .padding(Spacing.row)
             .background(Color.gray.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
@@ -144,6 +153,7 @@ struct ConnectionHealthView: View {
         .task {
             while !Task.isCancelled {
                 displayLatencyHistory = store.state.latencyHistory
+                displayElapsedHistory = store.state.elapsedHistory
                 try? await Task.sleep(for: .seconds(1))
             }
         }

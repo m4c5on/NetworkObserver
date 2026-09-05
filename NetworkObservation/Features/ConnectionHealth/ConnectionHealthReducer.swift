@@ -19,8 +19,8 @@ struct ConnectionHealthReducer {
         case .hysteresisThresholdChanged(let threshold):
             return (state, .persistHysteresisThreshold(threshold))
 
-        case ._cycleCompleted(let gatewayLatencyMs, let external):
-            return (reduceCycleCompleted(state: state, gatewayLatencyMs: gatewayLatencyMs, external: external), nil)
+        case ._cycleCompleted(let gatewayLatencyMs, let external, let elapsedMs):
+            return (reduceCycleCompleted(state: state, gatewayLatencyMs: gatewayLatencyMs, external: external, elapsedMs: elapsedMs), nil)
 
         case ._permissionNeeded:
             return (
@@ -34,7 +34,8 @@ struct ConnectionHealthReducer {
                     pendingCount: 0,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: state.hysteresisThreshold,
-                    hysteresisErrorMessage: state.hysteresisErrorMessage
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory
                 ),
                 nil
             )
@@ -51,7 +52,8 @@ struct ConnectionHealthReducer {
                     pendingCount: 0,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: state.hysteresisThreshold,
-                    hysteresisErrorMessage: state.hysteresisErrorMessage
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory
                 ),
                 nil
             )
@@ -68,7 +70,8 @@ struct ConnectionHealthReducer {
                     pendingCount: state.pendingCount,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: state.hysteresisThreshold,
-                    hysteresisErrorMessage: state.hysteresisErrorMessage
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory
                 ),
                 .rescheduleProbeLoop(interval)
             )
@@ -85,7 +88,8 @@ struct ConnectionHealthReducer {
                     pendingCount: state.pendingCount,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: state.hysteresisThreshold,
-                    hysteresisErrorMessage: state.hysteresisErrorMessage
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory
                 ),
                 nil
             )
@@ -102,7 +106,8 @@ struct ConnectionHealthReducer {
                     pendingCount: state.pendingCount,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: threshold,
-                    hysteresisErrorMessage: nil
+                    hysteresisErrorMessage: nil,
+                    elapsedHistory: state.elapsedHistory
                 ),
                 nil
             )
@@ -119,7 +124,8 @@ struct ConnectionHealthReducer {
                     pendingCount: state.pendingCount,
                     latencyHistory: state.latencyHistory,
                     hysteresisThreshold: state.hysteresisThreshold,
-                    hysteresisErrorMessage: "Minimum hysteresis is \(minimum) cycle(s)"
+                    hysteresisErrorMessage: "Minimum hysteresis is \(minimum) cycle(s)",
+                    elapsedHistory: state.elapsedHistory
                 ),
                 nil
             )
@@ -150,10 +156,16 @@ struct ConnectionHealthReducer {
     private func reduceCycleCompleted(
         state: Domain.State,
         gatewayLatencyMs: Double?,
-        external: Domain.ProbeResult
+        external: Domain.ProbeResult,
+        elapsedMs: Double
     ) -> Domain.State {
         let gatewayResult = classifyGateway(latencyMs: gatewayLatencyMs)
-        let candidate = combine(gateway: gatewayResult, external: external)
+        var candidate = combine(gateway: gatewayResult, external: external)
+        // Cycle time can only downgrade an otherwise-good candidate to degraded; it never
+        // overrides an already-worse candidate (that's gateway/external's call to make).
+        if candidate == .good && elapsedMs > Domain.elapsedDegradedThresholdMs {
+            candidate = .degraded
+        }
 
         var newPendingCandidate: Domain.HealthState?
         var newPendingCount: Int
@@ -182,6 +194,12 @@ struct ConnectionHealthReducer {
             newLatencyHistory.removeFirst(newLatencyHistory.count - Domain.latencyHistoryLimit)
         }
 
+        var newElapsedHistory = state.elapsedHistory
+        newElapsedHistory.append(elapsedMs)
+        if newElapsedHistory.count > Domain.latencyHistoryLimit {
+            newElapsedHistory.removeFirst(newElapsedHistory.count - Domain.latencyHistoryLimit)
+        }
+
         return Domain.State(
             healthState: newHealthState,
             gatewayResult: gatewayResult,
@@ -192,7 +210,8 @@ struct ConnectionHealthReducer {
             pendingCount: newPendingCount,
             latencyHistory: newLatencyHistory,
             hysteresisThreshold: state.hysteresisThreshold,
-            hysteresisErrorMessage: state.hysteresisErrorMessage
+            hysteresisErrorMessage: state.hysteresisErrorMessage,
+            elapsedHistory: newElapsedHistory
         )
     }
 }

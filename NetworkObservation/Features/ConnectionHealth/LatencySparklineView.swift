@@ -2,9 +2,10 @@
 //  LatencySparklineView.swift
 //  NetworkObservation
 //
-//  Real-time gateway-latency strip chart shown under the health label. Background bands mark
-//  the ok/degraded zones at ConnectionHealthDomain.gatewayDegradedThresholdMs; a `nil` sample
-//  (gateway unreachable that cycle) breaks the line and is flagged with a red marker at the top.
+//  Real-time strip chart shown under a health label — reused for both the gateway-latency chart
+//  and the cycle-time (elapsedMs) chart, each with its own degraded-zone threshold. Background
+//  bands mark the ok/degraded zones at `threshold`; a `nil` sample (gateway unreachable that
+//  cycle) breaks the line and is flagged with a red marker at the top.
 //
 
 import SwiftUI
@@ -13,13 +14,13 @@ struct LatencySparklineView: View {
     typealias Domain = ConnectionHealthDomain
 
     let samples: [Double?]
+    var threshold: Double = Domain.gatewayDegradedThresholdMs
 
     private let chartHeight: CGFloat = 44
     private let lineColor = Color.accentColor
 
     var body: some View {
         Canvas { context, size in
-            let threshold = Domain.gatewayDegradedThresholdMs
             let maxSample = samples.compactMap { $0 }.max() ?? threshold
             let scaleMax = max(maxSample * 1.15, threshold * 1.5)
             let capacity = Domain.latencyHistoryLimit

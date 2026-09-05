@@ -68,7 +68,8 @@ final class ConnectionHealthStore {
             pendingCount: initial.pendingCount,
             latencyHistory: initial.latencyHistory,
             hysteresisThreshold: hysteresisThreshold ?? settings.hysteresisThreshold,
-            hysteresisErrorMessage: initial.hysteresisErrorMessage
+            hysteresisErrorMessage: initial.hysteresisErrorMessage,
+            elapsedHistory: initial.elapsedHistory
         )
         self.state = initial
     }
@@ -157,8 +158,9 @@ final class ConnectionHealthStore {
 
         guard let host = gatewayHost() else {
             let external = await probeExternal()
-            send(._cycleCompleted(gatewayLatencyMs: nil, external: external))
-            logCycleCompleted(elapsedMs(since: cycleStart))
+            let elapsed = elapsedMs(since: cycleStart)
+            send(._cycleCompleted(gatewayLatencyMs: nil, external: external, elapsedMs: elapsed))
+            logCycleCompleted(elapsed)
             return
         }
 
@@ -166,8 +168,9 @@ final class ConnectionHealthStore {
         async let externalResult = probeExternal()
         let gateway = await gatewayResult
         let external = await externalResult
-        send(._cycleCompleted(gatewayLatencyMs: gateway.reachable ? gateway.latencyMs : nil, external: external))
-        logCycleCompleted(elapsedMs(since: cycleStart))
+        let elapsed = elapsedMs(since: cycleStart)
+        send(._cycleCompleted(gatewayLatencyMs: gateway.reachable ? gateway.latencyMs : nil, external: external, elapsedMs: elapsed))
+        logCycleCompleted(elapsed)
     }
 
     private func elapsedMs(since start: DispatchTime) -> Double {
