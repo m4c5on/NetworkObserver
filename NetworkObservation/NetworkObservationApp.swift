@@ -14,11 +14,9 @@ struct NetworkObservationApp: App {
     var body: some Scene {
         MenuBarExtra {
             ConnectionHealthView(store: connectionHealthStore)
-                .task { connectionHealthStore.start() }
         } label: {
-            Image(systemName: connectionHealthStore.state.healthState.statusBarSymbolName)
-                .renderingMode(.original)
-                .foregroundStyle(connectionHealthStore.state.healthState.statusBarColor)
+            Image(nsImage: connectionHealthStore.state.healthState.statusBarImage)
+                .task { connectionHealthStore.start() }
         }
         .menuBarExtraStyle(.window)
     }

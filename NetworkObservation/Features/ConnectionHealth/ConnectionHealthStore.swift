@@ -75,6 +75,7 @@ final class ConnectionHealthStore {
     }
 
     func start() {
+        guard loopTask == nil else { return }
         registerForSleepWake()
         loopTask = Task { [weak self] in
             await self?.runPermissionCheckThenLoop()

@@ -32,6 +32,18 @@ extension ConnectionHealthDomain.HealthState {
         }
     }
 
+    /// NSStatusItem auto-templates SF Symbol images (alpha-only, no color), so SwiftUI's
+    /// foregroundStyle/renderingMode modifiers on the MenuBarExtra label are ignored. Building
+    /// the NSImage directly and forcing isTemplate = false is the only way to keep the color.
+    var statusBarImage: NSImage {
+        let configuration = NSImage.SymbolConfiguration(pointSize: 13, weight: .regular)
+            .applying(NSImage.SymbolConfiguration(paletteColors: [NSColor(statusBarColor)]))
+        let image = NSImage(systemSymbolName: statusBarSymbolName, accessibilityDescription: nil)?
+            .withSymbolConfiguration(configuration)
+        image?.isTemplate = false
+        return image ?? NSImage()
+    }
+
     /// AC-03/AC-03b/AC-07: menu text that disambiguates states sharing a color, or a plain
     /// no-network cause, from a genuine unreachable reading.
     var menuExplanation: String {
