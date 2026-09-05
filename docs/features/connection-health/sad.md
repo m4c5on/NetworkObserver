@@ -39,3 +39,26 @@ costs them nothing noticeable.
 
 <!-- Decision overrides (¶4) — populated by the critic resolution loop, empty otherwise. -->
 
+## 2. Constraints
+
+**Technical.**
+- Swift 5 (`NetworkObservation.xcodeproj/project.pbxproj`: `SWIFT_VERSION = 5.0`)
+- SwiftUI (`MenuBarExtra` scene) for the UI; Foundation + Network framework for the probes
+- No datastore — settings only, persisted via `UserDefaults` (`@AppStorage`)
+- Architecture convention: MVI (Model → View → Intent) per `.claude/skills/ios-MVI-architecture/SKILL.md` — mandatory for every feature screen, including this one
+- Minimum supported macOS: current major release and the previous one (batch-approved assumption, spec §8) — no older API surface is targeted
+
+**Organisational.**
+- No fixed deadline or PR-count budget stated in the spec; sized M (1–2 sprints) per `.size`
+- Single-developer/indie project (no team-composition constraint beyond the Architect/Tech Lead role)
+
+**Conventions.**
+- `.claude/skills/ios-MVI-architecture/SKILL.md` — Store/Reducer/View contract, dependency injection into `Store.init`, `Intent._loadingFailed(Error)` error surfacing
+- `.claude/skills/ios-tdd-workflow/SKILL.md` — reducers/use-cases unit-tested with zero mocking
+- No ID strategy — v1 has no persisted entities with IDs
+
+**Regulatory / external.**
+- No data leaves the device (spec §6.1) — no compliance regime applies
+- Non-App-Store distribution is a fixed constraint carried from `docs/idea-brief.md` (unsandboxed, notarized) — see §4 for the confirming decision and its ADR
+
+
