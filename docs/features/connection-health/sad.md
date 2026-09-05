@@ -374,4 +374,24 @@ Numbers below are cited verbatim from spec §6 NFR.
 - **Then:** ≥ 99% crash-free sessions.
 - **How verify:** soak-test log over a 7-day continuous run.
 
+## 11. Risks and technical debt
+
+| Risk / debt | Severity | Mitigation | Owner |
+|---|---|---|---|
+| ADR-0003's NWBrowser-as-permission-trigger is unverified on a real Mac — it may not raise the same prompt as a direct unicast connection to the gateway, or its denial failure mode may not be distinguishable from a timeout | High | Spike at the start of `implement`: confirm the trigger and denial signal on a real macOS install before building AC-03/AC-03b on top of it; fallback is ADR-0003 Option 2 with an explicit accuracy trade-off | iOS/macOS Engineer |
+| ADR-0004's unprivileged ICMP `SOCK_DGRAM` ping-socket on macOS (unsandboxed) is a documented community pattern, not confirmed empirically in this session | Medium | Spike at the start of `implement`; documented fallback is TCP-connect-to-gateway (ADR-0004 Option 2), accepting the "gateway may not listen on any fixed port" risk it names | iOS/macOS Engineer |
+| Placeholder bundle identifier `com.msg.groceriesTracker.*` in `project.pbxproj` (copy-paste leftover from a prior template, per `architecture-map.md`) blocks a real notarized release | Medium | Correct before ADR-0001's distribution pipeline runs for real; not blocking for scaffold/dev builds | iOS/macOS Engineer |
+| Xcode default SwiftData document-app template files (`ContentView.swift`, `Item.swift`) are unrelated leftovers still in the repo | Low | Removed during `scaffold`, per `architecture-map.md` | iOS/macOS Engineer |
+| No CI or lint configured (SwiftLint absent) | Low | Explicit v1 choice for this indie project (`architecture-map.md`); revisit if the team grows or distribution requirements change | Architect |
+| A stray nested duplicate directory `NetworkObserver/` (with its own `.git`) exists at the repo root, origin unclear | Low | Flagged to the repo owner in `architecture-map.md`; left untouched by this design pass — not this feature's to resolve | Repo owner |
+| Accuracy under VPN or multi-homed setups (e.g. Wi-Fi + Ethernet simultaneously) is not guaranteed — v1 evaluates only the OS's default-route gateway (spec §3 Non-goals) | Medium | Documented limitation, not a defect; deferred past v1 per spec | Architect |
+| A spoofed local gateway response could produce a false "good" reading — standard reachability checks are not cryptographically authenticated | Low | Accepted risk for v1, per spec §6.1 — documented, not mitigated | Security Lead |
+
+**Accepted debt (acceptable in v1, plan to fix later):**
+- No second external host / fallback target — a block or outage of the single fixed external
+  host reads identically to "the internet is down" (spec §3 Non-goals); acceptable for v1,
+  revisit if false positives from this cause show up in soak testing.
+- No in-app update mechanism (spec §3 Non-goals) — consistent with ADR-0001's non-App-Store
+  distribution; operators update manually.
+
 
