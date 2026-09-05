@@ -16,8 +16,26 @@ struct ConnectionHealthSettings {
     static let minimumHysteresisThreshold = 1
     static let defaultHysteresisThreshold = 3
 
+    /// AC-06: the gateway is classified degraded above this latency.
+    static let minimumGatewayDegradedThresholdMs: Double = 1
+    static let defaultGatewayDegradedThresholdMs: Double = 50
+
+    /// Cycle time above which an otherwise-`.good` candidate is downgraded to `.degraded`.
+    static let minimumElapsedDegradedThresholdMs: Double = 1
+    static let defaultElapsedDegradedThresholdMs: Double = 100
+
+    static let minimumGatewayDegradedBadlyThresholdMs: Double = 1
+    static let defaultGatewayDegradedBadlyThresholdMs: Double = 100
+
+    static let minimumElapsedDegradedBadlyThresholdMs: Double = 1
+    static let defaultElapsedDegradedBadlyThresholdMs: Double = 300
+
     private static let probeIntervalKey = "probeInterval"
     private static let hysteresisThresholdKey = "hysteresisThreshold"
+    private static let gatewayDegradedThresholdMsKey = "gatewayDegradedThresholdMs"
+    private static let elapsedDegradedThresholdMsKey = "elapsedDegradedThresholdMs"
+    private static let gatewayDegradedBadlyThresholdMsKey = "gatewayDegradedBadlyThresholdMs"
+    private static let elapsedDegradedBadlyThresholdMsKey = "elapsedDegradedBadlyThresholdMs"
 
     private let defaults: UserDefaults
 
@@ -50,6 +68,54 @@ struct ConnectionHealthSettings {
     func setHysteresisThreshold(_ candidate: Int) -> Bool {
         guard candidate >= Self.minimumHysteresisThreshold else { return false }
         defaults.set(candidate, forKey: Self.hysteresisThresholdKey)
+        return true
+    }
+
+    var gatewayDegradedThresholdMs: Double {
+        let stored = defaults.double(forKey: Self.gatewayDegradedThresholdMsKey)
+        return stored >= Self.minimumGatewayDegradedThresholdMs ? stored : Self.defaultGatewayDegradedThresholdMs
+    }
+
+    @discardableResult
+    func setGatewayDegradedThreshold(_ candidate: Double) -> Bool {
+        guard candidate >= Self.minimumGatewayDegradedThresholdMs else { return false }
+        defaults.set(candidate, forKey: Self.gatewayDegradedThresholdMsKey)
+        return true
+    }
+
+    var elapsedDegradedThresholdMs: Double {
+        let stored = defaults.double(forKey: Self.elapsedDegradedThresholdMsKey)
+        return stored >= Self.minimumElapsedDegradedThresholdMs ? stored : Self.defaultElapsedDegradedThresholdMs
+    }
+
+    @discardableResult
+    func setElapsedDegradedThreshold(_ candidate: Double) -> Bool {
+        guard candidate >= Self.minimumElapsedDegradedThresholdMs else { return false }
+        defaults.set(candidate, forKey: Self.elapsedDegradedThresholdMsKey)
+        return true
+    }
+
+    var gatewayDegradedBadlyThresholdMs: Double {
+        let stored = defaults.double(forKey: Self.gatewayDegradedBadlyThresholdMsKey)
+        return stored >= Self.minimumGatewayDegradedBadlyThresholdMs ? stored : Self.defaultGatewayDegradedBadlyThresholdMs
+    }
+
+    @discardableResult
+    func setGatewayDegradedBadlyThreshold(_ candidate: Double) -> Bool {
+        guard candidate >= Self.minimumGatewayDegradedBadlyThresholdMs else { return false }
+        defaults.set(candidate, forKey: Self.gatewayDegradedBadlyThresholdMsKey)
+        return true
+    }
+
+    var elapsedDegradedBadlyThresholdMs: Double {
+        let stored = defaults.double(forKey: Self.elapsedDegradedBadlyThresholdMsKey)
+        return stored >= Self.minimumElapsedDegradedBadlyThresholdMs ? stored : Self.defaultElapsedDegradedBadlyThresholdMs
+    }
+
+    @discardableResult
+    func setElapsedDegradedBadlyThreshold(_ candidate: Double) -> Bool {
+        guard candidate >= Self.minimumElapsedDegradedBadlyThresholdMs else { return false }
+        defaults.set(candidate, forKey: Self.elapsedDegradedBadlyThresholdMsKey)
         return true
     }
 }

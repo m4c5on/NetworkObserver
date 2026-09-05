@@ -7,22 +7,13 @@ import Foundation
 
 enum ConnectionHealthDomain {
 
-    /// AC-06: the gateway is classified degraded above this latency; also the chart's zone
-    /// boundary (green/yellow) since both read the same threshold.
-    static let gatewayDegradedThresholdMs: Double = 100
-
-    /// Cycle time (gateway + external run concurrently, so this is roughly their max) above
-    /// which a candidate otherwise `.good` is downgraded to `.degraded`; chosen above the
-    /// ~300ms both-probes-`.ok` ceiling so a normal cycle never trips it. Never escalates past
-    /// `.degraded` — an already-`.unreachable`/`.degraded` candidate is unaffected.
-    static let elapsedDegradedThresholdMs: Double = 300
-
     /// Sparkline window: how many past probe cycles the latency/cycle-time charts keep.
     static let latencyHistoryLimit = 60
 
     enum HealthState: CaseIterable, Equatable {
         case good
         case degraded
+        case badlyDegraded
         case unreachable
         case permissionNeeded
         case noNetwork
@@ -51,12 +42,33 @@ enum ConnectionHealthDomain {
         /// Whole-cycle wall-clock time per completed cycle (gateway + external run
         /// concurrently), oldest first, capped at `latencyHistoryLimit`.
         let elapsedHistory: [Double]
+        /// Gateway latency above which a `.good` candidate is classified `.degraded`; also the
+        /// chart's zone boundary (green/yellow). User-configurable, persisted via
+        /// ConnectionHealthSettings.
+        let gatewayDegradedThresholdMs: Double
+        let gatewayDegradedThresholdErrorMessage: String?
+        /// Cycle time above which an otherwise-`.good` candidate is downgraded to `.degraded`.
+        /// User-configurable, persisted via ConnectionHealthSettings.
+        let elapsedDegradedThresholdMs: Double
+        let elapsedDegradedThresholdErrorMessage: String?
+        /// Gateway latency above which a `.degraded` candidate escalates to `.badlyDegraded`;
+        /// user-configurable, persisted via ConnectionHealthSettings.
+        let gatewayDegradedBadlyThresholdMs: Double
+        let gatewayDegradedBadlyThresholdErrorMessage: String?
+        /// Cycle time above which a `.degraded` candidate escalates to `.badlyDegraded`;
+        /// user-configurable, persisted via ConnectionHealthSettings.
+        let elapsedDegradedBadlyThresholdMs: Double
+        let elapsedDegradedBadlyThresholdErrorMessage: String?
     }
 
     enum Intent {
         // View
         case intervalChanged(TimeInterval)
         case hysteresisThresholdChanged(Int)
+        case gatewayDegradedThresholdChanged(Double)
+        case elapsedDegradedThresholdChanged(Double)
+        case gatewayDegradedBadlyThresholdChanged(Double)
+        case elapsedDegradedBadlyThresholdChanged(Double)
 
         // Internal
         case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult, elapsedMs: Double)
@@ -66,6 +78,14 @@ enum ConnectionHealthDomain {
         case _intervalRejected(minimum: TimeInterval)
         case _hysteresisThresholdAccepted(Int)
         case _hysteresisThresholdRejected(minimum: Int)
+        case _gatewayDegradedThresholdAccepted(Double)
+        case _gatewayDegradedThresholdRejected(minimum: Double)
+        case _elapsedDegradedThresholdAccepted(Double)
+        case _elapsedDegradedThresholdRejected(minimum: Double)
+        case _gatewayDegradedBadlyThresholdAccepted(Double)
+        case _gatewayDegradedBadlyThresholdRejected(minimum: Double)
+        case _elapsedDegradedBadlyThresholdAccepted(Double)
+        case _elapsedDegradedBadlyThresholdRejected(minimum: Double)
 
         // Delegate
     }
@@ -74,6 +94,10 @@ enum ConnectionHealthDomain {
         case persistInterval(TimeInterval)
         case rescheduleProbeLoop(TimeInterval)
         case persistHysteresisThreshold(Int)
+        case persistGatewayDegradedThreshold(Double)
+        case persistElapsedDegradedThreshold(Double)
+        case persistGatewayDegradedBadlyThreshold(Double)
+        case persistElapsedDegradedBadlyThreshold(Double)
     }
 }
 
@@ -90,7 +114,15 @@ extension ConnectionHealthDomain.State {
             latencyHistory: [],
             hysteresisThreshold: 3,
             hysteresisErrorMessage: nil,
-            elapsedHistory: []
+            elapsedHistory: [],
+            gatewayDegradedThresholdMs: ConnectionHealthSettings.defaultGatewayDegradedThresholdMs,
+            gatewayDegradedThresholdErrorMessage: nil,
+            elapsedDegradedThresholdMs: ConnectionHealthSettings.defaultElapsedDegradedThresholdMs,
+            elapsedDegradedThresholdErrorMessage: nil,
+            gatewayDegradedBadlyThresholdMs: ConnectionHealthSettings.defaultGatewayDegradedBadlyThresholdMs,
+            gatewayDegradedBadlyThresholdErrorMessage: nil,
+            elapsedDegradedBadlyThresholdMs: ConnectionHealthSettings.defaultElapsedDegradedBadlyThresholdMs,
+            elapsedDegradedBadlyThresholdErrorMessage: nil
         )
     }
 }

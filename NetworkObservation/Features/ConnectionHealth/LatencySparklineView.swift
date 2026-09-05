@@ -14,7 +14,10 @@ struct LatencySparklineView: View {
     typealias Domain = ConnectionHealthDomain
 
     let samples: [Double?]
-    var threshold: Double = Domain.gatewayDegradedThresholdMs
+    let threshold: Double
+    /// Samples above this repaint the line segment red, distinguishing badly-degraded readings
+    /// from merely-degraded ones (which stay in the ok/degraded background zones above).
+    let badlyThreshold: Double
 
     private let chartHeight: CGFloat = 44
     private let lineColor = Color.accentColor
@@ -78,7 +81,18 @@ struct LatencySparklineView: View {
                     endPoint: CGPoint(x: 0, y: size.height)
                 )
             )
-            context.stroke(linePath, with: .color(lineColor), lineWidth: 1.5)
+
+            // Stroke per segment so a badly-degraded stretch of the run renders red while the
+            // rest keeps the normal accent color.
+            for offset in 1..<run.count {
+                let previousIndex = run[offset - 1]
+                let index = run[offset]
+                var segment = Path()
+                segment.move(to: CGPoint(x: x(previousIndex), y: y(samples[previousIndex] ?? 0)))
+                segment.addLine(to: CGPoint(x: x(index), y: y(samples[index] ?? 0)))
+                let segmentColor = (samples[index] ?? 0) > badlyThreshold ? Color.red : lineColor
+                context.stroke(segment, with: .color(segmentColor), lineWidth: 1.5)
+            }
         }
     }
 

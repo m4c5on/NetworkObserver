@@ -17,7 +17,7 @@ extension ConnectionHealthDomain.HealthState {
         switch self {
         case .good: return .green
         case .degraded: return .yellow
-        case .unreachable, .permissionNeeded: return .red
+        case .badlyDegraded, .unreachable, .permissionNeeded: return .red
         case .noNetwork: return .gray
         }
     }
@@ -26,6 +26,7 @@ extension ConnectionHealthDomain.HealthState {
         switch self {
         case .good: return "network"
         case .degraded: return "network"
+        case .badlyDegraded: return "network"
         case .unreachable: return "xmark.circle.fill"
         case .permissionNeeded: return "lock.circle.fill"
         case .noNetwork: return "network.slash"
@@ -50,6 +51,7 @@ extension ConnectionHealthDomain.HealthState {
         switch self {
         case .good: return "Connection is healthy."
         case .degraded: return "Connection is degraded."
+        case .badlyDegraded: return "Connection is badly degraded."
         case .unreachable: return "Connection is unreachable."
         case .permissionNeeded: return "Local Network permission is required. Grant it in System Settings > Privacy & Security > Local Network."
         case .noNetwork: return "No active network interface (Wi-Fi/Ethernet)."
@@ -61,6 +63,10 @@ struct ConnectionHealthView: View {
     @Bindable var store: ConnectionHealthStore
     @State private var intervalText: String = ""
     @State private var hysteresisText: String = ""
+    @State private var gatewayThresholdText: String = ""
+    @State private var elapsedThresholdText: String = ""
+    @State private var gatewayBadlyThresholdText: String = ""
+    @State private var elapsedBadlyThresholdText: String = ""
     @State private var settingsExpanded = false
     @State private var gatewayExplanationExpanded = false
     @State private var externalExplanationExpanded = false
@@ -78,23 +84,16 @@ struct ConnectionHealthView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.section) {
-            Label {
-                Text(store.state.healthState.menuExplanation)
-            } icon: {
-                Image(systemName: store.state.healthState.statusBarSymbolName)
-                    .foregroundStyle(store.state.healthState.statusBarColor)
-            }
-
             // Real-time gateway-latency + cycle-time strip charts with their stats, set apart as one block.
             VStack(alignment: .leading, spacing: Spacing.section) {
                 VStack(alignment: .leading, spacing: Spacing.row) {
                     Text("Gateway").font(.caption).foregroundStyle(.secondary)
-                    LatencySparklineView(samples: displayLatencyHistory, threshold: ConnectionHealthDomain.gatewayDegradedThresholdMs)
+                    LatencySparklineView(samples: displayLatencyHistory, threshold: store.state.gatewayDegradedThresholdMs, badlyThreshold: store.state.gatewayDegradedBadlyThresholdMs)
                     latencyStatsRow(samples: displayLatencyHistory)
                 }
                 VStack(alignment: .leading, spacing: Spacing.row) {
                     Text("Cycle time").font(.caption).foregroundStyle(.secondary)
-                    LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: ConnectionHealthDomain.elapsedDegradedThresholdMs)
+                    LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: store.state.elapsedDegradedThresholdMs, badlyThreshold: store.state.elapsedDegradedBadlyThresholdMs)
                     latencyStatsRow(samples: displayElapsedHistory.map { Optional($0) })
                 }
             }
@@ -154,6 +153,78 @@ struct ConnectionHealthView: View {
                             .font(.caption)
                             .foregroundStyle(.red)
                     }
+
+                    HStack {
+                        Text("Gateway threshold (ms)")
+                        Spacer()
+                        TextField("", text: $gatewayThresholdText)
+                            .frame(width: 48)
+                            .multilineTextAlignment(.trailing)
+                            .onSubmit {
+                                if let value = Double(gatewayThresholdText) {
+                                    store.send(.gatewayDegradedThresholdChanged(value))
+                                }
+                            }
+                    }
+                    if let gatewayDegradedThresholdErrorMessage = store.state.gatewayDegradedThresholdErrorMessage {
+                        Text(gatewayDegradedThresholdErrorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+
+                    HStack {
+                        Text("Cycle time threshold (ms)")
+                        Spacer()
+                        TextField("", text: $elapsedThresholdText)
+                            .frame(width: 48)
+                            .multilineTextAlignment(.trailing)
+                            .onSubmit {
+                                if let value = Double(elapsedThresholdText) {
+                                    store.send(.elapsedDegradedThresholdChanged(value))
+                                }
+                            }
+                    }
+                    if let elapsedDegradedThresholdErrorMessage = store.state.elapsedDegradedThresholdErrorMessage {
+                        Text(elapsedDegradedThresholdErrorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+
+                    HStack {
+                        Text("Gateway badly threshold (ms)")
+                        Spacer()
+                        TextField("", text: $gatewayBadlyThresholdText)
+                            .frame(width: 48)
+                            .multilineTextAlignment(.trailing)
+                            .onSubmit {
+                                if let value = Double(gatewayBadlyThresholdText) {
+                                    store.send(.gatewayDegradedBadlyThresholdChanged(value))
+                                }
+                            }
+                    }
+                    if let gatewayDegradedBadlyThresholdErrorMessage = store.state.gatewayDegradedBadlyThresholdErrorMessage {
+                        Text(gatewayDegradedBadlyThresholdErrorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+
+                    HStack {
+                        Text("Cycle time badly threshold (ms)")
+                        Spacer()
+                        TextField("", text: $elapsedBadlyThresholdText)
+                            .frame(width: 48)
+                            .multilineTextAlignment(.trailing)
+                            .onSubmit {
+                                if let value = Double(elapsedBadlyThresholdText) {
+                                    store.send(.elapsedDegradedBadlyThresholdChanged(value))
+                                }
+                            }
+                    }
+                    if let elapsedDegradedBadlyThresholdErrorMessage = store.state.elapsedDegradedBadlyThresholdErrorMessage {
+                        Text(elapsedDegradedBadlyThresholdErrorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
@@ -162,6 +233,10 @@ struct ConnectionHealthView: View {
         .frame(minWidth: 200)
         .task { intervalText = String(store.state.probeInterval) }
         .task { hysteresisText = String(store.state.hysteresisThreshold) }
+        .task { gatewayThresholdText = String(Int(store.state.gatewayDegradedThresholdMs)) }
+        .task { elapsedThresholdText = String(Int(store.state.elapsedDegradedThresholdMs)) }
+        .task { gatewayBadlyThresholdText = String(Int(store.state.gatewayDegradedBadlyThresholdMs)) }
+        .task { elapsedBadlyThresholdText = String(Int(store.state.elapsedDegradedBadlyThresholdMs)) }
         .task {
             while !Task.isCancelled {
                 displayLatencyHistory = store.state.latencyHistory
@@ -214,7 +289,7 @@ struct ConnectionHealthView: View {
 
             if gatewayExplanationExpanded {
                 explanationText(
-                    "Pings your router (ICMP) to measure local network latency. Slow above \(Int(ConnectionHealthDomain.gatewayDegradedThresholdMs))ms; failing when unreachable."
+                    "Pings your router (ICMP) to measure local network latency. Slow above \(Int(store.state.gatewayDegradedThresholdMs))ms; failing when unreachable."
                 )
             }
             if externalExplanationExpanded {

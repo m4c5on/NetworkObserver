@@ -42,4 +42,13 @@ struct ConnectionHealthViewTests {
     @Test func noNetworkHasExplanatoryMenuTextDistinctFromUnreachable() {
         #expect(HealthState.noNetwork.menuExplanation != HealthState.unreachable.menuExplanation)
     }
+
+    @Test func badlyDegradedSharesTheUnreachableColor() {
+        #expect(HealthState.badlyDegraded.statusBarColor == HealthState.unreachable.statusBarColor)
+    }
+
+    @Test func badlyDegradedHasExplanatoryMenuTextDistinctFromUnreachableAndDegraded() {
+        #expect(HealthState.badlyDegraded.menuExplanation != HealthState.unreachable.menuExplanation)
+        #expect(HealthState.badlyDegraded.menuExplanation != HealthState.degraded.menuExplanation)
+    }
 }

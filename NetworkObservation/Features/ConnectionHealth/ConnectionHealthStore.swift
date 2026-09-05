@@ -43,6 +43,10 @@ final class ConnectionHealthStore {
         notificationCenter: NotificationCenter = NSWorkspace.shared.notificationCenter,
         probeInterval: TimeInterval? = nil,
         hysteresisThreshold: Int? = nil,
+        gatewayDegradedThresholdMs: Double? = nil,
+        elapsedDegradedThresholdMs: Double? = nil,
+        gatewayDegradedBadlyThresholdMs: Double? = nil,
+        elapsedDegradedBadlyThresholdMs: Double? = nil,
         logCycleCompleted: @escaping (Double) -> Void = { ConnectionHealthLogging.logCycleCompleted(elapsedMs: $0) },
         logHealthStateTransition: @escaping (ConnectionHealthDomain.HealthState, ConnectionHealthDomain.HealthState) -> Void = ConnectionHealthLogging.logHealthStateTransition
     ) {
@@ -69,7 +73,15 @@ final class ConnectionHealthStore {
             latencyHistory: initial.latencyHistory,
             hysteresisThreshold: hysteresisThreshold ?? settings.hysteresisThreshold,
             hysteresisErrorMessage: initial.hysteresisErrorMessage,
-            elapsedHistory: initial.elapsedHistory
+            elapsedHistory: initial.elapsedHistory,
+            gatewayDegradedThresholdMs: gatewayDegradedThresholdMs ?? settings.gatewayDegradedThresholdMs,
+            gatewayDegradedThresholdErrorMessage: initial.gatewayDegradedThresholdErrorMessage,
+            elapsedDegradedThresholdMs: elapsedDegradedThresholdMs ?? settings.elapsedDegradedThresholdMs,
+            elapsedDegradedThresholdErrorMessage: initial.elapsedDegradedThresholdErrorMessage,
+            gatewayDegradedBadlyThresholdMs: gatewayDegradedBadlyThresholdMs ?? settings.gatewayDegradedBadlyThresholdMs,
+            gatewayDegradedBadlyThresholdErrorMessage: initial.gatewayDegradedBadlyThresholdErrorMessage,
+            elapsedDegradedBadlyThresholdMs: elapsedDegradedBadlyThresholdMs ?? settings.elapsedDegradedBadlyThresholdMs,
+            elapsedDegradedBadlyThresholdErrorMessage: initial.elapsedDegradedBadlyThresholdErrorMessage
         )
         self.state = initial
     }
@@ -122,6 +134,34 @@ final class ConnectionHealthStore {
                 send(._hysteresisThresholdAccepted(candidate))
             } else {
                 send(._hysteresisThresholdRejected(minimum: ConnectionHealthSettings.minimumHysteresisThreshold))
+            }
+
+        case .persistGatewayDegradedThreshold(let candidate):
+            if settings.setGatewayDegradedThreshold(candidate) {
+                send(._gatewayDegradedThresholdAccepted(candidate))
+            } else {
+                send(._gatewayDegradedThresholdRejected(minimum: ConnectionHealthSettings.minimumGatewayDegradedThresholdMs))
+            }
+
+        case .persistElapsedDegradedThreshold(let candidate):
+            if settings.setElapsedDegradedThreshold(candidate) {
+                send(._elapsedDegradedThresholdAccepted(candidate))
+            } else {
+                send(._elapsedDegradedThresholdRejected(minimum: ConnectionHealthSettings.minimumElapsedDegradedThresholdMs))
+            }
+
+        case .persistGatewayDegradedBadlyThreshold(let candidate):
+            if settings.setGatewayDegradedBadlyThreshold(candidate) {
+                send(._gatewayDegradedBadlyThresholdAccepted(candidate))
+            } else {
+                send(._gatewayDegradedBadlyThresholdRejected(minimum: ConnectionHealthSettings.minimumGatewayDegradedBadlyThresholdMs))
+            }
+
+        case .persistElapsedDegradedBadlyThreshold(let candidate):
+            if settings.setElapsedDegradedBadlyThreshold(candidate) {
+                send(._elapsedDegradedBadlyThresholdAccepted(candidate))
+            } else {
+                send(._elapsedDegradedBadlyThresholdRejected(minimum: ConnectionHealthSettings.minimumElapsedDegradedBadlyThresholdMs))
             }
         }
     }

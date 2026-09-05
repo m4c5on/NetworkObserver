@@ -8,11 +8,11 @@ import Testing
 
 struct ConnectionHealthDomainTests {
 
-    @Test func healthStateModelsAllFiveCasesExhaustively() {
+    @Test func healthStateModelsAllSixCasesExhaustively() {
         let all = Set(ConnectionHealthDomain.HealthState.allCases)
-        let expected: Set<ConnectionHealthDomain.HealthState> = [.good, .degraded, .unreachable, .permissionNeeded, .noNetwork]
+        let expected: Set<ConnectionHealthDomain.HealthState> = [.good, .degraded, .badlyDegraded, .unreachable, .permissionNeeded, .noNetwork]
         #expect(all == expected)
-        #expect(all.count == 5)
+        #expect(all.count == 6)
     }
 
     @Test func probeResultModelsAllThreeCasesExhaustively() {

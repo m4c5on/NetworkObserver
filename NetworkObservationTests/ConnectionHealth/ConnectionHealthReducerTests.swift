@@ -11,15 +11,15 @@ struct ConnectionHealthReducerTests {
     typealias Domain = ConnectionHealthDomain
     let reducer = ConnectionHealthReducer()
 
-    // MARK: - AC-06: 100ms gateway threshold mapping
+    // MARK: - AC-06: 50ms gateway threshold mapping
 
-    @Test func gatewayLatencyAtOrBelow100msClassifiesAsOk() {
-        let (state, _) = reducer.reduce(state: .initial, intent: ._cycleCompleted(gatewayLatencyMs: 100, external: .ok, elapsedMs: 0))
+    @Test func gatewayLatencyAtOrBelow50msClassifiesAsOk() {
+        let (state, _) = reducer.reduce(state: .initial, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 0))
         #expect(state.gatewayResult == .ok)
     }
 
-    @Test func gatewayLatencyAbove100msClassifiesAsSlow() {
-        let (state, _) = reducer.reduce(state: .initial, intent: ._cycleCompleted(gatewayLatencyMs: 100.1, external: .ok, elapsedMs: 0))
+    @Test func gatewayLatencyAbove50msClassifiesAsSlow() {
+        let (state, _) = reducer.reduce(state: .initial, intent: ._cycleCompleted(gatewayLatencyMs: 50.1, external: .ok, elapsedMs: 0))
         #expect(state.gatewayResult == .slow)
     }
 
@@ -33,12 +33,12 @@ struct ConnectionHealthReducerTests {
     // (matching the spec's "reaches display only after 3 consecutive cycles" wording, AC-04).
 
     static let combinations: [(gateway: Double?, external: Domain.ProbeResult, expected: Domain.HealthState)] = [
-        (50, .ok, .good),
-        (50, .slow, .degraded),
-        (50, .failing, .unreachable),
-        (150, .ok, .degraded),
-        (150, .slow, .degraded),
-        (150, .failing, .unreachable),
+        (25, .ok, .good),
+        (25, .slow, .degraded),
+        (25, .failing, .unreachable),
+        (75, .ok, .degraded),
+        (75, .slow, .degraded),
+        (75, .failing, .unreachable),
         (nil, .ok, .unreachable),
         (nil, .slow, .unreachable),
         (nil, .failing, .unreachable),
@@ -57,14 +57,14 @@ struct ConnectionHealthReducerTests {
 
     @Test func singleWorseCycleDoesNotTransition() {
         var state = Domain.State.initial // good
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0)) // candidate: degraded
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0)) // candidate: degraded
         #expect(state.healthState == .good)
     }
 
     @Test func twoConsecutiveWorseCyclesStillDoNotTransition() {
         var state = Domain.State.initial
         for _ in 0..<2 {
-            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0))
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0))
         }
         #expect(state.healthState == .good)
     }
@@ -72,20 +72,20 @@ struct ConnectionHealthReducerTests {
     @Test func threeConsecutiveWorseCyclesTransitions() {
         var state = Domain.State.initial
         for _ in 0..<3 {
-            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0))
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0))
         }
         #expect(state.healthState == .degraded)
     }
 
     @Test func midStreakFlipResetsTheConsecutiveCount() {
         var state = Domain.State.initial // good
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0)) // candidate degraded, count=1
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0)) // count=2
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 0)) // candidate flips to good — resets
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0)) // candidate degraded, count=1
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0)) // count=2
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 0)) // candidate flips to good — resets
         #expect(state.healthState == .good)
         // Two more degraded cycles should NOT be enough to transition (count restarted at 1, not 3)
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0))
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .slow, elapsedMs: 0))
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0))
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .slow, elapsedMs: 0))
         #expect(state.healthState == .good)
     }
 
@@ -94,35 +94,35 @@ struct ConnectionHealthReducerTests {
     @Test func recoveryAlsoRequiresThreeConsecutiveBetterCycles() {
         var state = Domain.State.initial
         for _ in 0..<3 {
-            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .failing, elapsedMs: 0))
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .failing, elapsedMs: 0))
         }
         #expect(state.healthState == .unreachable)
 
         // Single good cycle: must not recover yet
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 0))
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 0))
         #expect(state.healthState == .unreachable)
 
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 0))
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 0))
         #expect(state.healthState == .unreachable)
 
-        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 0))
+        (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 0))
         #expect(state.healthState == .good)
     }
 
     // MARK: - elapsedMs: cycle time can downgrade good to degraded, but never past it
 
-    @Test func elapsedMsAtOrBelow300msDoesNotDowngradeGood() {
+    @Test func elapsedMsAtOrBelow100msDoesNotDowngradeGood() {
         var state = Domain.State.initial
         for _ in 0..<3 {
-            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 300))
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 100))
         }
         #expect(state.healthState == .good)
     }
 
-    @Test func elapsedMsAbove300msDowngradesGoodToDegraded() {
+    @Test func elapsedMsAbove100msDowngradesGoodToDegraded() {
         var state = Domain.State.initial
         for _ in 0..<3 {
-            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok, elapsedMs: 300.1))
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: 150))
         }
         #expect(state.healthState == .degraded)
     }
@@ -157,5 +157,89 @@ struct ConnectionHealthReducerTests {
         #expect(newState.probeInterval == state.probeInterval)
         #expect(newState.errorMessage != nil)
         #expect(effect == nil)
+    }
+
+    // MARK: - plain threshold accepted/rejected (post-validation, driven by Settings)
+
+    @Test func gatewayDegradedThresholdAcceptedUpdatesStateAndClearsAnyPriorError() {
+        var state = Domain.State.initial
+        (state, _) = reducer.reduce(state: state, intent: ._gatewayDegradedThresholdRejected(minimum: 1))
+        #expect(state.gatewayDegradedThresholdErrorMessage != nil)
+        let (newState, _) = reducer.reduce(state: state, intent: ._gatewayDegradedThresholdAccepted(75))
+        #expect(newState.gatewayDegradedThresholdMs == 75)
+        #expect(newState.gatewayDegradedThresholdErrorMessage == nil)
+    }
+
+    @Test func elapsedDegradedThresholdAcceptedUpdatesStateAndClearsAnyPriorError() {
+        var state = Domain.State.initial
+        (state, _) = reducer.reduce(state: state, intent: ._elapsedDegradedThresholdRejected(minimum: 1))
+        #expect(state.elapsedDegradedThresholdErrorMessage != nil)
+        let (newState, _) = reducer.reduce(state: state, intent: ._elapsedDegradedThresholdAccepted(150))
+        #expect(newState.elapsedDegradedThresholdMs == 150)
+        #expect(newState.elapsedDegradedThresholdErrorMessage == nil)
+    }
+
+    // MARK: - badlyDegraded: a degraded candidate escalates further past either badly threshold
+
+    @Test func gatewayAtOrBelowBadlyThresholdStaysDegraded() {
+        var state = Domain.State.initial
+        for _ in 0..<3 {
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: state.gatewayDegradedBadlyThresholdMs, external: .ok, elapsedMs: 0))
+        }
+        #expect(state.healthState == .degraded)
+    }
+
+    @Test func gatewayAboveBadlyThresholdEscalatesToBadlyDegraded() {
+        var state = Domain.State.initial
+        let badly = state.gatewayDegradedBadlyThresholdMs
+        for _ in 0..<3 {
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: badly + 0.1, external: .ok, elapsedMs: 0))
+        }
+        #expect(state.healthState == .badlyDegraded)
+    }
+
+    @Test func elapsedAtOrBelowBadlyThresholdStaysDegraded() {
+        var state = Domain.State.initial
+        for _ in 0..<3 {
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: state.elapsedDegradedBadlyThresholdMs))
+        }
+        #expect(state.healthState == .degraded)
+    }
+
+    @Test func elapsedAboveBadlyThresholdEscalatesToBadlyDegraded() {
+        var state = Domain.State.initial
+        let badly = state.elapsedDegradedBadlyThresholdMs
+        for _ in 0..<3 {
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 10, external: .ok, elapsedMs: badly + 0.1))
+        }
+        #expect(state.healthState == .badlyDegraded)
+    }
+
+    @Test func badlyThresholdsNeverEscalatePastAnAlreadyUnreachableCandidate() {
+        var state = Domain.State.initial
+        for _ in 0..<3 {
+            (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: nil, external: .ok, elapsedMs: 999_999))
+        }
+        #expect(state.healthState == .unreachable)
+    }
+
+    // MARK: - badly threshold accepted/rejected (post-validation, driven by Settings)
+
+    @Test func gatewayDegradedBadlyThresholdAcceptedUpdatesStateAndClearsAnyPriorError() {
+        var state = Domain.State.initial
+        (state, _) = reducer.reduce(state: state, intent: ._gatewayDegradedBadlyThresholdRejected(minimum: 100))
+        #expect(state.gatewayDegradedBadlyThresholdErrorMessage != nil)
+        let (newState, _) = reducer.reduce(state: state, intent: ._gatewayDegradedBadlyThresholdAccepted(500))
+        #expect(newState.gatewayDegradedBadlyThresholdMs == 500)
+        #expect(newState.gatewayDegradedBadlyThresholdErrorMessage == nil)
+    }
+
+    @Test func elapsedDegradedBadlyThresholdAcceptedUpdatesStateAndClearsAnyPriorError() {
+        var state = Domain.State.initial
+        (state, _) = reducer.reduce(state: state, intent: ._elapsedDegradedBadlyThresholdRejected(minimum: 300))
+        #expect(state.elapsedDegradedBadlyThresholdErrorMessage != nil)
+        let (newState, _) = reducer.reduce(state: state, intent: ._elapsedDegradedBadlyThresholdAccepted(1000))
+        #expect(newState.elapsedDegradedBadlyThresholdMs == 1000)
+        #expect(newState.elapsedDegradedBadlyThresholdErrorMessage == nil)
     }
 }
