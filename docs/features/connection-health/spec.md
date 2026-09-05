@@ -34,8 +34,9 @@ and were batch-approved by the owner (see conversation).
 
 ## 2. Goals
 
-- Operators can tell, from the status bar alone, whether an active connection problem is
-  local or external — without opening any other tool.
+- Operators can tell the connection's overall health at a glance from the status bar; a
+  single click on the app's own indicator (not any other tool) reveals whether an active
+  problem is local or external.
 - The app earns operator trust by keeping false alarms rare enough that a degraded or
   unreachable reading is always worth investigating.
 - The app runs continuously with negligible resource overhead, so operators leave it running
@@ -52,6 +53,11 @@ and were batch-approved by the owner (see conversation).
 - Distinguishing "the external host itself is blocked" from "the internet is fully down" —
   both look identical in v1 (see §8); disambiguating would need multiple external targets,
   deferred past v1.
+- Correct behavior while an active VPN is connected, or while multiple network interfaces
+  are active at once (e.g. Wi-Fi + Ethernet) — v1 evaluates only the OS's default-route
+  gateway; accuracy under VPN or multi-homed setups is not guaranteed.
+- An automatic update-checking mechanism for the out-of-App-Store distribution — v1 ships
+  with no in-app update check; operators update manually.
 
 ## 4. User stories
 
@@ -107,47 +113,95 @@ single blip
 **Given** the local gateway probe is succeeding but the external-host probe is failing
 **When** the operator clicks the indicator
 **Then** the system shows that the local network is fine and the problem is external, rather
-than a single ambiguous "bad connection" reading
+than a single ambiguous "bad connection" reading, and the status bar shows the
+unreachable-health color (per the AC-08 result mapping, since the external probe is the one
+that determines overall severity)
 
-### AC-03 (US-04) — authorization
+### AC-03 (US-04) — authorization, not yet requested
 
-**Given** the operator has not granted the app local network permission
+**Given** the operator has not yet been asked to grant the app local network permission
 **When** the app attempts to run its first probe cycle
-**Then** the system shows a permission-needed state and explains that probing requires the
-operator to grant local network access, instead of silently showing an incorrect health state
+**Then** the system requests local network permission from the operator and shows a
+permission-needed state (the unreachable-health color, with menu text explaining that
+permission is required) instead of silently showing an incorrect health state
+
+### AC-03b (US-04) — authorization, denied
+
+**Given** the operator has denied the app local network permission
+**When** the app attempts to run a probe cycle
+**Then** the system shows the permission-needed state and explains that the operator must
+grant local network access in System Settings, since the OS will not show the permission
+prompt again after a denial
 
 ### AC-04 (US-06) — domain invariant
 
-**Given** a single probe to the external host fails while recent prior probes succeeded
+**Given** a single probe to the external host fails while the health state is currently good
 **When** the app evaluates the health state
-**Then** the system keeps the health state at its current level rather than jumping straight
-to unreachable, honoring the rule that health state changes only after a consistent pattern of
-probe results
+**Then** the system keeps the health state at good rather than jumping straight to a worse
+level; the health state moves to a worse level only after 3 consecutive probe cycles report
+that same worse result
+
+### AC-04b (US-06) — domain invariant, recovery
+
+**Given** the health state is currently degraded or unreachable and a single probe now
+succeeds
+**When** the app evaluates the health state
+**Then** the system keeps the health state at its current (worse) level rather than jumping
+straight to good; the health state recovers to a better level only after 3 consecutive probe
+cycles report that better result (the same 3-consecutive-probe rule as AC-04, applied
+symmetrically in both directions)
 
 ### AC-05 (US-03) — error
 
 **Given** the operator is setting the probe interval
 **When** the operator enters a value below the minimum allowed interval
 **Then** the system rejects the value, tells the operator the minimum allowed interval, and
-keeps the previous valid interval in effect
+keeps the previous valid interval in effect; there is no enforced maximum interval in v1, only
+the enforced minimum
 
 ### AC-06 (US-05) — happy path
 
-**Given** the gateway probe succeeds but takes noticeably longer than normal while the
-external probe still succeeds
+**Given** the gateway probe succeeds but its latency exceeds a fixed threshold (the exact
+value is set at `design`, see §8) while the external probe still succeeds
 **When** the app evaluates the health state
 **Then** the system shows the degraded-health color, visibly distinct from both the
 good-health and unreachable-health colors
+
+### AC-07 (US-01) — edge case
+
+**Given** the operator's Mac has no active network interface (Wi-Fi off, no cable connected)
+**When** the app attempts a probe cycle
+**Then** the status bar shows a distinct "no network" state, visibly different from the
+unreachable-health color, so the operator understands the cause is the absence of a network
+connection rather than a network fault
+
+### AC-08 (US-02) — domain invariant
+
+**Given** the gateway probe and the external-host probe each independently report one of
+{ok, slow, failing}
+**When** the app evaluates the health state
+**Then** the system derives the overall health state from the external-host probe result as
+the primary signal — external ok (with gateway ok or slow) → good or degraded per AC-06;
+external slow → degraded regardless of the gateway result; external failing → unreachable
+regardless of the gateway result — while the gateway result is shown on click (AC-02) to
+explain whether the cause is local or external, per the following mapping:
+
+| Gateway ＼ External | ok | slow | failing |
+|---|---|---|---|
+| ok | good | degraded | unreachable |
+| slow | degraded | degraded | unreachable |
+| failing | unreachable | unreachable | unreachable |
 
 ## 6. Non-functional requirements
 
 | Aspect | Target | Measurement |
 |---|---|---|
 | Status update latency (probe completion → status bar reflects it) | ≤ 250 ms | local instrumentation during development |
-| Idle resource overhead (CPU) | ≤ 1% average | Activity Monitor sample, 1-hour idle soak test |
-| Idle resource overhead (memory) | ≤ 50 MB resident | Activity Monitor sample, 1-hour idle soak test |
+| Detection latency (real outage onset → status bar reflects the worse state) | ≤ 3 probe intervals (≤ 15s at the default 5s interval) | derived from the AC-04 3-consecutive-probe rule; verified in soak testing |
+| Idle resource overhead (CPU), at the default probe interval | ≤ 1% average | Activity Monitor sample, 1-hour idle soak test at the default interval; probing pauses during system sleep (standard macOS suspend/resume) |
+| Idle resource overhead (memory), at the default probe interval | ≤ 50 MB resident | Activity Monitor sample, 1-hour idle soak test at the default interval |
 | Availability (crash-free sessions) | ≥ 99% | soak-test log over a 7-day continuous run |
-| Accuracy (false-positive rate) | ≤ 1 false degraded/unreachable reading per 24h | soak-test log compared against known-good network state |
+| Accuracy (false-positive rate) | ≤ 1 false state transition into degraded/unreachable per 24h | soak-test log compared against known-good network state; counted per false transition, not per probe cycle |
 
 ## 6.1 Security / privacy
 
@@ -157,7 +211,7 @@ good-health and unreachable-health colors
   assumption).
 - **AuthZ/AuthN impact:** Single-operator local app with no roles. The only permission
   boundary is the OS-level local network access grant needed to send probes; the app must
-  request it explicitly and handle denial (AC-03) rather than probing silently.
+  request it explicitly and handle denial (AC-03b) rather than probing silently.
 - **Abuse cases:**
   - Excessive probe frequency used to flood the local network: the enforced minimum probe
     interval (AC-05) blocks intervals below the safe floor.
@@ -169,18 +223,24 @@ good-health and unreachable-health colors
     mitigated.
 - **Security review:** Required — new OS-level network-permission boundary (AC-03) and
   non-App-Store distribution (committed in §1 / `docs/idea-brief.md`).
+- **Probe protocol:** The external-host probe uses a TCP/HTTPS-based reachability check, not
+  ICMP — ICMP is commonly blocked by corporate and captive-portal networks, which would
+  otherwise read as a false "unreachable" (the exact host is a separate open question, §8).
 
 ## 7. Metrics / KPIs
 
-- **Adoption** — baseline: 0 installs, target: ≥100 installs within 60 days of v1 release.
+- **Adoption** — baseline: 0 installs, target: ≥100 installs within 60 days of v1 release;
+  measured externally (download-page analytics), not via in-app telemetry (per §6.1, no data
+  leaves the device).
 - **Diagnostic value** — baseline: 0 (no current tool answers "local or external" at a
   glance), target: ≥80% of surveyed operators report they no longer open Terminal/Activity
   Monitor for this specific question, within 30 days of release.
 - **Trust / false-positive rate** — baseline: TBD (no probing logic exists yet), target: ≤1
-  false degraded/unreachable reading per 24h of continuous operation, verified in the first
-  internal beta soak test.
+  false state transition into degraded/unreachable per 24h of continuous operation (same
+  counting unit as §6 Accuracy), verified in the first internal beta soak test.
 - **Resource-overhead complaints** — baseline: 0, target: 0 user-reported battery/CPU
-  complaints in the first 30 days post-release.
+  complaints in the first 30 days post-release; measured via user reports/surveys, not via
+  in-app telemetry (per §6.1, no data leaves the device).
 
 ## 8. Open questions
 
@@ -195,3 +255,6 @@ good-health and unreachable-health colors
 - [ ] Does the status-bar color indicator need a colorblind-safe fallback beyond the palette
   itself (e.g. shape/icon variation)? Default now: colorblind-safe palette only, no additional
   shape/icon indicator (batch-approved assumption). — owner: design, due: before `sdd:design`
+- [ ] Exact gateway-latency threshold (in ms) that triggers the degraded state (AC-06)?
+  Default now: fixed absolute threshold (not an adaptive per-network baseline, per `clarify`
+  resolution); the number itself is set at `design`. — owner: design, due: before `sdd:design`
