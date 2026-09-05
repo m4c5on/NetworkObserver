@@ -394,4 +394,23 @@ Numbers below are cited verbatim from spec §6 NFR.
 - No in-app update mechanism (spec §3 Non-goals) — consistent with ADR-0001's non-App-Store
   distribution; operators update manually.
 
+## 12. Glossary
+
+From `CONTEXT.md`:
+
+| Term | Meaning |
+|---|---|
+| Operator | The developer or admin who installs and runs the app on their own Mac to self-diagnose network problems |
+| Health state | The single overall verdict (good / degraded / unreachable) shown in the status bar, derived from combining the gateway probe and the external-host probe |
+| Probe | One reachability/latency check against one target host (the gateway or the external host), repeated on a fixed interval |
+
+New terms surfaced during this design pass (not yet in `CONTEXT.md` — flagged for a
+`/sdd:glossary connection-health` follow-up):
+
+| Term | Meaning |
+|---|---|
+| Probe cycle | One round of both probes (gateway + external) run together on the configured interval; the unit the AC-04 hysteresis counts in |
+| Candidate state | The AC-08-combined health-state result for a single probe cycle, before the 3-consecutive-cycle hysteresis (ADR-0005) decides whether the displayed state actually changes |
+| Permission-needed state | The distinct UI state (unreachable color + explanatory text) shown before the Local Network permission prompt or after a denial (AC-03/AC-03b), never conflated with a genuine unreachable reading |
+
 
