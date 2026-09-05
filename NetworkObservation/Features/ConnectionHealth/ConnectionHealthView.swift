@@ -100,8 +100,6 @@ struct ConnectionHealthView: View {
     @State private var gatewayBadlyThresholdText: String = ""
     @State private var elapsedBadlyThresholdText: String = ""
     @State private var settingsExpanded = false
-    @State private var gatewayExplanationExpanded = false
-    @State private var externalExplanationExpanded = false
     /// Chart/stats redraw at 1Hz regardless of probeInterval, decoupling the sparkline's
     /// Canvas redraw cost from a probe cadence that can run as fast as 0.1s.
     @State private var displayLatencyHistory: [Double?] = []
@@ -119,23 +117,24 @@ struct ConnectionHealthView: View {
             // Real-time gateway-latency + cycle-time strip charts with their stats, set apart as one block.
             VStack(alignment: .leading, spacing: Spacing.section) {
                 VStack(alignment: .leading, spacing: Spacing.row) {
-                    Text("Gateway").font(.caption).foregroundStyle(.secondary)
-                    LatencySparklineView(samples: displayLatencyHistory, threshold: store.state.gatewayDegradedThresholdMs, badlyThreshold: store.state.gatewayDegradedBadlyThresholdMs, goodColor: store.state.goodColor, degradedColor: store.state.degradedColor, badColor: store.state.badColor)
-                    latencyStatsRow(samples: displayLatencyHistory)
-                }
-                VStack(alignment: .leading, spacing: Spacing.row) {
-                    Text("Cycle time").font(.caption).foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Text("Internet").font(.caption).foregroundStyle(.secondary)
+                        probeResultIcon(store.state.externalResult)
+                    }
                     LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: store.state.elapsedDegradedThresholdMs, badlyThreshold: store.state.elapsedDegradedBadlyThresholdMs, goodColor: store.state.goodColor, degradedColor: store.state.degradedColor, badColor: store.state.badColor)
                     latencyStatsRow(samples: displayElapsedHistory.map { Optional($0) })
+                }
+                VStack(alignment: .leading, spacing: Spacing.row) {
+                    HStack(spacing: 4) {
+                        Text("Router").font(.caption).foregroundStyle(.secondary)
+                        probeResultIcon(store.state.gatewayResult)
+                    }
+                    LatencySparklineView(samples: displayLatencyHistory, threshold: store.state.gatewayDegradedThresholdMs, badlyThreshold: store.state.gatewayDegradedBadlyThresholdMs, goodColor: store.state.goodColor, degradedColor: store.state.degradedColor, badColor: store.state.badColor)
+                    latencyStatsRow(samples: displayLatencyHistory)
                 }
             }
             .padding(Spacing.row)
             .background(Color.gray.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
-
-            // AC-02: gateway/external breakdown, one line.
-            breakdownRow(gateway: store.state.gatewayResult, external: store.state.externalResult)
-
-            Divider()
 
             HStack {
                 Button("Settings") {
@@ -187,7 +186,7 @@ struct ConnectionHealthView: View {
                     }
 
                     HStack {
-                        Text("Gateway threshold (ms)")
+                        Text("Router threshold (ms)")
                         Spacer()
                         TextField("", text: $gatewayThresholdText)
                             .frame(width: 48)
@@ -205,7 +204,7 @@ struct ConnectionHealthView: View {
                     }
 
                     HStack {
-                        Text("Cycle time threshold (ms)")
+                        Text("Internet threshold (ms)")
                         Spacer()
                         TextField("", text: $elapsedThresholdText)
                             .frame(width: 48)
@@ -223,7 +222,7 @@ struct ConnectionHealthView: View {
                     }
 
                     HStack {
-                        Text("Gateway badly threshold (ms)")
+                        Text("Router badly threshold (ms)")
                         Spacer()
                         TextField("", text: $gatewayBadlyThresholdText)
                             .frame(width: 48)
@@ -241,7 +240,7 @@ struct ConnectionHealthView: View {
                     }
 
                     HStack {
-                        Text("Cycle time badly threshold (ms)")
+                        Text("Internet badly threshold (ms)")
                         Spacer()
                         TextField("", text: $elapsedBadlyThresholdText)
                             .frame(width: 48)
@@ -332,55 +331,6 @@ struct ConnectionHealthView: View {
             statColumn(label: "Max", value: values.max().map(format) ?? "—")
         }
         .font(.caption)
-    }
-
-    @ViewBuilder
-    private func breakdownRow(gateway: ConnectionHealthDomain.ProbeResult?, external: ConnectionHealthDomain.ProbeResult?) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.row) {
-            HStack {
-                Button {
-                    withAnimation { gatewayExplanationExpanded.toggle() }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text("Gateway")
-                        probeResultIcon(gateway)
-                    }
-                }
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                Button {
-                    withAnimation { externalExplanationExpanded.toggle() }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text("External")
-                        probeResultIcon(external)
-                    }
-                }
-                .buttonStyle(.plain)
-            }
-
-            if gatewayExplanationExpanded {
-                explanationText(
-                    "Pings your router (ICMP) to measure local network latency. Slow above \(Int(store.state.gatewayDegradedThresholdMs))ms; failing when unreachable."
-                )
-            }
-            if externalExplanationExpanded {
-                explanationText(
-                    "TLS handshake to \(ExternalHostProbe().host) checks real internet reachability beyond your router. Slow above \(Int(ExternalHostProbe().slowThresholdMs))ms; failing when unreachable."
-                )
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func explanationText(_ text: String) -> some View {
-        Text(text)
-            .font(.caption)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-            .transition(.move(edge: .top).combined(with: .opacity))
     }
 
     @ViewBuilder
