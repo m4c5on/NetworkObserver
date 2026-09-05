@@ -10,7 +10,7 @@
 | T3 | Domain types (State/Intent/Effect) | domain | iOS/macOS Engineer | S | — | done |
 | T4 | Reducer (AC-08 combination + hysteresis) | domain | iOS/macOS Engineer | M | T3 | done |
 | T5 | GatewayProbe (ICMP) | infra | iOS/macOS Engineer | M | T1, T3 | done |
-| T6 | ExternalHostProbe (TCP/TLS) | infra | iOS/macOS Engineer | S | T3 | todo |
+| T6 | ExternalHostProbe (TCP/TLS) | infra | iOS/macOS Engineer | S | T3 | done |
 | T7 | LocalNetworkPermission | infra | iOS/macOS Engineer | M | T2, T3 | blocked (T2 not verified) |
 | T8 | No-network detection | infra | iOS/macOS Engineer | S | T3 | todo |
 | T9 | Settings (probe interval) | infra | iOS/macOS Engineer | S | T3 | todo |
