@@ -61,4 +61,51 @@ costs them nothing noticeable.
 - No data leaves the device (spec §6.1) — no compliance regime applies
 - Non-App-Store distribution is a fixed constraint carried from `docs/idea-brief.md` (unsandboxed, notarized) — see §4 for the confirming decision and its ADR
 
+## 3. Context and scope
+
+connection-health is a self-contained macOS menu-bar app. It has one human actor (the
+operator) and two external network endpoints it measures against, but talks to no external
+service, backend, or identity provider — everything the app knows about the world comes from
+its own two probes.
+
+<!-- brownfield: N/A — greenfield repo. The repo currently holds only Xcode's default
+     SwiftUI+SwiftData document-app template (architecture-map.md, mode: greenfield-bootstrap);
+     no source has changed since that map was produced (`git diff 3f72b32..HEAD` touches no
+     source file), so the map is read as current, not re-scanned. -->
+
+**External systems (in / out):**
+
+| Actor or system | Type | Interaction |
+|---|---|---|
+| Operator | Person | Views the status-bar indicator; clicks it for the gateway/external breakdown; adjusts the probe interval in settings; grants or denies the OS Local Network permission prompt |
+| Local gateway | System (external — operator's own router) | Receives a periodic reachability/latency probe; not owned or controlled by this app |
+| External host | System (external — fixed internet reference point) | Receives a periodic reachability/latency probe over a TCP/HTTPS-based check (never ICMP, spec §6.1); the exact host is fixed, not user-editable (spec §6.1 abuse cases) |
+| macOS (Local Network permission) | System (external — OS boundary) | Gates whether either probe can run at all; the app must request access explicitly and handle denial (AC-03/AC-03b) |
+
+**C4 Context (L1):**
+
+```mermaid
+C4Context
+    title connection-health — System Context
+
+    Person(operator, "Operator", "Developer/admin diagnosing their own Mac's network")
+
+    System(app, "NetworkObserver.app", "macOS menu-bar app that probes gateway + external reachability and shows a health verdict")
+
+    System_Ext(gateway, "Local gateway", "Operator's own router — the local-network reference point")
+    System_Ext(external_host, "External host", "Fixed internet endpoint — the external reachability reference")
+
+    Rel(operator, app, "Views status bar, clicks for breakdown, configures probe interval", "UI")
+    Rel(app, gateway, "Probes reachability + latency", "LAN")
+    Rel(app, external_host, "Probes reachability + latency", "TCP/TLS, never ICMP")
+```
+
+The diagram shows the operator and the app as the only internal parties — no other person or
+service is in scope — and two external systems the app measures but does not control: the
+local gateway (reached over the LAN) and a fixed external host (reached over a TCP/TLS-based
+check, never ICMP, per spec §6.1 — the exact probing mechanism per target is a §4 decision).
+The OS Local Network permission boundary sits between the app and both probes and is modeled
+as a crosscutting concept in §8, not a fourth C4 element, since it's a gate on existing
+relationships rather than a party the app talks to.
+
 
