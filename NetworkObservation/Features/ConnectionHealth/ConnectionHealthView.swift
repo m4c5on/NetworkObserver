@@ -48,38 +48,56 @@ struct ConnectionHealthView: View {
     @Bindable var store: ConnectionHealthStore
     @State private var intervalText: String = ""
 
+    /// 8pt grid: 8 between rows within a section, 16 (2×8) between sections and as the
+    /// popover's outer margin.
+    private enum Spacing {
+        static let row: CGFloat = 8
+        static let section: CGFloat = 16
+    }
+
     var body: some View {
-        Label {
-            Text(store.state.healthState.menuExplanation)
-        } icon: {
-            Image(systemName: store.state.healthState.statusBarSymbolName)
-                .foregroundStyle(store.state.healthState.statusBarColor)
-        }
-        .task { intervalText = String(Int(store.state.probeInterval)) }
+        VStack(alignment: .leading, spacing: Spacing.section) {
+            Label {
+                Text(store.state.healthState.menuExplanation)
+            } icon: {
+                Image(systemName: store.state.healthState.statusBarSymbolName)
+                    .foregroundStyle(store.state.healthState.statusBarColor)
+            }
 
-        Divider()
+            Divider()
 
-        // AC-02: gateway and external breakdown shown separately on click.
-        VStack(alignment: .leading) {
-            breakdownRow(label: "Gateway", result: store.state.gatewayResult)
-            breakdownRow(label: "External", result: store.state.externalResult)
-        }
+            // AC-02: gateway and external breakdown shown separately on click.
+            VStack(alignment: .leading, spacing: Spacing.row) {
+                breakdownRow(label: "Gateway", result: store.state.gatewayResult)
+                breakdownRow(label: "External", result: store.state.externalResult)
+            }
 
-        Divider()
+            Divider()
 
-        // AC-05: probe interval settings with inline validation.
-        HStack {
-            Text("Probe interval (s)")
-            TextField("", text: $intervalText)
-                .onSubmit {
-                    if let value = TimeInterval(intervalText) {
-                        store.send(.intervalChanged(value))
-                    }
+            // AC-05: probe interval settings with inline validation.
+            VStack(alignment: .leading, spacing: Spacing.row) {
+                HStack {
+                    Text("Probe interval (s)")
+                    Spacer()
+                    TextField("", text: $intervalText)
+                        .frame(width: 48)
+                        .multilineTextAlignment(.trailing)
+                        .onSubmit {
+                            if let value = TimeInterval(intervalText) {
+                                store.send(.intervalChanged(value))
+                            }
+                        }
                 }
+                if let errorMessage = store.state.errorMessage {
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            }
         }
-        if let errorMessage = store.state.errorMessage {
-            Text(errorMessage).foregroundStyle(.red)
-        }
+        .padding(Spacing.section)
+        .frame(minWidth: 240)
+        .task { intervalText = String(Int(store.state.probeInterval)) }
     }
 
     @ViewBuilder
@@ -88,6 +106,7 @@ struct ConnectionHealthView: View {
             Text(label)
             Spacer()
             Text(result.map(String.init(describing:)) ?? "—")
+                .foregroundStyle(.secondary)
         }
     }
 }
