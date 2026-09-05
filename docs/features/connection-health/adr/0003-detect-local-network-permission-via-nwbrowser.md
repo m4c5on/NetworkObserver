@@ -65,6 +65,21 @@ triggering the Local Network prompt from apps with no Bonjour feature of their o
   after denial is distinguishable from a timeout. Both need confirming on a real Mac early in
   `implement`; if either is false, the fallback is Option 2 with an explicit accuracy trade-off
   noted in a new risk row.
+- **Spike result (T2, 2026-09-05) — partial.** (a) **CONFIRMED**: a throwaway `NWBrowser` on
+  `_http._tcp` in a bare, unsandboxed macOS app with `NSLocalNetworkUsageDescription` set did
+  raise the system's Local Network permission dialog on first browse; after the operator clicked
+  Allow, the browser reached `state = ready`. (b) **NOT independently verified** — the
+  denial/revoked-permission path (System Settings → Privacy & Security → Local Network → toggle
+  off → re-browse) was not exercised in this session; the operator chose to proceed on the
+  documented expectation that `NWBrowser` surfaces this as a `state = failed(...)` transition
+  distinct from a browse that simply finds 0 results while still `.ready` or `.waiting`,
+  rather than spend more time confirming it live. **Residual risk carried into T7**: if denial
+  instead produces `.waiting` with a retryable error, or a state that isn't reliably
+  distinguishable from "browsing, found nothing yet," AC-03b's permission-needed state could be
+  conflated with a genuine timeout. T7 should treat any non-`.ready` terminal-looking state
+  defensively (a bounded wait, not an indefinite one) and this gap should be exercised manually
+  before `ship` (toggle the permission off in System Settings, confirm the app's UI shows the
+  permission-needed explanation, not a generic unreachable reading).
 
 ## Links
 
