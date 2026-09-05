@@ -14,19 +14,11 @@
 			remoteGlobalIDString = 995A62B33049DDE80054B8A9;
 			remoteInfo = NetworkObservation;
 		};
-		995A62CE3049DDEA0054B8A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 995A62AC3049DDE80054B8A9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 995A62B33049DDE80054B8A9;
-			remoteInfo = NetworkObservation;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		995A62B43049DDE80054B8A9 /* NetworkObservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkObservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		995A62C33049DDEA0054B8A9 /* NetworkObservationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkObservationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		995A62CD3049DDEA0054B8A9 /* NetworkObservationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkObservationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		995A62C63049DDEA0054B8A9 /* NetworkObservationTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = NetworkObservationTests;
-			sourceTree = "<group>";
-		};
-		995A62D03049DDEA0054B8A9 /* NetworkObservationUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = NetworkObservationUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		995A62CA3049DDEA0054B8A9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				995A62B63049DDE80054B8A9 /* NetworkObservation */,
 				995A62C63049DDEA0054B8A9 /* NetworkObservationTests */,
-				995A62D03049DDEA0054B8A9 /* NetworkObservationUITests */,
 				995A62B53049DDE80054B8A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				995A62B43049DDE80054B8A9 /* NetworkObservation.app */,
 				995A62C33049DDEA0054B8A9 /* NetworkObservationTests.xctest */,
-				995A62CD3049DDEA0054B8A9 /* NetworkObservationUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +118,6 @@
 			productReference = 995A62C33049DDEA0054B8A9 /* NetworkObservationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		995A62CC3049DDEA0054B8A9 /* NetworkObservationUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 995A62DD3049DDEA0054B8A9 /* Build configuration list for PBXNativeTarget "NetworkObservationUITests" */;
-			buildPhases = (
-				995A62C93049DDEA0054B8A9 /* Sources */,
-				995A62CA3049DDEA0054B8A9 /* Frameworks */,
-				995A62CB3049DDEA0054B8A9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				995A62CF3049DDEA0054B8A9 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				995A62D03049DDEA0054B8A9 /* NetworkObservationUITests */,
-			);
-			name = NetworkObservationUITests;
-			packageProductDependencies = (
-			);
-			productName = NetworkObservationUITests;
-			productReference = 995A62CD3049DDEA0054B8A9 /* NetworkObservationUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +132,6 @@
 						CreatedOnToolsVersion = 26.6;
 					};
 					995A62C23049DDEA0054B8A9 = {
-						CreatedOnToolsVersion = 26.6;
-						TestTargetID = 995A62B33049DDE80054B8A9;
-					};
-					995A62CC3049DDEA0054B8A9 = {
 						CreatedOnToolsVersion = 26.6;
 						TestTargetID = 995A62B33049DDE80054B8A9;
 					};
@@ -202,7 +153,6 @@
 			targets = (
 				995A62B33049DDE80054B8A9 /* NetworkObservation */,
 				995A62C23049DDEA0054B8A9 /* NetworkObservationTests */,
-				995A62CC3049DDEA0054B8A9 /* NetworkObservationUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		995A62C13049DDEA0054B8A9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		995A62CB3049DDEA0054B8A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		995A62C93049DDEA0054B8A9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = 995A62B33049DDE80054B8A9 /* NetworkObservation */;
 			targetProxy = 995A62C43049DDEA0054B8A9 /* PBXContainerItemProxy */;
-		};
-		995A62CF3049DDEA0054B8A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 995A62B33049DDE80054B8A9 /* NetworkObservation */;
-			targetProxy = 995A62CE3049DDEA0054B8A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -489,42 +420,6 @@
 			};
 			name = Release;
 		};
-		995A62DE3049DDEA0054B8A9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.msg.groceriesTracker.NetworkObservationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = NetworkObservation;
-			};
-			name = Debug;
-		};
-		995A62DF3049DDEA0054B8A9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.msg.groceriesTracker.NetworkObservationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = NetworkObservation;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -551,15 +446,6 @@
 			buildConfigurations = (
 				995A62DB3049DDEA0054B8A9 /* Debug */,
 				995A62DC3049DDEA0054B8A9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		995A62DD3049DDEA0054B8A9 /* Build configuration list for PBXNativeTarget "NetworkObservationUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				995A62DE3049DDEA0054B8A9 /* Debug */,
-				995A62DF3049DDEA0054B8A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
