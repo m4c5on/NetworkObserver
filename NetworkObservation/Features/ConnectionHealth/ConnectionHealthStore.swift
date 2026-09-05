@@ -64,7 +64,8 @@ final class ConnectionHealthStore {
             probeInterval: probeInterval ?? settings.probeInterval,
             errorMessage: initial.errorMessage,
             pendingCandidate: initial.pendingCandidate,
-            pendingCount: initial.pendingCount
+            pendingCount: initial.pendingCount,
+            latencyHistory: initial.latencyHistory
         )
         self.state = initial
     }

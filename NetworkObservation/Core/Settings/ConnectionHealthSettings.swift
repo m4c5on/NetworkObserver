@@ -8,7 +8,7 @@
 import Foundation
 
 struct ConnectionHealthSettings {
-    static let minimumProbeInterval: TimeInterval = 1
+    static let minimumProbeInterval: TimeInterval = 0.1
     static let defaultProbeInterval: TimeInterval = 5
 
     private static let probeIntervalKey = "probeInterval"

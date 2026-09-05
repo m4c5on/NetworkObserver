@@ -8,9 +8,6 @@ import Foundation
 struct ConnectionHealthReducer {
     typealias Domain = ConnectionHealthDomain
 
-    /// AC-06: the gateway is classified degraded above this latency; ADR "sad.md §4".
-    private let gatewayDegradedThresholdMs: Double = 100
-
     func reduce(
         state: Domain.State,
         intent: Domain.Intent
@@ -31,7 +28,8 @@ struct ConnectionHealthReducer {
                     probeInterval: state.probeInterval,
                     errorMessage: state.errorMessage,
                     pendingCandidate: nil,
-                    pendingCount: 0
+                    pendingCount: 0,
+                    latencyHistory: state.latencyHistory
                 ),
                 nil
             )
@@ -45,7 +43,8 @@ struct ConnectionHealthReducer {
                     probeInterval: state.probeInterval,
                     errorMessage: state.errorMessage,
                     pendingCandidate: nil,
-                    pendingCount: 0
+                    pendingCount: 0,
+                    latencyHistory: state.latencyHistory
                 ),
                 nil
             )
@@ -59,7 +58,8 @@ struct ConnectionHealthReducer {
                     probeInterval: interval,
                     errorMessage: nil,
                     pendingCandidate: state.pendingCandidate,
-                    pendingCount: state.pendingCount
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory
                 ),
                 .rescheduleProbeLoop(interval)
             )
@@ -71,9 +71,10 @@ struct ConnectionHealthReducer {
                     gatewayResult: state.gatewayResult,
                     externalResult: state.externalResult,
                     probeInterval: state.probeInterval,
-                    errorMessage: "Minimum probe interval is \(Int(minimum))s",
+                    errorMessage: "Minimum probe interval is \(minimum)s",
                     pendingCandidate: state.pendingCandidate,
-                    pendingCount: state.pendingCount
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory
                 ),
                 nil
             )
@@ -84,7 +85,7 @@ struct ConnectionHealthReducer {
 
     private func classifyGateway(latencyMs: Double?) -> Domain.ProbeResult {
         guard let latencyMs else { return .failing }
-        return latencyMs > gatewayDegradedThresholdMs ? .slow : .ok
+        return latencyMs > Domain.gatewayDegradedThresholdMs ? .slow : .ok
     }
 
     /// AC-08 combination table — external is the primary signal, gateway explains the cause.
@@ -129,6 +130,12 @@ struct ConnectionHealthReducer {
             newPendingCount = 0
         }
 
+        var newLatencyHistory = state.latencyHistory
+        newLatencyHistory.append(gatewayLatencyMs)
+        if newLatencyHistory.count > Domain.latencyHistoryLimit {
+            newLatencyHistory.removeFirst(newLatencyHistory.count - Domain.latencyHistoryLimit)
+        }
+
         return Domain.State(
             healthState: newHealthState,
             gatewayResult: gatewayResult,
@@ -136,7 +143,8 @@ struct ConnectionHealthReducer {
             probeInterval: state.probeInterval,
             errorMessage: state.errorMessage,
             pendingCandidate: newPendingCandidate,
-            pendingCount: newPendingCount
+            pendingCount: newPendingCount,
+            latencyHistory: newLatencyHistory
         )
     }
 }

@@ -7,6 +7,13 @@ import Foundation
 
 enum ConnectionHealthDomain {
 
+    /// AC-06: the gateway is classified degraded above this latency; also the chart's zone
+    /// boundary (green/yellow) since both read the same threshold.
+    static let gatewayDegradedThresholdMs: Double = 100
+
+    /// Sparkline window: how many past probe cycles the latency chart keeps.
+    static let latencyHistoryLimit = 60
+
     enum HealthState: CaseIterable, Equatable {
         case good
         case degraded
@@ -29,6 +36,9 @@ enum ConnectionHealthDomain {
         let errorMessage: String?
         let pendingCandidate: HealthState?
         let pendingCount: Int
+        /// Gateway latency per completed cycle, oldest first, capped at `latencyHistoryLimit`;
+        /// `nil` marks a cycle where the gateway was unreachable.
+        let latencyHistory: [Double?]
     }
 
     enum Intent {
@@ -60,7 +70,8 @@ extension ConnectionHealthDomain.State {
             probeInterval: 5,
             errorMessage: nil,
             pendingCandidate: nil,
-            pendingCount: 0
+            pendingCount: 0,
+            latencyHistory: []
         )
     }
 }

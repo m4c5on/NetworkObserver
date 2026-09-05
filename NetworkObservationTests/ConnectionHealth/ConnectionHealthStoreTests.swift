@@ -151,7 +151,7 @@ struct ConnectionHealthStoreTests {
         store.start()
         await waitBriefly(0.1)
         let intervalBefore = store.state.probeInterval
-        store.send(.intervalChanged(0.5))
+        store.send(.intervalChanged(0.02))
         await waitBriefly(0.1)
         store.stop()
 

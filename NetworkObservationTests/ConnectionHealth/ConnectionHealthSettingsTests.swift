@@ -37,7 +37,7 @@ struct ConnectionHealthSettingsTests {
     @Test func aValueBelowTheMinimumIsRejectedAndThePreviousValueIsRetained() {
         let settings = makeSettings()
         settings.setProbeInterval(8)
-        let accepted = settings.setProbeInterval(0.5)
+        let accepted = settings.setProbeInterval(0.05)
         #expect(accepted == false)
         #expect(settings.probeInterval == 8)
     }

@@ -6,6 +6,7 @@
 //  probe-interval settings (AC-05).
 //
 
+import AppKit
 import SwiftUI
 
 extension ConnectionHealthDomain.HealthState {
@@ -23,11 +24,11 @@ extension ConnectionHealthDomain.HealthState {
 
     var statusBarSymbolName: String {
         switch self {
-        case .good: return "checkmark.circle.fill"
-        case .degraded: return "exclamationmark.triangle.fill"
+        case .good: return "network"
+        case .degraded: return "network"
         case .unreachable: return "xmark.circle.fill"
         case .permissionNeeded: return "lock.circle.fill"
-        case .noNetwork: return "wifi.slash"
+        case .noNetwork: return "network.slash"
         }
     }
 
@@ -64,6 +65,9 @@ struct ConnectionHealthView: View {
                     .foregroundStyle(store.state.healthState.statusBarColor)
             }
 
+            // Real-time gateway-latency strip chart (last ~60 probes).
+            LatencySparklineView(samples: store.state.latencyHistory)
+
             Divider()
 
             // AC-02: gateway and external breakdown shown separately on click.
@@ -94,10 +98,16 @@ struct ConnectionHealthView: View {
                         .foregroundStyle(.red)
                 }
             }
+
+            Divider()
+
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
         }
         .padding(Spacing.section)
         .frame(minWidth: 240)
-        .task { intervalText = String(Int(store.state.probeInterval)) }
+        .task { intervalText = String(store.state.probeInterval) }
     }
 
     @ViewBuilder
