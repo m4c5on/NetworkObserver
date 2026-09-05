@@ -225,4 +225,66 @@ are fixed constants (§4), not user-editable settings (spec §6.1). The two exte
 reached only from `ConnectionProbing`, matching §3's context boundary — no other container talks
 to the network directly.
 
+## 6. Runtime view
+
+**Critical flow 1: probe cycle → health state update (AC-01, AC-02, AC-06, AC-08)**
+
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant Store as ConnectionHealthStore
+    participant Probing as ConnectionProbing
+    participant Gateway as Local gateway
+    participant External as External host
+    participant Reducer as ConnectionHealthReducer
+    participant View as ConnectionHealthView
+
+    Store->>Probing: run probe cycle
+    Probing->>Gateway: ICMP echo
+    Gateway-->>Probing: reply + latency (or timeout)
+    Probing->>External: TCP+TLS handshake
+    External-->>Probing: handshake complete + latency (or timeout)
+    Probing-->>Store: cycle result {gateway, external}
+    Store->>Reducer: dispatch .cycleCompleted(gateway, external)
+    Reducer->>Reducer: combine via AC-08 table, apply 3-cycle hysteresis (ADR-0005)
+    Reducer-->>Store: new State (health state + breakdown)
+    Store-->>View: State change
+    View-->>Operator: status bar color updates (≤250ms, spec §6)
+    Operator->>View: clicks indicator
+    View-->>Operator: shows gateway + external breakdown (AC-02)
+```
+
+**Critical flow 2: Local Network permission request and denial (AC-03, AC-03b)**
+
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant Store as ConnectionHealthStore
+    participant Probing as ConnectionProbing
+    participant OS as macOS (Local Network)
+
+    Store->>Probing: first probe cycle
+    Probing->>OS: NWBrowser trigger (ADR-0003)
+    OS-->>Operator: shows Local Network permission prompt
+    alt Operator grants
+        Operator->>OS: Allow
+        OS-->>Probing: browse succeeds
+        Probing-->>Store: permission granted — proceed to probe cycle (flow 1)
+    else Operator denies
+        Operator->>OS: Don't Allow
+        OS-->>Probing: browse fails (permission-denied shape)
+        Probing-->>Store: permission denied
+        Store-->>Store: State = permission-needed (unreachable color + explanatory text, AC-03b)
+    end
+    Note over Operator,OS: macOS never re-prompts after a denial — the app's menu text must direct the operator to System Settings (AC-03b)
+```
+
+Flow 1 is the steady-state cycle: the Store triggers both probes, the Reducer combines their raw
+results through the AC-08 table and the ADR-0005 hysteresis, and the resulting state reaches the
+status bar within the ≤250ms NFR; a click reveals the gateway/external breakdown separately
+(AC-02). Flow 2 covers the first-run and denial paths: an `NWBrowser` trigger (ADR-0003) is what
+actually raises the OS prompt, and its outcome — not a direct query, since none exists — is
+read as granted or denied; a denial locks the app into the permission-needed state described in
+AC-03b, since macOS won't prompt a second time.
+
 
