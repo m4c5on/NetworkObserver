@@ -11,7 +11,7 @@
 | T4 | Reducer (AC-08 combination + hysteresis) | domain | iOS/macOS Engineer | M | T3 | done |
 | T5 | GatewayProbe (ICMP) | infra | iOS/macOS Engineer | M | T1, T3 | done |
 | T6 | ExternalHostProbe (TCP/TLS) | infra | iOS/macOS Engineer | S | T3 | done |
-| T7 | LocalNetworkPermission | infra | iOS/macOS Engineer | M | T2, T3 | todo |
+| T7 | LocalNetworkPermission | infra | iOS/macOS Engineer | M | T2, T3 | done |
 | T8 | No-network detection | infra | iOS/macOS Engineer | S | T3 | done |
 | T9 | Settings (probe interval) | infra | iOS/macOS Engineer | S | T3 | done |
 | T10 | Store orchestration + sleep/wake | app | iOS/macOS Engineer | L | T4, T5, T6, T7, T8, T9 | todo |
