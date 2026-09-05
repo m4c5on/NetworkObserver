@@ -310,4 +310,17 @@ data-growth axis to plan around.
      build/CI concern for the `tasks`/`implement` stages, not an architecture decision — this
      section records the topology, not the release pipeline. -->
 
+## 8. Crosscutting concepts
+
+| Concept | Convention | Where defined |
+|---|---|---|
+| Logging | `os_log`, subsystem/category on probe results and health-state transitions | New — first feature to set this precedent |
+| Authentication | N/A — single-operator local app, no accounts (spec §6.1) | — |
+| Error handling | `Intent._loadingFailed(Error)` → `State.errorMessage`, never thrown across the View boundary | `.claude/skills/ios-MVI-architecture/SKILL.md` |
+| ID strategy | N/A — no persisted entities with IDs in v1 | — |
+| Internationalisation | N/A — spec does not require localization | — |
+| Observability | Local-only (no telemetry leaves the device, spec §6.1) — NFR verification via local instrumentation and soak-test logs (spec §6) | §7 |
+| Events | N/A — single-process MVI Intent/State flow, no cross-module event bus | — |
+| Rate-limiting (analog) | Enforced minimum probe interval (AC-05) protects the local network from excessive probe frequency (spec §6.1 abuse cases) | spec AC-05, §6.1 |
+
 
