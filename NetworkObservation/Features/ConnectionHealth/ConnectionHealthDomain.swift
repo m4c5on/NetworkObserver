@@ -27,6 +27,8 @@ enum ConnectionHealthDomain {
         let externalResult: ProbeResult?
         let probeInterval: TimeInterval
         let errorMessage: String?
+        let pendingCandidate: HealthState?
+        let pendingCount: Int
     }
 
     enum Intent {
@@ -34,7 +36,7 @@ enum ConnectionHealthDomain {
         case intervalChanged(TimeInterval)
 
         // Internal
-        case _cycleCompleted(gateway: ProbeResult?, external: ProbeResult?)
+        case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult)
         case _permissionNeeded
         case _noNetwork
 
@@ -54,7 +56,9 @@ extension ConnectionHealthDomain.State {
             gatewayResult: nil,
             externalResult: nil,
             probeInterval: 5,
-            errorMessage: nil
+            errorMessage: nil,
+            pendingCandidate: nil,
+            pendingCount: 0
         )
     }
 }
