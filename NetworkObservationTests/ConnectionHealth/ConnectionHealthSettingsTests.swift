@@ -121,4 +121,29 @@ struct ConnectionHealthSettingsTests {
         #expect(accepted == false)
         #expect(settings.elapsedDegradedBadlyThresholdMs == 1000)
     }
+
+    @Test func colorsDefaultToThePastelPaletteWhenNothingIsStored() {
+        let settings = makeSettings()
+        #expect(settings.goodColorHex == "#A3D9A5")
+        #expect(settings.degradedColorHex == "#F7E08E")
+        #expect(settings.badColorHex == "#F4A9A0")
+    }
+
+    @Test func aChosenGoodColorPersists() {
+        let settings = makeSettings()
+        settings.setGoodColorHex("#123456")
+        #expect(settings.goodColorHex == "#123456")
+    }
+
+    @Test func aChosenDegradedColorPersists() {
+        let settings = makeSettings()
+        settings.setDegradedColorHex("#654321")
+        #expect(settings.degradedColorHex == "#654321")
+    }
+
+    @Test func aChosenBadColorPersists() {
+        let settings = makeSettings()
+        settings.setBadColorHex("#ABCDEF")
+        #expect(settings.badColorHex == "#ABCDEF")
+    }
 }

@@ -9,15 +9,47 @@
 import AppKit
 import SwiftUI
 
+/// Bridges the user-configurable health-tier colors (stored as hex strings in
+/// ConnectionHealthSettings) to SwiftUI's Color for display and back for persistence.
+extension Color {
+    init?(hex: String) {
+        var hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        if hex.hasPrefix("#") { hex.removeFirst() }
+        guard hex.count == 6, let value = UInt32(hex, radix: 16) else { return nil }
+        self.init(
+            red: Double((value >> 16) & 0xFF) / 255,
+            green: Double((value >> 8) & 0xFF) / 255,
+            blue: Double(value & 0xFF) / 255
+        )
+    }
+
+    /// nil if the color can't be resolved into the sRGB space (e.g. a pattern/dynamic color).
+    var hexString: String? {
+        guard let rgb = NSColor(self).usingColorSpace(.sRGB) else { return nil }
+        let r = Int((rgb.redComponent * 255).rounded())
+        let g = Int((rgb.greenComponent * 255).rounded())
+        let b = Int((rgb.blueComponent * 255).rounded())
+        return String(format: "#%02X%02X%02X", r, g, b)
+    }
+}
+
+extension ConnectionHealthDomain.State {
+    /// Falls back to the pastel defaults if the stored hex is somehow unparseable.
+    var goodColor: Color { Color(hex: goodColorHex) ?? Color(hex: ConnectionHealthSettings.defaultGoodColorHex)! }
+    var degradedColor: Color { Color(hex: degradedColorHex) ?? Color(hex: ConnectionHealthSettings.defaultDegradedColorHex)! }
+    var badColor: Color { Color(hex: badColorHex) ?? Color(hex: ConnectionHealthSettings.defaultBadColorHex)! }
+}
+
 extension ConnectionHealthDomain.HealthState {
     /// AC-01/AC-06/AC-08: good/degraded/unreachable are distinct; AC-03 keeps permission-needed
     /// on the unreachable color (distinguished by menu text, not color); AC-07 keeps no-network
-    /// a fourth, distinct color.
-    var statusBarColor: Color {
+    /// a fourth, distinct color. Colors are user-configurable (Settings), so they're passed in
+    /// rather than hardcoded.
+    func statusBarColor(good: Color, degraded: Color, bad: Color) -> Color {
         switch self {
-        case .good: return .green
-        case .degraded: return .yellow
-        case .badlyDegraded, .unreachable, .permissionNeeded: return .red
+        case .good: return good
+        case .degraded: return degraded
+        case .badlyDegraded, .unreachable, .permissionNeeded: return bad
         case .noNetwork: return .gray
         }
     }
@@ -36,9 +68,9 @@ extension ConnectionHealthDomain.HealthState {
     /// NSStatusItem auto-templates SF Symbol images (alpha-only, no color), so SwiftUI's
     /// foregroundStyle/renderingMode modifiers on the MenuBarExtra label are ignored. Building
     /// the NSImage directly and forcing isTemplate = false is the only way to keep the color.
-    var statusBarImage: NSImage {
+    func statusBarImage(good: Color, degraded: Color, bad: Color) -> NSImage {
         let configuration = NSImage.SymbolConfiguration(pointSize: 13, weight: .regular)
-            .applying(NSImage.SymbolConfiguration(paletteColors: [NSColor(statusBarColor)]))
+            .applying(NSImage.SymbolConfiguration(paletteColors: [NSColor(statusBarColor(good: good, degraded: degraded, bad: bad))]))
         let image = NSImage(systemSymbolName: statusBarSymbolName, accessibilityDescription: nil)?
             .withSymbolConfiguration(configuration)
         image?.isTemplate = false
@@ -88,12 +120,12 @@ struct ConnectionHealthView: View {
             VStack(alignment: .leading, spacing: Spacing.section) {
                 VStack(alignment: .leading, spacing: Spacing.row) {
                     Text("Gateway").font(.caption).foregroundStyle(.secondary)
-                    LatencySparklineView(samples: displayLatencyHistory, threshold: store.state.gatewayDegradedThresholdMs, badlyThreshold: store.state.gatewayDegradedBadlyThresholdMs)
+                    LatencySparklineView(samples: displayLatencyHistory, threshold: store.state.gatewayDegradedThresholdMs, badlyThreshold: store.state.gatewayDegradedBadlyThresholdMs, goodColor: store.state.goodColor, degradedColor: store.state.degradedColor, badColor: store.state.badColor)
                     latencyStatsRow(samples: displayLatencyHistory)
                 }
                 VStack(alignment: .leading, spacing: Spacing.row) {
                     Text("Cycle time").font(.caption).foregroundStyle(.secondary)
-                    LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: store.state.elapsedDegradedThresholdMs, badlyThreshold: store.state.elapsedDegradedBadlyThresholdMs)
+                    LatencySparklineView(samples: displayElapsedHistory.map { Optional($0) }, threshold: store.state.elapsedDegradedThresholdMs, badlyThreshold: store.state.elapsedDegradedBadlyThresholdMs, goodColor: store.state.goodColor, degradedColor: store.state.degradedColor, badColor: store.state.badColor)
                     latencyStatsRow(samples: displayElapsedHistory.map { Optional($0) })
                 }
             }
@@ -225,6 +257,48 @@ struct ConnectionHealthView: View {
                             .font(.caption)
                             .foregroundStyle(.red)
                     }
+
+                    HStack {
+                        Text("Good color")
+                        Spacer()
+                        ColorPicker("", selection: Binding(
+                            get: { store.state.goodColor },
+                            set: { newColor in
+                                if let hex = newColor.hexString {
+                                    store.send(.goodColorChanged(hex))
+                                }
+                            }
+                        ))
+                        .labelsHidden()
+                    }
+
+                    HStack {
+                        Text("Degraded color")
+                        Spacer()
+                        ColorPicker("", selection: Binding(
+                            get: { store.state.degradedColor },
+                            set: { newColor in
+                                if let hex = newColor.hexString {
+                                    store.send(.degradedColorChanged(hex))
+                                }
+                            }
+                        ))
+                        .labelsHidden()
+                    }
+
+                    HStack {
+                        Text("Bad color")
+                        Spacer()
+                        ColorPicker("", selection: Binding(
+                            get: { store.state.badColor },
+                            set: { newColor in
+                                if let hex = newColor.hexString {
+                                    store.send(.badColorChanged(hex))
+                                }
+                            }
+                        ))
+                        .labelsHidden()
+                    }
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
@@ -313,11 +387,11 @@ struct ConnectionHealthView: View {
     private func probeResultIcon(_ result: ConnectionHealthDomain.ProbeResult?) -> some View {
         switch result {
         case .ok:
-            Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+            Image(systemName: "checkmark.circle.fill").foregroundStyle(store.state.goodColor)
         case .slow:
-            Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.yellow)
+            Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(store.state.degradedColor)
         case .failing:
-            Image(systemName: "xmark.circle.fill").foregroundStyle(.red)
+            Image(systemName: "xmark.circle.fill").foregroundStyle(store.state.badColor)
         case nil:
             Image(systemName: "questionmark.circle").foregroundStyle(.secondary)
         }

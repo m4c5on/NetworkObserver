@@ -15,9 +15,14 @@ struct LatencySparklineView: View {
 
     let samples: [Double?]
     let threshold: Double
-    /// Samples above this repaint the line segment red, distinguishing badly-degraded readings
-    /// from merely-degraded ones (which stay in the ok/degraded background zones above).
+    /// Samples above this repaint the line segment in `badColor`, distinguishing badly-degraded
+    /// readings from merely-degraded ones (which stay in the ok/degraded background zones below).
     let badlyThreshold: Double
+    /// User-configurable health-tier colors (ConnectionHealthSettings), passed in rather than
+    /// hardcoded.
+    let goodColor: Color
+    let degradedColor: Color
+    let badColor: Color
 
     private let chartHeight: CGFloat = 44
     private let lineColor = Color.accentColor
@@ -45,8 +50,8 @@ struct LatencySparklineView: View {
     private func drawZones(context: inout GraphicsContext, size: CGSize, thresholdY: CGFloat) {
         let okZone = CGRect(x: 0, y: thresholdY, width: size.width, height: size.height - thresholdY)
         let degradedZone = CGRect(x: 0, y: 0, width: size.width, height: thresholdY)
-        context.fill(Path(okZone), with: .color(.green.opacity(0.12)))
-        context.fill(Path(degradedZone), with: .color(.yellow.opacity(0.14)))
+        context.fill(Path(okZone), with: .color(goodColor.opacity(0.12)))
+        context.fill(Path(degradedZone), with: .color(degradedColor.opacity(0.14)))
     }
 
     private func drawLineAndArea(
@@ -90,7 +95,7 @@ struct LatencySparklineView: View {
                 var segment = Path()
                 segment.move(to: CGPoint(x: x(previousIndex), y: y(samples[previousIndex] ?? 0)))
                 segment.addLine(to: CGPoint(x: x(index), y: y(samples[index] ?? 0)))
-                let segmentColor = (samples[index] ?? 0) > badlyThreshold ? Color.red : lineColor
+                let segmentColor = (samples[index] ?? 0) > badlyThreshold ? badColor : lineColor
                 context.stroke(segment, with: .color(segmentColor), lineWidth: 1.5)
             }
         }
@@ -99,7 +104,7 @@ struct LatencySparklineView: View {
     private func drawFailureMarkers(context: inout GraphicsContext, size: CGSize, x: (Int) -> CGFloat) {
         for (index, sample) in samples.enumerated() where sample == nil {
             let marker = Path(ellipseIn: CGRect(x: x(index) - 2, y: 0, width: 4, height: 4))
-            context.fill(marker, with: .color(.red))
+            context.fill(marker, with: .color(badColor))
         }
     }
 

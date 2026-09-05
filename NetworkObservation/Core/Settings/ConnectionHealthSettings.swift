@@ -30,12 +30,21 @@ struct ConnectionHealthSettings {
     static let minimumElapsedDegradedBadlyThresholdMs: Double = 1
     static let defaultElapsedDegradedBadlyThresholdMs: Double = 300
 
+    /// User-configurable colors for the three health tiers. Any color a ColorPicker produces is
+    /// valid, so there's no minimum/rejection concept here — just a default fallback.
+    static let defaultGoodColorHex = "#A3D9A5"
+    static let defaultDegradedColorHex = "#F7E08E"
+    static let defaultBadColorHex = "#F4A9A0"
+
     private static let probeIntervalKey = "probeInterval"
     private static let hysteresisThresholdKey = "hysteresisThreshold"
     private static let gatewayDegradedThresholdMsKey = "gatewayDegradedThresholdMs"
     private static let elapsedDegradedThresholdMsKey = "elapsedDegradedThresholdMs"
     private static let gatewayDegradedBadlyThresholdMsKey = "gatewayDegradedBadlyThresholdMs"
     private static let elapsedDegradedBadlyThresholdMsKey = "elapsedDegradedBadlyThresholdMs"
+    private static let goodColorHexKey = "goodColorHex"
+    private static let degradedColorHexKey = "degradedColorHex"
+    private static let badColorHexKey = "badColorHex"
 
     private let defaults: UserDefaults
 
@@ -117,5 +126,29 @@ struct ConnectionHealthSettings {
         guard candidate >= Self.minimumElapsedDegradedBadlyThresholdMs else { return false }
         defaults.set(candidate, forKey: Self.elapsedDegradedBadlyThresholdMsKey)
         return true
+    }
+
+    var goodColorHex: String {
+        defaults.string(forKey: Self.goodColorHexKey) ?? Self.defaultGoodColorHex
+    }
+
+    func setGoodColorHex(_ hex: String) {
+        defaults.set(hex, forKey: Self.goodColorHexKey)
+    }
+
+    var degradedColorHex: String {
+        defaults.string(forKey: Self.degradedColorHexKey) ?? Self.defaultDegradedColorHex
+    }
+
+    func setDegradedColorHex(_ hex: String) {
+        defaults.set(hex, forKey: Self.degradedColorHexKey)
+    }
+
+    var badColorHex: String {
+        defaults.string(forKey: Self.badColorHexKey) ?? Self.defaultBadColorHex
+    }
+
+    func setBadColorHex(_ hex: String) {
+        defaults.set(hex, forKey: Self.badColorHexKey)
     }
 }

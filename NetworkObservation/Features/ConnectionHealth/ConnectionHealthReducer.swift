@@ -31,6 +31,93 @@ struct ConnectionHealthReducer {
         case .elapsedDegradedBadlyThresholdChanged(let threshold):
             return (state, .persistElapsedDegradedBadlyThreshold(threshold))
 
+        case .goodColorChanged(let hex):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: state.errorMessage,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory,
+                    gatewayDegradedThresholdMs: state.gatewayDegradedThresholdMs,
+                    gatewayDegradedThresholdErrorMessage: state.gatewayDegradedThresholdErrorMessage,
+                    elapsedDegradedThresholdMs: state.elapsedDegradedThresholdMs,
+                    elapsedDegradedThresholdErrorMessage: state.elapsedDegradedThresholdErrorMessage,
+                    gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
+                    gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
+                    elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: hex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
+                ),
+                .persistGoodColor(hex)
+            )
+
+        case .degradedColorChanged(let hex):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: state.errorMessage,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory,
+                    gatewayDegradedThresholdMs: state.gatewayDegradedThresholdMs,
+                    gatewayDegradedThresholdErrorMessage: state.gatewayDegradedThresholdErrorMessage,
+                    elapsedDegradedThresholdMs: state.elapsedDegradedThresholdMs,
+                    elapsedDegradedThresholdErrorMessage: state.elapsedDegradedThresholdErrorMessage,
+                    gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
+                    gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
+                    elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: hex,
+                    badColorHex: state.badColorHex
+                ),
+                .persistDegradedColor(hex)
+            )
+
+        case .badColorChanged(let hex):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: state.errorMessage,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage,
+                    elapsedHistory: state.elapsedHistory,
+                    gatewayDegradedThresholdMs: state.gatewayDegradedThresholdMs,
+                    gatewayDegradedThresholdErrorMessage: state.gatewayDegradedThresholdErrorMessage,
+                    elapsedDegradedThresholdMs: state.elapsedDegradedThresholdMs,
+                    elapsedDegradedThresholdErrorMessage: state.elapsedDegradedThresholdErrorMessage,
+                    gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
+                    gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
+                    elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: hex
+                ),
+                .persistBadColor(hex)
+            )
+
         case ._cycleCompleted(let gatewayLatencyMs, let external, let elapsedMs):
             return (reduceCycleCompleted(state: state, gatewayLatencyMs: gatewayLatencyMs, external: external, elapsedMs: elapsedMs), nil)
 
@@ -55,7 +142,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -81,7 +171,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -107,7 +200,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 .rescheduleProbeLoop(interval)
             )
@@ -133,7 +229,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -159,7 +258,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -185,7 +287,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -211,7 +316,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -237,7 +345,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -263,7 +374,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -289,7 +403,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -315,7 +432,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: threshold,
                     gatewayDegradedBadlyThresholdErrorMessage: nil,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -341,7 +461,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: "Minimum gateway badly threshold is \(Int(minimum))ms",
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+                    elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -367,7 +490,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: threshold,
-                    elapsedDegradedBadlyThresholdErrorMessage: nil
+                    elapsedDegradedBadlyThresholdErrorMessage: nil,
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -393,7 +519,10 @@ struct ConnectionHealthReducer {
                     gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
                     gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
                     elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-                    elapsedDegradedBadlyThresholdErrorMessage: "Minimum elapsed badly threshold is \(Int(minimum))ms"
+                    elapsedDegradedBadlyThresholdErrorMessage: "Minimum elapsed badly threshold is \(Int(minimum))ms",
+                    goodColorHex: state.goodColorHex,
+                    degradedColorHex: state.degradedColorHex,
+                    badColorHex: state.badColorHex
                 ),
                 nil
             )
@@ -496,7 +625,10 @@ struct ConnectionHealthReducer {
             gatewayDegradedBadlyThresholdMs: state.gatewayDegradedBadlyThresholdMs,
             gatewayDegradedBadlyThresholdErrorMessage: state.gatewayDegradedBadlyThresholdErrorMessage,
             elapsedDegradedBadlyThresholdMs: state.elapsedDegradedBadlyThresholdMs,
-            elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage
+            elapsedDegradedBadlyThresholdErrorMessage: state.elapsedDegradedBadlyThresholdErrorMessage,
+            goodColorHex: state.goodColorHex,
+            degradedColorHex: state.degradedColorHex,
+            badColorHex: state.badColorHex
         )
     }
 }

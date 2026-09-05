@@ -47,6 +47,9 @@ final class ConnectionHealthStore {
         elapsedDegradedThresholdMs: Double? = nil,
         gatewayDegradedBadlyThresholdMs: Double? = nil,
         elapsedDegradedBadlyThresholdMs: Double? = nil,
+        goodColorHex: String? = nil,
+        degradedColorHex: String? = nil,
+        badColorHex: String? = nil,
         logCycleCompleted: @escaping (Double) -> Void = { ConnectionHealthLogging.logCycleCompleted(elapsedMs: $0) },
         logHealthStateTransition: @escaping (ConnectionHealthDomain.HealthState, ConnectionHealthDomain.HealthState) -> Void = ConnectionHealthLogging.logHealthStateTransition
     ) {
@@ -81,7 +84,10 @@ final class ConnectionHealthStore {
             gatewayDegradedBadlyThresholdMs: gatewayDegradedBadlyThresholdMs ?? settings.gatewayDegradedBadlyThresholdMs,
             gatewayDegradedBadlyThresholdErrorMessage: initial.gatewayDegradedBadlyThresholdErrorMessage,
             elapsedDegradedBadlyThresholdMs: elapsedDegradedBadlyThresholdMs ?? settings.elapsedDegradedBadlyThresholdMs,
-            elapsedDegradedBadlyThresholdErrorMessage: initial.elapsedDegradedBadlyThresholdErrorMessage
+            elapsedDegradedBadlyThresholdErrorMessage: initial.elapsedDegradedBadlyThresholdErrorMessage,
+            goodColorHex: goodColorHex ?? settings.goodColorHex,
+            degradedColorHex: degradedColorHex ?? settings.degradedColorHex,
+            badColorHex: badColorHex ?? settings.badColorHex
         )
         self.state = initial
     }
@@ -163,6 +169,15 @@ final class ConnectionHealthStore {
             } else {
                 send(._elapsedDegradedBadlyThresholdRejected(minimum: ConnectionHealthSettings.minimumElapsedDegradedBadlyThresholdMs))
             }
+
+        case .persistGoodColor(let hex):
+            settings.setGoodColorHex(hex)
+
+        case .persistDegradedColor(let hex):
+            settings.setDegradedColorHex(hex)
+
+        case .persistBadColor(let hex):
+            settings.setBadColorHex(hex)
         }
     }
 

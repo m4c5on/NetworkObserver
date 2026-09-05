@@ -59,6 +59,12 @@ enum ConnectionHealthDomain {
         /// user-configurable, persisted via ConnectionHealthSettings.
         let elapsedDegradedBadlyThresholdMs: Double
         let elapsedDegradedBadlyThresholdErrorMessage: String?
+        /// Hex colors for the three health tiers (good/degraded/bad), user-configurable via
+        /// Settings. No error-message companion: a ColorPicker can't produce an invalid color, so
+        /// there's no reject path to surface.
+        let goodColorHex: String
+        let degradedColorHex: String
+        let badColorHex: String
     }
 
     enum Intent {
@@ -69,6 +75,9 @@ enum ConnectionHealthDomain {
         case elapsedDegradedThresholdChanged(Double)
         case gatewayDegradedBadlyThresholdChanged(Double)
         case elapsedDegradedBadlyThresholdChanged(Double)
+        case goodColorChanged(String)
+        case degradedColorChanged(String)
+        case badColorChanged(String)
 
         // Internal
         case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult, elapsedMs: Double)
@@ -98,6 +107,9 @@ enum ConnectionHealthDomain {
         case persistElapsedDegradedThreshold(Double)
         case persistGatewayDegradedBadlyThreshold(Double)
         case persistElapsedDegradedBadlyThreshold(Double)
+        case persistGoodColor(String)
+        case persistDegradedColor(String)
+        case persistBadColor(String)
     }
 }
 
@@ -122,7 +134,10 @@ extension ConnectionHealthDomain.State {
             gatewayDegradedBadlyThresholdMs: ConnectionHealthSettings.defaultGatewayDegradedBadlyThresholdMs,
             gatewayDegradedBadlyThresholdErrorMessage: nil,
             elapsedDegradedBadlyThresholdMs: ConnectionHealthSettings.defaultElapsedDegradedBadlyThresholdMs,
-            elapsedDegradedBadlyThresholdErrorMessage: nil
+            elapsedDegradedBadlyThresholdErrorMessage: nil,
+            goodColorHex: ConnectionHealthSettings.defaultGoodColorHex,
+            degradedColorHex: ConnectionHealthSettings.defaultDegradedColorHex,
+            badColorHex: ConnectionHealthSettings.defaultBadColorHex
         )
     }
 }

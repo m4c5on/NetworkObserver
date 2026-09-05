@@ -242,4 +242,42 @@ struct ConnectionHealthReducerTests {
         #expect(newState.elapsedDegradedBadlyThresholdMs == 1000)
         #expect(newState.elapsedDegradedBadlyThresholdErrorMessage == nil)
     }
+
+    // MARK: - user-configurable health-tier colors (no accept/reject: any color is valid)
+
+    @Test func goodColorChangedUpdatesStateAndPersists() {
+        let (newState, effect) = reducer.reduce(state: .initial, intent: .goodColorChanged("#123456"))
+        #expect(newState.goodColorHex == "#123456")
+        guard case .persistGoodColor(let hex) = effect else {
+            Issue.record("expected a persistGoodColor effect")
+            return
+        }
+        #expect(hex == "#123456")
+    }
+
+    @Test func degradedColorChangedUpdatesStateAndPersists() {
+        let (newState, effect) = reducer.reduce(state: .initial, intent: .degradedColorChanged("#654321"))
+        #expect(newState.degradedColorHex == "#654321")
+        guard case .persistDegradedColor(let hex) = effect else {
+            Issue.record("expected a persistDegradedColor effect")
+            return
+        }
+        #expect(hex == "#654321")
+    }
+
+    @Test func badColorChangedUpdatesStateAndPersists() {
+        let (newState, effect) = reducer.reduce(state: .initial, intent: .badColorChanged("#ABCDEF"))
+        #expect(newState.badColorHex == "#ABCDEF")
+        guard case .persistBadColor(let hex) = effect else {
+            Issue.record("expected a persistBadColor effect")
+            return
+        }
+        #expect(hex == "#ABCDEF")
+    }
+
+    @Test func changingOneColorLeavesTheOtherTwoUntouched() {
+        let (newState, _) = reducer.reduce(state: .initial, intent: .goodColorChanged("#123456"))
+        #expect(newState.degradedColorHex == Domain.State.initial.degradedColorHex)
+        #expect(newState.badColorHex == Domain.State.initial.badColorHex)
+    }
 }

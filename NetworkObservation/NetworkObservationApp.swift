@@ -15,7 +15,11 @@ struct NetworkObservationApp: App {
         MenuBarExtra {
             ConnectionHealthView(store: connectionHealthStore)
         } label: {
-            Image(nsImage: connectionHealthStore.state.healthState.statusBarImage)
+            Image(nsImage: connectionHealthStore.state.healthState.statusBarImage(
+                good: connectionHealthStore.state.goodColor,
+                degraded: connectionHealthStore.state.degradedColor,
+                bad: connectionHealthStore.state.badColor
+            ))
                 .task { connectionHealthStore.start() }
         }
         .menuBarExtraStyle(.window)
