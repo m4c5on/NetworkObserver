@@ -156,4 +156,73 @@ the "has legitimate alternative" gate criterion is not met.
 Every tactical decision in §5–§8 traces to one of the five strategic choices above; none
 contradicts them.
 
+## 5. Building block view
+
+Single deployable, layered per the project's MVI convention (`.claude/skills/ios-MVI-architecture/SKILL.md`):
+a dumb SwiftUI `View` renders `State`, an `@Observable` `Store` holds `State` and dispatches
+`Intent`s to a pure `Reducer`, and `Core` services (injected into the Store's `init`, never
+created inside it) do the actual I/O. No new module boundary is introduced beyond what
+`architecture-map.md` already scaffolds — this feature is the first to fill in
+`Features/ConnectionHealth` and `Core`.
+
+**Internal decomposition:**
+
+```
+NetworkObservation/
+├── App/
+│   └── NetworkObservationApp.swift        <MenuBarExtra scene wiring>
+├── Features/ConnectionHealth/
+│   ├── ConnectionHealthDomain.swift       <State / Intent / Effect / Navigation enum>
+│   ├── ConnectionHealthReducer.swift      <pure reducer — AC-04/04b/06/08 hysteresis + mapping, ADR-0005>
+│   ├── ConnectionHealthStore.swift        <@MainActor @Observable Store — owns the probe Task, ADR-0002>
+│   └── ConnectionHealthView.swift         <status-bar icon + click-through breakdown popover>
+├── Core/
+│   ├── ConnectionProbing/
+│   │   ├── GatewayProbe.swift             <ICMP ping-socket, ADR-0004>
+│   │   ├── ExternalHostProbe.swift        <TCP/TLS handshake to 1.1.1.1:443, ADR-0004>
+│   │   └── LocalNetworkPermission.swift   <NWBrowser trigger + denial detection, ADR-0003>
+│   └── Settings/
+│       └── ConnectionHealthSettings.swift <probe interval via @AppStorage>
+└── Shared/                                 <empty until a second feature needs it>
+```
+
+**C4 Container (L2):**
+
+```mermaid
+C4Container
+    title connection-health — Containers
+
+    Person(operator, "Operator")
+
+    Container_Boundary(app, "NetworkObserver.app") {
+        Container(view, "ConnectionHealthView", "SwiftUI MenuBarExtra", "Status-bar icon + breakdown popover")
+        Container(store, "ConnectionHealthStore", "Swift / @Observable", "Holds State, dispatches Intent to the Reducer, owns the probe Task (ADR-0002)")
+        Container(reducer, "ConnectionHealthReducer", "Swift (pure)", "AC-04/04b hysteresis on the AC-08-combined state (ADR-0005)")
+        Container(probing, "ConnectionProbing", "Swift / Network framework", "Gateway ICMP + external TLS-handshake probes (ADR-0004), Local Network permission detection (ADR-0003)")
+    }
+
+    ContainerDb(prefs, "UserDefaults", "macOS system store", "Probe interval only — external host and threshold are fixed, not stored")
+
+    System_Ext(gateway, "Local gateway", "Operator's own router")
+    System_Ext(external_host, "External host (1.1.1.1:443)", "Fixed reachability reference")
+
+    Rel(operator, view, "Views status bar, clicks for breakdown", "UI")
+    Rel(operator, view, "Adjusts probe interval", "UI, AC-05")
+    Rel(view, store, "Renders State / sends Intent")
+    Rel(store, reducer, "Dispatches Intent, applies new State")
+    Rel(store, probing, "Starts probe Task, reads settings")
+    Rel(probing, gateway, "ICMP echo probe", "ICMP")
+    Rel(probing, external_host, "TCP+TLS handshake, no HTTP request", "TCP/TLS")
+    Rel(store, prefs, "Reads/writes probe interval", "@AppStorage")
+```
+
+The container view shows one process split into four internal containers per the MVI
+convention: the `View` only renders and forwards intents; the `Store` owns the running probe
+loop and holds state; the `Reducer` is pure business logic (hysteresis, AC-08 combination); and
+`ConnectionProbing` is where all I/O — both probes and the permission check — actually happens.
+`UserDefaults` stores only the probe interval, since the external host and the gateway threshold
+are fixed constants (§4), not user-editable settings (spec §6.1). The two external systems are
+reached only from `ConnectionProbing`, matching §3's context boundary — no other container talks
+to the network directly.
+
 
