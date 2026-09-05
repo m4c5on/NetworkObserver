@@ -50,6 +50,8 @@ struct ConnectionHealthView: View {
     @State private var intervalText: String = ""
     @State private var hysteresisText: String = ""
     @State private var settingsExpanded = false
+    @State private var gatewayExplanationExpanded = false
+    @State private var externalExplanationExpanded = false
     /// Chart/stats redraw at 1Hz regardless of probeInterval, decoupling the sparkline's
     /// Canvas redraw cost from a probe cadence that can run as fast as 0.1s.
     @State private var displayLatencyHistory: [Double?] = []
@@ -163,13 +165,51 @@ struct ConnectionHealthView: View {
 
     @ViewBuilder
     private func breakdownRow(gateway: ConnectionHealthDomain.ProbeResult?, external: ConnectionHealthDomain.ProbeResult?) -> some View {
-        HStack {
-            Text("Gateway")
-            probeResultIcon(gateway)
-            Spacer()
-            Text("External")
-            probeResultIcon(external)
+        VStack(alignment: .leading, spacing: Spacing.row) {
+            HStack {
+                Button {
+                    withAnimation { gatewayExplanationExpanded.toggle() }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("Gateway")
+                        probeResultIcon(gateway)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+
+                Button {
+                    withAnimation { externalExplanationExpanded.toggle() }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("External")
+                        probeResultIcon(external)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+
+            if gatewayExplanationExpanded {
+                explanationText(
+                    "Pings your router (ICMP) to measure local network latency. Slow above \(Int(ConnectionHealthDomain.gatewayDegradedThresholdMs))ms; failing when unreachable."
+                )
+            }
+            if externalExplanationExpanded {
+                explanationText(
+                    "TLS handshake to \(ExternalHostProbe().host) checks real internet reachability beyond your router. Slow above \(Int(ExternalHostProbe().slowThresholdMs))ms; failing when unreachable."
+                )
+            }
         }
+    }
+
+    @ViewBuilder
+    private func explanationText(_ text: String) -> some View {
+        Text(text)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+            .transition(.move(edge: .top).combined(with: .opacity))
     }
 
     @ViewBuilder
