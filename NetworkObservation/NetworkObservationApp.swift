@@ -17,6 +17,7 @@ struct NetworkObservationApp: App {
                 .task { connectionHealthStore.start() }
         } label: {
             Image(systemName: connectionHealthStore.state.healthState.statusBarSymbolName)
+                .renderingMode(.original)
                 .foregroundStyle(connectionHealthStore.state.healthState.statusBarColor)
         }
         .menuBarExtraStyle(.window)
