@@ -12,7 +12,7 @@
 | T5 | GatewayProbe (ICMP) | infra | iOS/macOS Engineer | M | T1, T3 | done |
 | T6 | ExternalHostProbe (TCP/TLS) | infra | iOS/macOS Engineer | S | T3 | done |
 | T7 | LocalNetworkPermission | infra | iOS/macOS Engineer | M | T2, T3 | blocked (T2 not verified) |
-| T8 | No-network detection | infra | iOS/macOS Engineer | S | T3 | todo |
+| T8 | No-network detection | infra | iOS/macOS Engineer | S | T3 | done |
 | T9 | Settings (probe interval) | infra | iOS/macOS Engineer | S | T3 | todo |
 | T10 | Store orchestration + sleep/wake | app | iOS/macOS Engineer | L | T4, T5, T6, T7, T8, T9 | blocked (needs T7) |
 | T11 | View (status bar + popover) | ui | iOS/macOS Engineer | M | T10 | blocked (needs T10) |
