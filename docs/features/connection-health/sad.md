@@ -287,6 +287,87 @@ actually raises the OS prompt, and its outcome — not a direct query, since non
 read as granted or denied; a denial locks the app into the permission-needed state described in
 AC-03b, since macOS won't prompt a second time.
 
+**Critical flow 3: hysteresis-gated health state transition (AC-04, AC-04b)**
+
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant Store as ConnectionHealthStore
+    participant Reducer as ConnectionHealthReducer
+    participant View as ConnectionHealthView
+
+    Note over Store,Reducer: current health state = good
+    Store->>Reducer: dispatch .cycleCompleted(candidate: degraded) [cycle 1]
+    Reducer->>Reducer: candidate differs from current state; consecutive-count = 1 (< 3)
+    Reducer-->>Store: State unchanged — still good (AC-04)
+    Store->>Reducer: dispatch .cycleCompleted(candidate: degraded) [cycle 2]
+    Reducer->>Reducer: consecutive-count = 2 (< 3)
+    Reducer-->>Store: State unchanged — still good (AC-04)
+    alt candidate flips before reaching 3 consecutive cycles
+        Store->>Reducer: dispatch .cycleCompleted(candidate: good) [interrupts the streak]
+        Reducer->>Reducer: consecutive-count resets to 0 for the new candidate
+        Reducer-->>Store: State unchanged — count reset, no transition
+    else candidate holds for 3 consecutive cycles
+        Store->>Reducer: dispatch .cycleCompleted(candidate: degraded) [cycle 3]
+        Reducer->>Reducer: consecutive-count = 3 — threshold met
+        Reducer-->>Store: State = degraded
+        Store-->>View: State change
+        View-->>Operator: status bar shows degraded color
+    end
+    Note over Store,Reducer: recovery is symmetric (AC-04b) — the same 3-consecutive-cycle rule gates a move back to a better state
+```
+
+**Critical flow 4: configure probe interval (AC-05)**
+
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant View as ConnectionHealthView
+    participant Store as ConnectionHealthStore
+    participant Prefs as UserDefaults
+
+    Operator->>View: enters a new probe interval
+    View->>Store: dispatch .intervalChanged(value)
+    alt value at or above the enforced minimum interval
+        Store->>Prefs: persist new interval (@AppStorage)
+        Store->>Store: reschedule probe Task at new interval (ADR-0002)
+        Store-->>View: State.probeInterval = value
+        View-->>Operator: shows the updated interval
+    else value below the enforced minimum interval
+        Store-->>View: State.errorMessage = minimum-interval explanation
+        View-->>Operator: shows validation error; previous valid interval stays in effect (AC-05)
+    end
+```
+
+**Critical flow 5: no active network interface (AC-07)**
+
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant Store as ConnectionHealthStore
+    participant Probing as ConnectionProbing
+    participant View as ConnectionHealthView
+
+    Store->>Probing: run probe cycle
+    Probing->>Probing: check for an active network interface
+    alt no active network interface (Wi-Fi off, no cable connected)
+        Probing-->>Store: no-network signal (distinct from a probe timeout)
+        Store-->>View: State = no-network
+        View-->>Operator: status bar shows the distinct "no network" state (AC-07)
+    else network interface active
+        Probing-->>Store: proceed to probe cycle (flow 1)
+    end
+```
+
+Flow 3 shows the AC-04/AC-04b domain invariant explicitly: a candidate result only becomes the
+displayed state after 3 consecutive matching cycles, in either direction, and a flip mid-streak
+resets the count rather than partially applying. Flow 4 is UI-driven (per the `desktop-app`
+target surface): the operator's interval edit is validated in the Store before it is persisted
+or rejected, so an invalid value never reaches `UserDefaults` and the prior interval keeps
+running. Flow 5 covers the edge case where the OS reports no active network interface at all —
+kept distinct from Flow 1's timeout/failure handling so a "cable unplugged" reading is never
+shown as a network fault.
+
 ## 7. Deployment view
 
 There is no server-side topology to scale — the entire system is one signed, notarized `.app`
