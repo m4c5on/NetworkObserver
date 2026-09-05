@@ -1,0 +1,122 @@
+{
+  "slug": "connection-health",
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Spike: verify unprivileged ICMP ping-socket viability on macOS",
+      "layer": "infra",
+      "deps": [],
+      "acs": [],
+      "dod": "A throwaway ICMP echo prototype confirms an unprivileged SOCK_DGRAM/IPPROTO_ICMP round-trip to a real gateway on unsandboxed macOS; the go/fallback result (ADR-0004 Option 1 vs Option 2) is recorded as a note in the ADR's Neutral section.",
+      "files_hint": ["docs/features/connection-health/adr/0004-icmp-gateway-tls-handshake-external-probes.md", "Core/ConnectionProbing/"]
+    },
+    {
+      "id": "T2",
+      "title": "Spike: verify NWBrowser triggers the Local Network prompt and denial is distinguishable",
+      "layer": "infra",
+      "deps": [],
+      "acs": [],
+      "dod": "A throwaway NWBrowser prototype confirms it raises the same Local Network permission prompt as a direct gateway connection, and that a post-denial browse failure is distinguishable from a timeout; the result is recorded as a note in the ADR's Neutral section.",
+      "files_hint": ["docs/features/connection-health/adr/0003-detect-local-network-permission-via-nwbrowser.md", "Core/ConnectionProbing/"]
+    },
+    {
+      "id": "T3",
+      "title": "Define ConnectionHealthDomain (State / Intent / Effect types)",
+      "layer": "domain",
+      "deps": [],
+      "acs": ["AC-01", "AC-07", "AC-08"],
+      "dod": "Unit tests confirm the State enum models good/degraded/unreachable/permission-needed/no-network exhaustively, and per-probe results model ok/slow/failing (AC-08); lint+vet clean.",
+      "files_hint": ["Features/ConnectionHealth/ConnectionHealthDomain.swift"]
+    },
+    {
+      "id": "T4",
+      "title": "ConnectionHealthReducer: AC-08 combination table + AC-04/AC-04b hysteresis",
+      "layer": "domain",
+      "deps": ["T3"],
+      "acs": ["AC-04", "AC-04b", "AC-06", "AC-08"],
+      "dod": "Zero-mock unit tests cover all 9 AC-08 gateway x external combinations, the 100ms AC-06 threshold mapping, and the AC-04/AC-04b 3-consecutive-cycle hysteresis in both directions including a mid-streak reset; lint+vet clean.",
+      "files_hint": ["Features/ConnectionHealth/ConnectionHealthReducer.swift"]
+    },
+    {
+      "id": "T5",
+      "title": "GatewayProbe: ICMP echo + latency",
+      "layer": "infra",
+      "deps": ["T1", "T3"],
+      "acs": ["AC-06"],
+      "dod": "Unit/integration tests confirm the probe returns a reachability+latency result (per T1's confirmed mechanism) against a local target within the probe timeout; lint+vet clean.",
+      "files_hint": ["Core/ConnectionProbing/GatewayProbe.swift"]
+    },
+    {
+      "id": "T6",
+      "title": "ExternalHostProbe: TCP/TLS handshake to 1.1.1.1:443",
+      "layer": "infra",
+      "deps": ["T3"],
+      "acs": ["AC-02", "AC-08"],
+      "dod": "Unit/integration tests confirm a bare TCP+TLS handshake (no HTTP request) reports ok/slow/failing and never touches ICMP; lint+vet clean.",
+      "files_hint": ["Core/ConnectionProbing/ExternalHostProbe.swift"]
+    },
+    {
+      "id": "T7",
+      "title": "LocalNetworkPermission: NWBrowser trigger + denial detection",
+      "layer": "infra",
+      "deps": ["T2", "T3"],
+      "acs": ["AC-03", "AC-03b"],
+      "dod": "Unit tests confirm the trigger emits a distinct permission-needed signal before first grant and after a denial, never conflated with a probe timeout (per T2's confirmed mechanism); lint+vet clean.",
+      "files_hint": ["Core/ConnectionProbing/LocalNetworkPermission.swift"]
+    },
+    {
+      "id": "T8",
+      "title": "Detect no active network interface",
+      "layer": "infra",
+      "deps": ["T3"],
+      "acs": ["AC-07"],
+      "dod": "Unit tests confirm the signal fires distinctly from a probe timeout when no Wi-Fi/Ethernet interface is active; lint+vet clean.",
+      "files_hint": ["Core/ConnectionProbing/NetworkInterfaceMonitor.swift"]
+    },
+    {
+      "id": "T9",
+      "title": "ConnectionHealthSettings: probe interval persistence + validation",
+      "layer": "infra",
+      "deps": ["T3"],
+      "acs": ["AC-05"],
+      "dod": "Unit tests confirm a value at/above the 1s minimum persists via @AppStorage and reschedules, and a value below it is rejected with the previous valid interval retained; lint+vet clean.",
+      "files_hint": ["Core/Settings/ConnectionHealthSettings.swift"]
+    },
+    {
+      "id": "T10",
+      "title": "ConnectionHealthStore: probe loop orchestration + sleep/wake",
+      "layer": "app",
+      "deps": ["T4", "T5", "T6", "T7", "T8", "T9"],
+      "acs": ["AC-01", "AC-02", "AC-03", "AC-03b", "AC-05", "AC-07", "AC-08"],
+      "dod": "Integration tests confirm the structured-concurrency Task loop (ADR-0002) runs the permission check once, then a probe cycle per interval, dispatches results to the Reducer, reschedules on interval change (AC-05), and pauses/resumes across NSWorkspace sleep/wake notifications; lint+vet clean.",
+      "files_hint": ["Features/ConnectionHealth/ConnectionHealthStore.swift"]
+    },
+    {
+      "id": "T11",
+      "title": "ConnectionHealthView: status-bar icon + breakdown popover + settings UI",
+      "layer": "ui",
+      "deps": ["T10"],
+      "acs": ["AC-01", "AC-02", "AC-03", "AC-03b", "AC-05", "AC-06", "AC-07"],
+      "dod": "UI tests confirm the four status-bar colors (good/degraded/unreachable/permission-needed, distinct from no-network) render for their respective states, the click-through popover shows the gateway/external breakdown separately (AC-02), and an out-of-range interval entry shows the validation message (AC-05); lint+vet clean.",
+      "files_hint": ["Features/ConnectionHealth/ConnectionHealthView.swift"]
+    },
+    {
+      "id": "T12",
+      "title": "Wire MenuBarExtra scene + Store DI at app entry",
+      "layer": "wiring",
+      "deps": ["T11"],
+      "acs": [],
+      "dod": "The app builds and launches showing the MenuBarExtra status item with a live Store injected into it (never created inside the Store); a manual smoke run confirms the icon appears; lint+vet clean.",
+      "files_hint": ["App/NetworkObservationApp.swift"]
+    },
+    {
+      "id": "T13",
+      "title": "NFR instrumentation: status-update latency + soak-test logging",
+      "layer": "tests",
+      "deps": ["T10"],
+      "acs": [],
+      "dod": "A local-only os_log instrumentation point records probe-cycle-completion to State-published timestamps (spec §6 QG-3, <=250ms) and health-state transitions (for QG-1/QG-4/QG-5 soak-test log analysis); a test confirms one log line is emitted per cycle; lint+vet clean.",
+      "files_hint": ["NetworkObservationTests/ConnectionHealth/", "Core/ConnectionProbing/"]
+    }
+  ]
+}
