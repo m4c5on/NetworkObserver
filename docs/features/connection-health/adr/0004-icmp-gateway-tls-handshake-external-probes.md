@@ -63,6 +63,14 @@ response body or DNS resolution — the external target is a fixed IP:port).
   Needs a short spike at the start of `implement`; the documented fallback is Option 2's
   TCP-connect-to-gateway approach if it doesn't hold, accepting the "some routers don't listen
   on any fixed port" risk noted alongside it.
+- **Spike result (T1, 2026-09-05):** a throwaway `swift` CLI script opened
+  `socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP)` with no elevated privileges, sent an ICMP echo
+  request to the LAN gateway (192.168.0.1), and received a 28-byte echo reply within the 2s
+  poll window on unsandboxed macOS 26 (arm64). **Option 1 (unprivileged ICMP ping-socket)
+  CONFIRMED viable** — no fallback to Option 2 needed. The app target carries no
+  `.entitlements` file (no App Sandbox), so this CLI result transfers directly to the shipping
+  app; GatewayProbe (T5) should re-verify sandbox-off at runtime if entitlements are ever added
+  later, since a sandboxed target would need Option 2's TCP-connect fallback instead.
 
 ## Links
 
