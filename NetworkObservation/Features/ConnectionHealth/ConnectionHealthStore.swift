@@ -42,6 +42,7 @@ final class ConnectionHealthStore {
         gatewayHost: @escaping () -> String? = DefaultGateway.ipv4Address,
         notificationCenter: NotificationCenter = NSWorkspace.shared.notificationCenter,
         probeInterval: TimeInterval? = nil,
+        hysteresisThreshold: Int? = nil,
         logCycleCompleted: @escaping (Double) -> Void = { ConnectionHealthLogging.logCycleCompleted(elapsedMs: $0) },
         logHealthStateTransition: @escaping (ConnectionHealthDomain.HealthState, ConnectionHealthDomain.HealthState) -> Void = ConnectionHealthLogging.logHealthStateTransition
     ) {
@@ -65,7 +66,9 @@ final class ConnectionHealthStore {
             errorMessage: initial.errorMessage,
             pendingCandidate: initial.pendingCandidate,
             pendingCount: initial.pendingCount,
-            latencyHistory: initial.latencyHistory
+            latencyHistory: initial.latencyHistory,
+            hysteresisThreshold: hysteresisThreshold ?? settings.hysteresisThreshold,
+            hysteresisErrorMessage: initial.hysteresisErrorMessage
         )
         self.state = initial
     }
@@ -111,6 +114,13 @@ final class ConnectionHealthStore {
         case .rescheduleProbeLoop:
             loopTask?.cancel()
             loopTask = Task { [weak self] in await self?.probeLoop() }
+
+        case .persistHysteresisThreshold(let candidate):
+            if settings.setHysteresisThreshold(candidate) {
+                send(._hysteresisThresholdAccepted(candidate))
+            } else {
+                send(._hysteresisThresholdRejected(minimum: ConnectionHealthSettings.minimumHysteresisThreshold))
+            }
         }
     }
 

@@ -16,6 +16,9 @@ struct ConnectionHealthReducer {
         case .intervalChanged(let interval):
             return (state, .persistInterval(interval))
 
+        case .hysteresisThresholdChanged(let threshold):
+            return (state, .persistHysteresisThreshold(threshold))
+
         case ._cycleCompleted(let gatewayLatencyMs, let external):
             return (reduceCycleCompleted(state: state, gatewayLatencyMs: gatewayLatencyMs, external: external), nil)
 
@@ -29,7 +32,9 @@ struct ConnectionHealthReducer {
                     errorMessage: state.errorMessage,
                     pendingCandidate: nil,
                     pendingCount: 0,
-                    latencyHistory: state.latencyHistory
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage
                 ),
                 nil
             )
@@ -44,7 +49,9 @@ struct ConnectionHealthReducer {
                     errorMessage: state.errorMessage,
                     pendingCandidate: nil,
                     pendingCount: 0,
-                    latencyHistory: state.latencyHistory
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage
                 ),
                 nil
             )
@@ -59,7 +66,9 @@ struct ConnectionHealthReducer {
                     errorMessage: nil,
                     pendingCandidate: state.pendingCandidate,
                     pendingCount: state.pendingCount,
-                    latencyHistory: state.latencyHistory
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage
                 ),
                 .rescheduleProbeLoop(interval)
             )
@@ -74,7 +83,43 @@ struct ConnectionHealthReducer {
                     errorMessage: "Minimum probe interval is \(minimum)s",
                     pendingCandidate: state.pendingCandidate,
                     pendingCount: state.pendingCount,
-                    latencyHistory: state.latencyHistory
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: state.hysteresisErrorMessage
+                ),
+                nil
+            )
+
+        case ._hysteresisThresholdAccepted(let threshold):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: state.errorMessage,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: threshold,
+                    hysteresisErrorMessage: nil
+                ),
+                nil
+            )
+
+        case ._hysteresisThresholdRejected(let minimum):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: state.errorMessage,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount,
+                    latencyHistory: state.latencyHistory,
+                    hysteresisThreshold: state.hysteresisThreshold,
+                    hysteresisErrorMessage: "Minimum hysteresis is \(minimum) cycle(s)"
                 ),
                 nil
             )
@@ -99,8 +144,9 @@ struct ConnectionHealthReducer {
         return .good
     }
 
-    /// AC-04/AC-04b: a candidate only becomes the displayed health state after 3 consecutive
-    /// cycles report it (ADR-0005 — hysteresis on the already-combined candidate).
+    /// AC-04/AC-04b: a candidate only becomes the displayed health state after
+    /// `state.hysteresisThreshold` consecutive cycles report it (ADR-0005 — hysteresis on the
+    /// already-combined candidate; a threshold of 1 disables debouncing entirely).
     private func reduceCycleCompleted(
         state: Domain.State,
         gatewayLatencyMs: Double?,
@@ -124,7 +170,7 @@ struct ConnectionHealthReducer {
             newPendingCount = 1
         }
 
-        if newPendingCount >= 3 {
+        if newPendingCount >= state.hysteresisThreshold {
             newHealthState = candidate
             newPendingCandidate = nil
             newPendingCount = 0
@@ -144,7 +190,9 @@ struct ConnectionHealthReducer {
             errorMessage: state.errorMessage,
             pendingCandidate: newPendingCandidate,
             pendingCount: newPendingCount,
-            latencyHistory: newLatencyHistory
+            latencyHistory: newLatencyHistory,
+            hysteresisThreshold: state.hysteresisThreshold,
+            hysteresisErrorMessage: state.hysteresisErrorMessage
         )
     }
 }

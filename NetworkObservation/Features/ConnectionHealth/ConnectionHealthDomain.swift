@@ -39,11 +39,15 @@ enum ConnectionHealthDomain {
         /// Gateway latency per completed cycle, oldest first, capped at `latencyHistoryLimit`;
         /// `nil` marks a cycle where the gateway was unreachable.
         let latencyHistory: [Double?]
+        /// AC-04/AC-04b: consecutive cycles a candidate must hold before it becomes `healthState`.
+        let hysteresisThreshold: Int
+        let hysteresisErrorMessage: String?
     }
 
     enum Intent {
         // View
         case intervalChanged(TimeInterval)
+        case hysteresisThresholdChanged(Int)
 
         // Internal
         case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult)
@@ -51,6 +55,8 @@ enum ConnectionHealthDomain {
         case _noNetwork
         case _intervalAccepted(TimeInterval)
         case _intervalRejected(minimum: TimeInterval)
+        case _hysteresisThresholdAccepted(Int)
+        case _hysteresisThresholdRejected(minimum: Int)
 
         // Delegate
     }
@@ -58,6 +64,7 @@ enum ConnectionHealthDomain {
     enum Effect {
         case persistInterval(TimeInterval)
         case rescheduleProbeLoop(TimeInterval)
+        case persistHysteresisThreshold(Int)
     }
 }
 
@@ -71,7 +78,9 @@ extension ConnectionHealthDomain.State {
             errorMessage: nil,
             pendingCandidate: nil,
             pendingCount: 0,
-            latencyHistory: []
+            latencyHistory: [],
+            hysteresisThreshold: 3,
+            hysteresisErrorMessage: nil
         )
     }
 }
