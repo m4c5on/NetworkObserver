@@ -108,4 +108,28 @@ struct ConnectionHealthReducerTests {
         (state, _) = reducer.reduce(state: state, intent: ._cycleCompleted(gatewayLatencyMs: 50, external: .ok))
         #expect(state.healthState == .good)
     }
+
+    // MARK: - AC-05: interval accepted/rejected (post-validation, driven by Settings)
+
+    @Test func intervalAcceptedUpdatesStateAndClearsAnyPriorError() {
+        var state = Domain.State.initial
+        (state, _) = reducer.reduce(state: state, intent: ._intervalRejected(minimum: 1))
+        #expect(state.errorMessage != nil)
+        let (newState, effect) = reducer.reduce(state: state, intent: ._intervalAccepted(10))
+        #expect(newState.probeInterval == 10)
+        #expect(newState.errorMessage == nil)
+        guard case .rescheduleProbeLoop(let interval) = effect else {
+            Issue.record("expected a rescheduleProbeLoop effect")
+            return
+        }
+        #expect(interval == 10)
+    }
+
+    @Test func intervalRejectedSetsAnErrorAndKeepsThePreviousInterval() {
+        let state = Domain.State.initial
+        let (newState, effect) = reducer.reduce(state: state, intent: ._intervalRejected(minimum: 1))
+        #expect(newState.probeInterval == state.probeInterval)
+        #expect(newState.errorMessage != nil)
+        #expect(effect == nil)
+    }
 }

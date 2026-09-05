@@ -49,6 +49,34 @@ struct ConnectionHealthReducer {
                 ),
                 nil
             )
+
+        case ._intervalAccepted(let interval):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: interval,
+                    errorMessage: nil,
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount
+                ),
+                .rescheduleProbeLoop(interval)
+            )
+
+        case ._intervalRejected(let minimum):
+            return (
+                Domain.State(
+                    healthState: state.healthState,
+                    gatewayResult: state.gatewayResult,
+                    externalResult: state.externalResult,
+                    probeInterval: state.probeInterval,
+                    errorMessage: "Minimum probe interval is \(Int(minimum))s",
+                    pendingCandidate: state.pendingCandidate,
+                    pendingCount: state.pendingCount
+                ),
+                nil
+            )
         }
     }
 

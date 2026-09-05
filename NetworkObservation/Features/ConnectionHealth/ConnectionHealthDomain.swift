@@ -39,6 +39,8 @@ enum ConnectionHealthDomain {
         case _cycleCompleted(gatewayLatencyMs: Double?, external: ProbeResult)
         case _permissionNeeded
         case _noNetwork
+        case _intervalAccepted(TimeInterval)
+        case _intervalRejected(minimum: TimeInterval)
 
         // Delegate
     }
