@@ -24,6 +24,8 @@ final class ConnectionHealthStore {
     private let checkPermission: (TimeInterval) async -> LocalNetworkPermission.Result
     private let gatewayHost: () -> String?
     private let notificationCenter: NotificationCenter
+    private let logCycleCompleted: (Double) -> Void
+    private let logHealthStateTransition: (ConnectionHealthDomain.HealthState, ConnectionHealthDomain.HealthState) -> Void
 
     private var loopTask: Task<Void, Never>?
     private var isPaused = false
@@ -39,7 +41,9 @@ final class ConnectionHealthStore {
         checkPermission: @escaping (TimeInterval) async -> LocalNetworkPermission.Result = LocalNetworkPermission.checkPermission,
         gatewayHost: @escaping () -> String? = DefaultGateway.ipv4Address,
         notificationCenter: NotificationCenter = NSWorkspace.shared.notificationCenter,
-        probeInterval: TimeInterval? = nil
+        probeInterval: TimeInterval? = nil,
+        logCycleCompleted: @escaping (Double) -> Void = { ConnectionHealthLogging.logCycleCompleted(elapsedMs: $0) },
+        logHealthStateTransition: @escaping (ConnectionHealthDomain.HealthState, ConnectionHealthDomain.HealthState) -> Void = ConnectionHealthLogging.logHealthStateTransition
     ) {
         self.reducer = reducer
         self.probeGateway = probeGateway
@@ -49,6 +53,8 @@ final class ConnectionHealthStore {
         self.checkPermission = checkPermission
         self.gatewayHost = gatewayHost
         self.notificationCenter = notificationCenter
+        self.logCycleCompleted = logCycleCompleted
+        self.logHealthStateTransition = logHealthStateTransition
 
         var initial = ConnectionHealthDomain.State.initial
         initial = ConnectionHealthDomain.State(
@@ -80,8 +86,12 @@ final class ConnectionHealthStore {
     }
 
     func send(_ intent: ConnectionHealthDomain.Intent) {
+        let previousHealthState = state.healthState
         let (newState, effect) = reducer.reduce(state: state, intent: intent)
         state = newState
+        if newState.healthState != previousHealthState {
+            logHealthStateTransition(previousHealthState, newState.healthState)
+        }
         guard let effect else { return }
         Task { [weak self] in await self?.execute(effect) }
     }
@@ -132,9 +142,12 @@ final class ConnectionHealthStore {
             return
         }
 
+        let cycleStart = DispatchTime.now()
+
         guard let host = gatewayHost() else {
             let external = await probeExternal()
             send(._cycleCompleted(gatewayLatencyMs: nil, external: external))
+            logCycleCompleted(elapsedMs(since: cycleStart))
             return
         }
 
@@ -143,6 +156,11 @@ final class ConnectionHealthStore {
         let gateway = await gatewayResult
         let external = await externalResult
         send(._cycleCompleted(gatewayLatencyMs: gateway.reachable ? gateway.latencyMs : nil, external: external))
+        logCycleCompleted(elapsedMs(since: cycleStart))
+    }
+
+    private func elapsedMs(since start: DispatchTime) -> Double {
+        Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
     }
 
     private func registerForSleepWake() {
