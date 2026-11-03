@@ -31,11 +31,10 @@ struct LinkWatcherView: View {
         .navigationSubtitle(LinkWatcherFormatting.summary(for: store.state.links))
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                BrowserPicker(
-                    browsers: store.state.browsers,
-                    selection: store.state.selectedBrowser,
-                    onSelect: { store.send(.browserSelected($0)) }
-                )
+                SettingsLink {
+                    Label("Settings", systemImage: "gearshape")
+                }
+                .help("Settings")
             }
         }
         .task { store.send(.viewAppeared) }
@@ -62,8 +61,19 @@ struct LinkWatcherView: View {
                                 onResetStatistics: { store.send(.resetStatisticsTapped(linkID: link.id)) },
                                 onRemove: { store.send(.removeTapped(linkID: link.id)) }
                             )
+                            // Drag a card onto another to reorder; the URL is the payload, so a
+                            // card can also be dropped into a browser.
+                            .draggable(link.url)
+                            .dropDestination(for: URL.self) { urls, _ in
+                                guard let url = urls.first,
+                                      let moved = store.state.links.first(where: { $0.url == url })
+                                else { return false }
+                                store.send(.linkMoved(linkID: moved.id, toPositionOf: link.id))
+                                return true
+                            }
                         }
                     }
+                    .animation(.smooth, value: store.state.links.map(\.id))
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)

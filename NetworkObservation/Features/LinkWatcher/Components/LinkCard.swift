@@ -8,8 +8,6 @@ struct LinkCard: View {
     let onResetStatistics: () -> Void
     let onRemove: () -> Void
 
-    @State private var isHovered = false
-
     private let cornerRadius: CGFloat = 20
 
     var body: some View {
@@ -21,7 +19,6 @@ struct LinkCard: View {
         .padding(14)
         .glassEffect(.regular.tint(tint), in: .rect(cornerRadius: cornerRadius))
         .contentShape(.rect(cornerRadius: cornerRadius))
-        .onHover { isHovered = $0 }
         .onTapGesture(count: 2, perform: onOpen)
         .contextMenu {
             Button("Open", systemImage: "arrow.up.right", action: onOpen)
@@ -67,8 +64,6 @@ struct LinkCard: View {
             Spacer(minLength: 8)
 
             CardIconButton(systemName: "xmark", label: "Remove", action: onRemove)
-                .opacity(isHovered ? 1 : 0)
-                .allowsHitTesting(isHovered)
 
             CardIconButton(
                 systemName: link.isMuted ? "bell.slash.fill" : "bell.fill",

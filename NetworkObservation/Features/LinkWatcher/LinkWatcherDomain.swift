@@ -30,6 +30,8 @@ nonisolated enum LinkWatcherDomain {
         case muteToggled(linkID: UUID)
         case resetStatisticsTapped(linkID: UUID)
         case removeTapped(linkID: UUID)
+        /// Drag and drop: the moved link takes the target's position in the list.
+        case linkMoved(linkID: UUID, toPositionOf: UUID)
 
         // App
         case networkAvailabilityChanged(Bool)

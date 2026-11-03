@@ -49,6 +49,15 @@ nonisolated struct LinkWatcherReducer {
         case .removeTapped(let linkID):
             return (state.copy(links: state.links.filter { $0.id != linkID }), .stopMonitoring(linkID: linkID))
 
+        case .linkMoved(let linkID, let targetID):
+            guard linkID != targetID,
+                  let from = state.links.firstIndex(where: { $0.id == linkID }),
+                  let to = state.links.firstIndex(where: { $0.id == targetID })
+            else { return (state, nil) }
+            var links = state.links
+            links.insert(links.remove(at: from), at: to)
+            return (state.copy(links: links), .saveWatchlist)
+
         case .networkAvailabilityChanged(let isAvailable):
             return (state.copy(isNetworkAvailable: isAvailable), nil)
 

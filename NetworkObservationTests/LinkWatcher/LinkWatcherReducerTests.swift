@@ -234,6 +234,44 @@ struct LinkWatcherReducerTests {
         #expect(effect == .saveWatchlist)
     }
 
+    // MARK: - Reordering
+
+    @Test(arguments: [
+        (moving: 0, onto: 2, expected: [1, 2, 0]),
+        (moving: 2, onto: 0, expected: [2, 0, 1]),
+        (moving: 0, onto: 1, expected: [1, 0, 2]),
+    ])
+    func movingALinkTakesThePositionOfTheTarget(moving: Int, onto: Int, expected: [Int]) throws {
+        let links = try (0..<3).map { try makeLink(id: UUID(), url: "https://site\($0).example.com") }
+        let state = Domain.State.initial.copy(links: links)
+
+        let (newState, effect) = reducer.reduce(
+            state: state,
+            intent: .linkMoved(linkID: links[moving].id, toPositionOf: links[onto].id)
+        )
+
+        #expect(newState.links.map(\.id) == expected.map { links[$0].id })
+        #expect(effect == .saveWatchlist)
+    }
+
+    @Test func movingALinkOntoItselfChangesNothing() throws {
+        let state = Domain.State.initial.copy(links: [try makeLink()])
+
+        let (newState, effect) = reducer.reduce(state: state, intent: .linkMoved(linkID: linkID, toPositionOf: linkID))
+
+        #expect(newState == state)
+        #expect(effect == nil)
+    }
+
+    @Test func movingAnUnknownLinkChangesNothing() throws {
+        let state = Domain.State.initial.copy(links: [try makeLink()])
+
+        let (newState, effect) = reducer.reduce(state: state, intent: .linkMoved(linkID: UUID(), toPositionOf: linkID))
+
+        #expect(newState == state)
+        #expect(effect == nil)
+    }
+
     // MARK: - Network availability
 
     @Test func networkIsAssumedAvailableUntilToldOtherwise() {
@@ -252,9 +290,13 @@ struct LinkWatcherReducerTests {
 
     // MARK: - Helpers
 
-    private func makeLink(state: ConnectionState = .unknown) throws -> MonitoredLink {
-        let url = try #require(URL(string: "https://staging.example.com"))
-        let link = MonitoredLink.new(id: linkID, url: url, startedAt: start)
+    private func makeLink(
+        id: UUID? = nil,
+        url urlString: String = "https://staging.example.com",
+        state: ConnectionState = .unknown
+    ) throws -> MonitoredLink {
+        let url = try #require(URL(string: urlString))
+        let link = MonitoredLink.new(id: id ?? linkID, url: url, startedAt: start)
         guard state != .unknown else { return link }
         let result: CheckResult = state == .online ? .up(statusCode: 200, latency: .milliseconds(50)) : .down(.timeout)
         return link.applying(MonitorUpdate(result: result, state: state, isVerifying: false, transition: nil), at: start)

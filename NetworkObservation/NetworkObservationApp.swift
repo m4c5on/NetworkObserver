@@ -30,7 +30,10 @@ struct NetworkObservationApp: App {
         .menuBarExtraStyle(.window)
 
         Settings {
-            ConnectionHealthSettingsView(store: coordinator.connectionHealthStore)
+            SettingsView(
+                connectionHealthStore: coordinator.connectionHealthStore,
+                linkWatcherStore: coordinator.linkWatcherStore
+            )
         }
     }
 }
