@@ -24,12 +24,12 @@ struct LinkCard: View {
         .contextMenu {
             Button("Open", systemImage: "arrow.up.right", action: onOpen)
             Button(
-                link.isPaused ? "Resume" : "Pause",
+                link.isPaused ? LocalizedStringKey("Resume") : LocalizedStringKey("Pause"),
                 systemImage: link.isPaused ? "play" : "pause",
                 action: onTogglePause
             )
             Button(
-                link.isMuted ? "Unmute Notifications" : "Mute Notifications",
+                link.isMuted ? LocalizedStringKey("Unmute Notifications") : LocalizedStringKey("Mute Notifications"),
                 systemImage: link.isMuted ? "bell" : "bell.slash",
                 action: onToggleMute
             )
@@ -121,7 +121,7 @@ struct LinkCard: View {
 
 private struct CardIconButton: View {
     let systemName: String
-    let label: String
+    let label: LocalizedStringKey
     var isHighlighted = false
     let action: () -> Void
 
@@ -168,13 +168,17 @@ private struct StatusCodeButton: View {
         .help("What does HTTP \(statusCode) mean?")
         .popover(isPresented: $isExplanationShown, arrowEdge: .bottom) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("\(statusCode) \(HTTPStatusDescription.name(for: statusCode))")
+                Text(verbatim: "\(statusCode) \(HTTPStatusDescription.name(for: statusCode))")
                     .font(.headline)
                 Text(HTTPStatusDescription.explanation(for: statusCode))
                     .fixedSize(horizontal: false, vertical: true)
-                Text(isAccepted
-                    ? "Counted as online for this link."
-                    : "Counted as down for this link. Accepted codes can be changed in the link's request settings.")
+                Group {
+                    if isAccepted {
+                        Text("Counted as online for this link.")
+                    } else {
+                        Text("Counted as down for this link. Accepted codes can be changed in the link's request settings.")
+                    }
+                }
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

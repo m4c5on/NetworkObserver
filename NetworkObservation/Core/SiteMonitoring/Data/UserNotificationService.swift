@@ -30,10 +30,10 @@ final class UserNotificationService: NSObject, ConnectionNotifier, NetworkNotifi
         let content = UNMutableNotificationContent()
         switch alert.kind {
         case .cameOnline(let downtime):
-            content.title = "\(host) is up"
-            content.body = "Back online after \(DisplayFormatting.elapsed(downtime))"
+            content.title = String(localized: "\(host) is up")
+            content.body = String(localized: "Back online after \(DisplayFormatting.elapsed(downtime))")
         case .wentOffline(let reason):
-            content.title = "\(host) is down"
+            content.title = String(localized: "\(host) is down")
             content.body = reason.displayText
         }
         content.sound = .default
@@ -52,11 +52,11 @@ final class UserNotificationService: NSObject, ConnectionNotifier, NetworkNotifi
         let content = UNMutableNotificationContent()
         switch event {
         case .wentDown:
-            content.title = "Internet connection lost"
-            content.body = "Site checks are paused until the connection is back."
+            content.title = String(localized: "Internet connection lost")
+            content.body = String(localized: "Site checks are paused until the connection is back.")
         case .cameBack(let downtime):
-            content.title = "Internet connection restored"
-            content.body = "Back online after \(DisplayFormatting.elapsed(downtime))"
+            content.title = String(localized: "Internet connection restored")
+            content.body = String(localized: "Back online after \(DisplayFormatting.elapsed(downtime))")
         }
         content.sound = .default
         content.badge = NSNumber(value: unseenCount)

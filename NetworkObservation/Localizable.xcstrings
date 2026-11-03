@@ -1,0 +1,1790 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ is down": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ недоступен"
+          }
+        }
+      }
+    },
+    "%@ is up": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ доступен"
+          }
+        }
+      }
+    },
+    "%@ s": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ с"
+          }
+        }
+      }
+    },
+    "%lld checking": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на проверке"
+          }
+        }
+      }
+    },
+    "%lld failed checks": {
+      "localizations": {
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неудачная проверка"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неудачные проверки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неудачных проверок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неудачной проверки"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld ms": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld мс"
+          }
+        }
+      }
+    },
+    "%lld offline": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld офлайн"
+          }
+        }
+      }
+    },
+    "%lld online": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld онлайн"
+          }
+        }
+      }
+    },
+    "%lld paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на паузе"
+          }
+        }
+      }
+    },
+    "1 failed check": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 неудачная проверка"
+          }
+        }
+      }
+    },
+    "A joke code from an April Fools' RFC; some servers use it to reject bots.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шуточный код из первоапрельского RFC; некоторые серверы отвечают им ботам."
+          }
+        }
+      }
+    },
+    "A permanent redirect that keeps the same method and body.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Постоянное перенаправление с тем же методом и телом."
+          }
+        }
+      }
+    },
+    "A proxy or gateway in front of the service didn't get an answer from it in time — the service is hanging or very slow.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прокси или шлюз перед сервисом не дождался от него ответа — сервис завис или очень медленный."
+          }
+        }
+      }
+    },
+    "A proxy or gateway in front of the service got an invalid answer from it — the service behind it is often down or restarting.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прокси или шлюз перед сервисом получил от него некорректный ответ — часто сервис за ним лежит или перезапускается."
+          }
+        }
+      }
+    },
+    "A site goes down": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт упал"
+          }
+        }
+      }
+    },
+    "A site is back up": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт снова доступен"
+          }
+        }
+      }
+    },
+    "A temporary redirect that keeps the same method and body.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Временное перенаправление с тем же методом и телом."
+          }
+        }
+      }
+    },
+    "A temporary redirect to another address — often to a login page.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Временное перенаправление на другой адрес — часто на страницу входа."
+          }
+        }
+      }
+    },
+    "Accepted": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepted"
+          }
+        }
+      }
+    },
+    "Accepted status codes": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Допустимые коды ответа"
+          }
+        }
+      }
+    },
+    "Add a site to watch — example.com": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте сайт для отслеживания — example.com"
+          }
+        }
+      }
+    },
+    "Add a website or API URL. It's checked every 15 seconds — you'll be notified when it goes down or comes back up.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте сайт или адрес API. Он проверяется каждые 15 секунд — вы получите уведомление, когда он упадёт или снова станет доступен."
+          }
+        }
+      }
+    },
+    "An interim response: the server received the request and is still working on it.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Промежуточный ответ: сервер получил запрос и ещё обрабатывает его."
+          }
+        }
+      }
+    },
+    "Any other response counts as down. For a protected API checked without a token, add 401. POST, PUT and PATCH are sent without a body.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Любой другой ответ считается падением. Для защищённого API, который проверяется без токена, добавьте 401. POST, PUT и PATCH отправляются без тела."
+          }
+        }
+      }
+    },
+    "Avg": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сред."
+          }
+        }
+      }
+    },
+    "Back online after %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снова онлайн через %@"
+          }
+        }
+      }
+    },
+    "Bad Gateway": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Gateway"
+          }
+        }
+      }
+    },
+    "Bad Request": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Request"
+          }
+        }
+      }
+    },
+    "Bad color": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет «плохо»"
+          }
+        }
+      }
+    },
+    "Can't connect": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удаётся подключиться"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отменить"
+          }
+        }
+      }
+    },
+    "Checking…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка…"
+          }
+        }
+      }
+    },
+    "Checks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверки"
+          }
+        }
+      }
+    },
+    "Client Error": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ошибка клиента"
+          }
+        }
+      }
+    },
+    "Colors": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвета"
+          }
+        }
+      }
+    },
+    "Conflict": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflict"
+          }
+        }
+      }
+    },
+    "Connection is badly degraded.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соединение сильно ухудшено."
+          }
+        }
+      }
+    },
+    "Connection is degraded.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соединение ухудшено."
+          }
+        }
+      }
+    },
+    "Connection is healthy.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соединение в порядке."
+          }
+        }
+      }
+    },
+    "Connection is unreachable.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соединение недоступно."
+          }
+        }
+      }
+    },
+    "Content Too Large": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content Too Large"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "Counted as down for this link. Accepted codes can be changed in the link's request settings.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этой ссылки считается падением. Допустимые коды можно изменить в настройках запроса ссылки."
+          }
+        }
+      }
+    },
+    "Counted as online for this link.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этой ссылки считается «онлайн»."
+          }
+        }
+      }
+    },
+    "Created": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Created"
+          }
+        }
+      }
+    },
+    "Degraded color": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет «ухудшено»"
+          }
+        }
+      }
+    },
+    "Enter a valid http(s) URL": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите корректный адрес http(s)"
+          }
+        }
+      }
+    },
+    "Enter status codes from 100 to 599, separated by commas.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите коды от 100 до 599 через запятую."
+          }
+        }
+      }
+    },
+    "Everything worked: the server handled the request and returned a result.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё сработало: сервер обработал запрос и вернул результат."
+          }
+        }
+      }
+    },
+    "Forbidden": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forbidden"
+          }
+        }
+      }
+    },
+    "Found": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Found"
+          }
+        }
+      }
+    },
+    "Gateway Timeout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gateway Timeout"
+          }
+        }
+      }
+    },
+    "Gone": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gone"
+          }
+        }
+      }
+    },
+    "Good color": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цвет «хорошо»"
+          }
+        }
+      }
+    },
+    "HTTP %lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTP %lld"
+          }
+        }
+      }
+    },
+    "Host not found — VPN?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хост не найден — VPN?"
+          }
+        }
+      }
+    },
+    "Hysteresis (cycles)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гистерезис (циклы)"
+          }
+        }
+      }
+    },
+    "I'm a Teapot": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm a Teapot"
+          }
+        }
+      }
+    },
+    "Informational": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Информационный"
+          }
+        }
+      }
+    },
+    "Internal Server Error": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "Internet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интернет"
+          }
+        }
+      }
+    },
+    "Internet badly threshold (ms)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сильный порог интернета (мс)"
+          }
+        }
+      }
+    },
+    "Internet connection lost": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интернет пропал"
+          }
+        }
+      }
+    },
+    "Internet connection restored": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интернет восстановлен"
+          }
+        }
+      }
+    },
+    "Internet threshold (ms)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Порог интернета (мс)"
+          }
+        }
+      }
+    },
+    "Last %lld checks": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последние проверки: %lld"
+          }
+        }
+      }
+    },
+    "Local Network permission is required. Grant it in System Settings > Privacy & Security > Local Network.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нужен доступ к локальной сети. Разрешите его в Системных настройках > Конфиденциальность и безопасность > Локальная сеть."
+          }
+        }
+      }
+    },
+    "Max": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Макс."
+          }
+        }
+      }
+    },
+    "Method": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Метод"
+          }
+        }
+      }
+    },
+    "Method Not Allowed": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Method Not Allowed"
+          }
+        }
+      }
+    },
+    "Min": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мин."
+          }
+        }
+      }
+    },
+    "Minimum elapsed badly threshold is %lldms": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный сильный порог интернета — %lld мс"
+          }
+        }
+      }
+    },
+    "Minimum elapsed threshold is %lldms": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный порог интернета — %lld мс"
+          }
+        }
+      }
+    },
+    "Minimum gateway badly threshold is %lldms": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный сильный порог роутера — %lld мс"
+          }
+        }
+      }
+    },
+    "Minimum gateway threshold is %lldms": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный порог роутера — %lld мс"
+          }
+        }
+      }
+    },
+    "Minimum hysteresis is %lld cycle(s)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный гистерезис — %lld цикл(ов)"
+          }
+        }
+      }
+    },
+    "Minimum probe interval is %@s": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимальный интервал проверки — %@ с"
+          }
+        }
+      }
+    },
+    "Moved Permanently": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moved Permanently"
+          }
+        }
+      }
+    },
+    "Mute Notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключить уведомления"
+          }
+        }
+      }
+    },
+    "Mute notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключить уведомления"
+          }
+        }
+      }
+    },
+    "Network": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сеть"
+          }
+        }
+      }
+    },
+    "No Content": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Content"
+          }
+        }
+      }
+    },
+    "No active network interface (Wi-Fi/Ethernet).": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет активного сетевого интерфейса (Wi-Fi/Ethernet)."
+          }
+        }
+      }
+    },
+    "No internet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет интернета"
+          }
+        }
+      }
+    },
+    "No internet connection — site checks are paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет подключения к интернету — проверки сайтов на паузе"
+          }
+        }
+      }
+    },
+    "No response": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет ответа"
+          }
+        }
+      }
+    },
+    "No sites yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайтов пока нет"
+          }
+        }
+      }
+    },
+    "Not Acceptable": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Acceptable"
+          }
+        }
+      }
+    },
+    "Not Found": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Found"
+          }
+        }
+      }
+    },
+    "Not Implemented": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Implemented"
+          }
+        }
+      }
+    },
+    "Not Modified": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Modified"
+          }
+        }
+      }
+    },
+    "Not an HTTP response": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответ не по HTTP"
+          }
+        }
+      }
+    },
+    "Not responding — verifying…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не отвечает — перепроверка…"
+          }
+        }
+      }
+    },
+    "Notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "Offline for %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Офлайн %@"
+          }
+        }
+      }
+    },
+    "Online for %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Онлайн %@"
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть"
+          }
+        }
+      }
+    },
+    "Open in browser": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть в браузере"
+          }
+        }
+      }
+    },
+    "Open links with": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открывать ссылки в"
+          }
+        }
+      }
+    },
+    "Outages": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падения"
+          }
+        }
+      }
+    },
+    "Pause": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза"
+          }
+        }
+      }
+    },
+    "Pause monitoring": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановить мониторинг"
+          }
+        }
+      }
+    },
+    "Paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На паузе"
+          }
+        }
+      }
+    },
+    "Permanent Redirect": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanent Redirect"
+          }
+        }
+      }
+    },
+    "Probe interval (s)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интервал проверки (с)"
+          }
+        }
+      }
+    },
+    "Probing": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка"
+          }
+        }
+      }
+    },
+    "Rate limit: too many requests in a short time. The server is up but asks to slow down.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит запросов: слишком много запросов за короткое время. Сервер работает, но просит сбавить темп."
+          }
+        }
+      }
+    },
+    "Redirection": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенаправление"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить"
+          }
+        }
+      }
+    },
+    "Request Settings…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки запроса…"
+          }
+        }
+      }
+    },
+    "Request Timeout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request Timeout"
+          }
+        }
+      }
+    },
+    "Request settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки запроса"
+          }
+        }
+      }
+    },
+    "Reset Statistics": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сбросить статистику"
+          }
+        }
+      }
+    },
+    "Responding again — verifying…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снова отвечает — перепроверка…"
+          }
+        }
+      }
+    },
+    "Responding — verifying…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отвечает — перепроверка…"
+          }
+        }
+      }
+    },
+    "Resume": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить"
+          }
+        }
+      }
+    },
+    "Resume monitoring": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить мониторинг"
+          }
+        }
+      }
+    },
+    "Router": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Роутер"
+          }
+        }
+      }
+    },
+    "Router badly threshold (ms)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сильный порог роутера (мс)"
+          }
+        }
+      }
+    },
+    "Router threshold (ms)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Порог роутера (мс)"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "See Other": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Other"
+          }
+        }
+      }
+    },
+    "Server Error": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ошибка сервера"
+          }
+        }
+      }
+    },
+    "Service Unavailable": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки"
+          }
+        }
+      }
+    },
+    "Site checks are paused until the connection is back.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверки сайтов приостановлены до восстановления соединения."
+          }
+        }
+      }
+    },
+    "Sites": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайты"
+          }
+        }
+      }
+    },
+    "Start watching": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Начать отслеживание"
+          }
+        }
+      }
+    },
+    "Success": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Успех"
+          }
+        }
+      }
+    },
+    "Switching Protocols": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switching Protocols"
+          }
+        }
+      }
+    },
+    "System Default": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Браузер по умолчанию"
+          }
+        }
+      }
+    },
+    "TLS error": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ошибка TLS"
+          }
+        }
+      }
+    },
+    "Temporary Redirect": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporary Redirect"
+          }
+        }
+      }
+    },
+    "The address changed for good; the response points to the new one. Update the link to the new address.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адрес изменился навсегда; ответ указывает новый. Обновите ссылку на новый адрес."
+          }
+        }
+      }
+    },
+    "The cached copy is still valid, so the server sent no body.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия в кэше всё ещё актуальна, поэтому сервер не прислал тело."
+          }
+        }
+      }
+    },
+    "The path exists but doesn't accept this HTTP method — e.g. sending GET to an endpoint that only takes POST.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Путь существует, но не принимает этот HTTP-метод — например, GET на endpoint, который принимает только POST."
+          }
+        }
+      }
+    },
+    "The request body is bigger than the server allows.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тело запроса больше, чем разрешает сервер."
+          }
+        }
+      }
+    },
+    "The request conflicts with the current state of the resource, e.g. a duplicate or an edit clash.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос конфликтует с текущим состоянием ресурса, например дубликат или одновременное изменение."
+          }
+        }
+      }
+    },
+    "The request reached the server, but the server failed while handling it. The problem is on the service side.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос дошёл до сервера, но сервер сломался при его обработке. Проблема на стороне сервиса."
+          }
+        }
+      }
+    },
+    "The request succeeded and created a new resource. Usual for POST.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос выполнен и создал новый ресурс. Обычно для POST."
+          }
+        }
+      }
+    },
+    "The request succeeded and there is intentionally nothing in the response body. Usual for PATCH, PUT and DELETE.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос выполнен, а тело ответа намеренно пустое. Обычно для PATCH, PUT и DELETE."
+          }
+        }
+      }
+    },
+    "The request was accepted for processing, which will finish later.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос принят в обработку, она завершится позже."
+          }
+        }
+      }
+    },
+    "The request was well-formed but failed validation — e.g. a required field was missing. The endpoint itself is working.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрос корректный по форме, но не прошёл валидацию — например, не хватает обязательного поля. Сам endpoint работает."
+          }
+        }
+      }
+    },
+    "The resource lives somewhere else; the response points to the new location.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ресурс находится в другом месте; ответ указывает новый адрес."
+          }
+        }
+      }
+    },
+    "The resource was here but has been removed for good.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ресурс был здесь, но удалён навсегда."
+          }
+        }
+      }
+    },
+    "The result should be fetched from another address with GET.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Результат нужно забрать по другому адресу через GET."
+          }
+        }
+      }
+    },
+    "The server can't produce a response in the format the request asked for.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не может вернуть ответ в формате, который запросил клиент."
+          }
+        }
+      }
+    },
+    "The server crashed or hit an unhandled error while handling the request. The bug is in the service.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер упал или получил необработанную ошибку при обработке запроса. Ошибка в самом сервисе."
+          }
+        }
+      }
+    },
+    "The server doesn't accept the body's format — usually a wrong or missing Content-Type.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не принимает формат тела — обычно неверный или отсутствующий Content-Type."
+          }
+        }
+      }
+    },
+    "The server doesn't support what the request needs, e.g. this method.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не поддерживает то, что нужно запросу, например этот метод."
+          }
+        }
+      }
+    },
+    "The server got the request headers and the client can send the body.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер получил заголовки запроса, клиент может отправлять тело."
+          }
+        }
+      }
+    },
+    "The server got tired of waiting for the request to finish arriving.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не дождался, пока запрос придёт полностью."
+          }
+        }
+      }
+    },
+    "The server is switching to another protocol, e.g. WebSocket.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер переключается на другой протокол, например WebSocket."
+          }
+        }
+      }
+    },
+    "The server is up and knows who you are (or doesn't care), but access to this resource is not allowed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер работает и знает, кто вы (или ему это не важно), но доступ к этому ресурсу запрещён."
+          }
+        }
+      }
+    },
+    "The server is up but couldn't understand the request: a required parameter or body is missing or malformed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер работает, но не понял запрос: обязательный параметр или тело отсутствует либо некорректно."
+          }
+        }
+      }
+    },
+    "The server is up but rejected the request itself — something about the request (URL, method, headers or body) is wrong for this endpoint.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер работает, но отклонил сам запрос — что-то в запросе (адрес, метод, заголовки или тело) не подходит для этого endpoint."
+          }
+        }
+      }
+    },
+    "The server is up, but nothing exists at this path. Check the URL, or the route was removed or renamed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер работает, но по этому пути ничего нет. Проверьте адрес — или маршрут удалили либо переименовали."
+          }
+        }
+      }
+    },
+    "The server is up, but the endpoint needs authentication and the request had no valid token or credentials. Without a token this is the normal answer for a protected API — add 401 to the accepted codes to treat it as \"online\".": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер работает, но endpoint требует авторизацию, а в запросе нет действительного токена или учётных данных. Без токена это нормальный ответ защищённого API — добавьте 401 в допустимые коды, чтобы считать его «онлайн»."
+          }
+        }
+      }
+    },
+    "The server received and handled the request successfully.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер получил и успешно обработал запрос."
+          }
+        }
+      }
+    },
+    "The service is temporarily unable to handle requests — overloaded, in maintenance or still starting.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервис временно не может обрабатывать запросы — перегружен, на обслуживании или ещё запускается."
+          }
+        }
+      }
+    },
+    "This URL is already being watched": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот адрес уже отслеживается"
+          }
+        }
+      }
+    },
+    "This is not a standard HTTP status code.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это нестандартный HTTP-код."
+          }
+        }
+      }
+    },
+    "Thresholds": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пороги"
+          }
+        }
+      }
+    },
+    "Timed out": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тайм-аут"
+          }
+        }
+      }
+    },
+    "To silence a single site, use the bell on its card.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы отключить уведомления одного сайта, нажмите колокольчик на его карточке."
+          }
+        }
+      }
+    },
+    "Too Many Requests": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too Many Requests"
+          }
+        }
+      }
+    },
+    "Unauthorized": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unauthorized"
+          }
+        }
+      }
+    },
+    "Unknown": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный"
+          }
+        }
+      }
+    },
+    "Unmute Notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить уведомления"
+          }
+        }
+      }
+    },
+    "Unmute notifications": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить уведомления"
+          }
+        }
+      }
+    },
+    "Unprocessable Content": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprocessable Content"
+          }
+        }
+      }
+    },
+    "Unsupported Media Type": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "Uptime": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступность"
+          }
+        }
+      }
+    },
+    "What does HTTP %lld mean?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что означает HTTP %lld?"
+          }
+        }
+      }
+    },
+    "offline for %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "был офлайн %@"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

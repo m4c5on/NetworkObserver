@@ -19,10 +19,10 @@ enum NotificationKind: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .siteDown: "A site goes down"
-        case .siteUp: "A site is back up"
-        case .internetLost: "Internet connection lost"
-        case .internetRestored: "Internet connection restored"
+        case .siteDown: String(localized: "A site goes down")
+        case .siteUp: String(localized: "A site is back up")
+        case .internetLost: String(localized: "Internet connection lost")
+        case .internetRestored: String(localized: "Internet connection restored")
         }
     }
 }

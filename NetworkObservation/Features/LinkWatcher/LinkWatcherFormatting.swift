@@ -9,7 +9,7 @@ nonisolated enum LinkWatcherFormatting {
     }
 
     static func statusLine(for link: MonitoredLink, now: Date) -> String {
-        guard !link.isPaused else { return "Paused" }
+        guard !link.isPaused else { return String(localized: "Paused") }
 
         let since = DisplayFormatting.elapsed(now.timeIntervalSince(link.stateSince))
         // An HTTP status code is shown by its own button (with an explanation), not in the text.
@@ -20,17 +20,17 @@ nonisolated enum LinkWatcherFormatting {
 
         let parts: [String?] = switch (link.state, link.isVerifying) {
         case (.unknown, false):
-            ["Checking…"]
+            [String(localized: "Checking…")]
         case (.unknown, true):
-            ["Responding — verifying…"]
+            [String(localized: "Responding — verifying…")]
         case (.online, false):
-            ["Online for \(since)", link.lastResult?.latency.map(DisplayFormatting.latency)]
+            [String(localized: "Online for \(since)"), link.lastResult?.latency.map(DisplayFormatting.latency)]
         case (.online, true):
-            ["Not responding — verifying…", reason]
+            [String(localized: "Not responding — verifying…"), reason]
         case (.offline, false):
-            ["Offline for \(since)", failedChecksText(link.consecutiveFailures), reason]
+            [String(localized: "Offline for \(since)"), failedChecksText(link.consecutiveFailures), reason]
         case (.offline, true):
-            ["Responding again — verifying…", "offline for \(since)"]
+            [String(localized: "Responding again — verifying…"), String(localized: "offline for \(since)")]
         }
 
         return parts.compactMap { $0 }.joined(separator: " · ")
@@ -38,10 +38,10 @@ nonisolated enum LinkWatcherFormatting {
 
     static func metrics(for statistics: LinkStatistics) -> [Metric] {
         [
-            Metric(label: "Uptime", value: statistics.uptimeRatio.map(DisplayFormatting.percent) ?? "—"),
-            Metric(label: "Avg", value: statistics.averageLatency.map(DisplayFormatting.latency) ?? "—"),
-            Metric(label: "Checks", value: "\(statistics.totalChecks)"),
-            Metric(label: "Outages", value: "\(statistics.outages)"),
+            Metric(label: String(localized: "Uptime"), value: statistics.uptimeRatio.map(DisplayFormatting.percent) ?? "—"),
+            Metric(label: String(localized: "Avg"), value: statistics.averageLatency.map(DisplayFormatting.latency) ?? "—"),
+            Metric(label: String(localized: "Checks"), value: "\(statistics.totalChecks)"),
+            Metric(label: String(localized: "Outages"), value: "\(statistics.outages)"),
         ]
     }
 
@@ -54,24 +54,24 @@ nonisolated enum LinkWatcherFormatting {
         let paused = links.count - active.count
 
         let parts: [String?] = [
-            "\(online) online",
-            offline > 0 ? "\(offline) offline" : nil,
-            pending > 0 ? "\(pending) checking" : nil,
-            paused > 0 ? "\(paused) paused" : nil,
+            String(localized: "\(online) online"),
+            offline > 0 ? String(localized: "\(offline) offline") : nil,
+            pending > 0 ? String(localized: "\(pending) checking") : nil,
+            paused > 0 ? String(localized: "\(paused) paused") : nil,
         ]
         return parts.compactMap { $0 }.joined(separator: " · ")
     }
 
     static func failedChecksText(_ count: Int) -> String {
-        count == 1 ? "1 failed check" : "\(count) failed checks"
+        count == 1 ? String(localized: "1 failed check") : String(localized: "\(count) failed checks")
     }
 }
 
 nonisolated extension LinkWatcherDomain.InputError {
     var message: String {
         switch self {
-        case .invalidURL: "Enter a valid http(s) URL"
-        case .alreadyWatching: "This URL is already being watched"
+        case .invalidURL: String(localized: "Enter a valid http(s) URL")
+        case .alreadyWatching: String(localized: "This URL is already being watched")
         }
     }
 }

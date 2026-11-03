@@ -15,8 +15,8 @@ nonisolated enum DisplayFormatting {
     static func latency(_ duration: Duration) -> String {
         let milliseconds = duration.inMilliseconds
         return milliseconds < 1000
-            ? "\(Int(milliseconds.rounded())) ms"
-            : String(format: "%.1f s", milliseconds / 1000)
+            ? String(localized: "\(Int(milliseconds.rounded())) ms")
+            : String(localized: "\(String(format: "%.1f", milliseconds / 1000)) s")
     }
 
     static func percent(_ ratio: Double) -> String {
@@ -33,12 +33,12 @@ nonisolated extension Duration {
 nonisolated extension OfflineReason {
     var displayText: String {
         switch self {
-        case .httpStatus(let code): "HTTP \(code)"
-        case .timeout: "Timed out"
-        case .hostNotFound: "Host not found — VPN?"
-        case .cannotConnect: "Can't connect"
-        case .noInternet: "No internet"
-        case .secureConnectionFailed: "TLS error"
+        case .httpStatus(let code): String(localized: "HTTP \(code)")
+        case .timeout: String(localized: "Timed out")
+        case .hostNotFound: String(localized: "Host not found — VPN?")
+        case .cannotConnect: String(localized: "Can't connect")
+        case .noInternet: String(localized: "No internet")
+        case .secureConnectionFailed: String(localized: "TLS error")
         case .other(let message): message
         }
     }

@@ -53,7 +53,7 @@ struct ConnectionHealthChartsView: View {
     @ViewBuilder
     private func latencyStatsRow(samples: [Double?]) -> some View {
         let values = samples.compactMap { $0 }
-        let format: (Double) -> String = { String(format: "%.0f ms", $0) }
+        let format: (Double) -> String = { String(localized: "\(Int($0.rounded())) ms") }
         HStack {
             statColumn(label: "Min", value: values.min().map(format) ?? "—")
             Spacer()
@@ -79,7 +79,7 @@ struct ConnectionHealthChartsView: View {
     }
 
     @ViewBuilder
-    private func statColumn(label: String, value: String) -> some View {
+    private func statColumn(label: LocalizedStringKey, value: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label)
                 .foregroundStyle(.secondary)

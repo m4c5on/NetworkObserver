@@ -116,7 +116,7 @@ nonisolated struct LinkWatcherReducer {
             return (newState, .notify(ConnectionAlert(linkID: linkID, url: link.url, kind: .cameOnline(downtime: downtime))))
 
         case .wentOffline:
-            let reason = update.result.offlineReason ?? .other("No response")
+            let reason = update.result.offlineReason ?? .other(String(localized: "No response"))
             return (newState, .notify(ConnectionAlert(linkID: linkID, url: link.url, kind: .wentOffline(reason))))
 
         case nil:

@@ -81,12 +81,12 @@ extension ConnectionHealthDomain.HealthState {
     /// no-network cause, from a genuine unreachable reading.
     var menuExplanation: String {
         switch self {
-        case .good: return "Connection is healthy."
-        case .degraded: return "Connection is degraded."
-        case .badlyDegraded: return "Connection is badly degraded."
-        case .unreachable: return "Connection is unreachable."
-        case .permissionNeeded: return "Local Network permission is required. Grant it in System Settings > Privacy & Security > Local Network."
-        case .noNetwork: return "No active network interface (Wi-Fi/Ethernet)."
+        case .good: return String(localized: "Connection is healthy.")
+        case .degraded: return String(localized: "Connection is degraded.")
+        case .badlyDegraded: return String(localized: "Connection is badly degraded.")
+        case .unreachable: return String(localized: "Connection is unreachable.")
+        case .permissionNeeded: return String(localized: "Local Network permission is required. Grant it in System Settings > Privacy & Security > Local Network.")
+        case .noNetwork: return String(localized: "No active network interface (Wi-Fi/Ethernet).")
         }
     }
 }

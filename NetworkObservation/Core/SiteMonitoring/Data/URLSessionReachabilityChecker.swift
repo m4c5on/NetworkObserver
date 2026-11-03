@@ -23,7 +23,7 @@ nonisolated struct URLSessionReachabilityChecker: ReachabilityChecker {
             let (_, response) = try await session.data(for: request)
             let latency = start.duration(to: clock.now)
             guard let httpResponse = response as? HTTPURLResponse else {
-                return .failed(.other("Not an HTTP response"))
+                return .failed(.other(String(localized: "Not an HTTP response")))
             }
             return .responded(statusCode: httpResponse.statusCode, latency: latency)
         } catch let error as URLError {

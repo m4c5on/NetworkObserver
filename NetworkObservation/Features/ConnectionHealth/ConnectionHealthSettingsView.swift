@@ -65,7 +65,7 @@ struct ConnectionHealthSettingsView: View {
     /// error message is shown under the field.
     @ViewBuilder
     private func numberField(
-        _ title: String,
+        _ title: LocalizedStringKey,
         text: Binding<String>,
         error: String?,
         intent: @escaping () -> ConnectionHealthDomain.Intent?
@@ -90,7 +90,7 @@ struct ConnectionHealthSettingsView: View {
     }
 
     private func colorPicker(
-        _ title: String,
+        _ title: LocalizedStringKey,
         color: Color,
         intent: @escaping (String) -> ConnectionHealthDomain.Intent
     ) -> some View {
