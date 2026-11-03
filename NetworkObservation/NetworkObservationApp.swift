@@ -9,19 +9,45 @@ import SwiftUI
 
 @main
 struct NetworkObservationApp: App {
-    @State private var connectionHealthStore = ConnectionHealthStore()
+    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
+    private var coordinator: AppCoordinator { appDelegate.coordinator }
 
     var body: some Scene {
+        Window("NetworkObserver", id: MainWindow.id) {
+            MainWindowView(
+                connectionHealthStore: coordinator.connectionHealthStore,
+                linkWatcherStore: coordinator.linkWatcherStore
+            )
+        }
+        .defaultSize(width: 920, height: 560)
+
         MenuBarExtra {
-            ConnectionHealthView(store: connectionHealthStore)
+            ConnectionHealthView(store: coordinator.connectionHealthStore)
         } label: {
-            Image(nsImage: connectionHealthStore.state.healthState.statusBarImage(
-                good: connectionHealthStore.state.goodColor,
-                degraded: connectionHealthStore.state.degradedColor,
-                bad: connectionHealthStore.state.badColor
-            ))
-                .task { connectionHealthStore.start() }
+            StatusBarLabel(coordinator: coordinator)
         }
         .menuBarExtraStyle(.window)
+
+        Settings {
+            ConnectionHealthSettingsView(store: coordinator.connectionHealthStore)
+        }
+    }
+}
+
+private struct StatusBarLabel: View {
+    let coordinator: AppCoordinator
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        let state = coordinator.connectionHealthStore.state
+        Image(nsImage: state.healthState.statusBarImage(
+            good: state.goodColor,
+            degraded: state.degradedColor,
+            bad: state.badColor
+        ))
+        .task {
+            coordinator.openMainWindow = { openWindow(id: MainWindow.id) }
+        }
     }
 }

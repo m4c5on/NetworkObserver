@@ -23,8 +23,8 @@ struct LatencySparklineView: View {
     let goodColor: Color
     let degradedColor: Color
     let badColor: Color
+    var height: CGFloat = 44
 
-    private let chartHeight: CGFloat = 44
     private let lineColor = Color.accentColor
 
     var body: some View {
@@ -43,7 +43,7 @@ struct LatencySparklineView: View {
             drawLineAndArea(context: &context, size: size, x: x, y: y)
             drawFailureMarkers(context: &context, size: size, x: x)
         }
-        .frame(height: chartHeight)
+        .frame(height: height)
         .clipShape(RoundedRectangle(cornerRadius: 6))
     }
 
