@@ -14,7 +14,7 @@ struct NetworkObservationApp: App {
     private var coordinator: AppCoordinator { appDelegate.coordinator }
 
     var body: some Scene {
-        Window("NetworkObserver", id: MainWindow.id) {
+        Window("Peeky Monkey", id: MainWindow.id) {
             MainWindowView(
                 connectionHealthStore: coordinator.connectionHealthStore,
                 linkWatcherStore: coordinator.linkWatcherStore

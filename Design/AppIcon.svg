@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Peeky Monkey app icon: a monkey bent over big yellow binoculars on a tripod.
+       macOS icon grid: 824×824 rounded square centred on a 1024 canvas. The artwork is drawn
+       on a 200×200 grid (content square 8…192) and scaled into the 824 square. -->
+  <defs>
+    <clipPath id="squircle">
+      <rect x="100" y="100" width="824" height="824" rx="185"/>
+    </clipPath>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="#F7F4EC"/>
+  <g clip-path="url(#squircle)">
+    <g transform="translate(64.17 64.17) scale(4.4783)">
+      <circle cx="168" cy="40" r="4" fill="#E3D8BE"/>
+      <circle cx="150" cy="28" r="2.5" fill="#E3D8BE"/>
+      <g stroke="#4A4843" stroke-width="5" stroke-linecap="round">
+        <line x1="122" y1="132" x2="98" y2="196"/>
+        <line x1="122" y1="132" x2="128" y2="198"/>
+        <line x1="122" y1="132" x2="160" y2="192"/>
+      </g>
+      <rect x="114" y="122" width="16" height="12" rx="3" fill="#4A4843"/>
+      <path d="M40 200 Q22 168 36 148" fill="none" stroke="#7A4D2D" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="54" cy="188" rx="36" ry="36" fill="#7A4D2D"/>
+      <g transform="rotate(-28 120 112)">
+        <rect x="96" y="90" width="80" height="20" rx="8" fill="#D9A300"/>
+        <ellipse cx="176" cy="100" rx="5" ry="10" fill="#B88600"/>
+        <rect x="82" y="108" width="14" height="14" rx="3" fill="#3A3935"/>
+        <rect x="92" y="104" width="84" height="25" rx="9" fill="#F5B800"/>
+        <ellipse cx="176" cy="116.5" rx="6.5" ry="12.5" fill="#C99400"/>
+        <rect x="108" y="104" width="6" height="25" fill="#E0A800"/>
+      </g>
+      <circle cx="42" cy="124" r="11" fill="#8A5A36"/>
+      <circle cx="40" cy="124" r="6" fill="#EBCDA4"/>
+      <circle cx="64" cy="128" r="27" fill="#8A5A36"/>
+      <path d="M52 102 Q58 92 66 102" fill="#8A5A36"/>
+      <ellipse cx="86" cy="143" rx="12" ry="9" fill="#EBCDA4"/>
+      <path d="M58 164 Q92 152 126 128" fill="none" stroke="#8A5A36" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="128" cy="126" rx="8" ry="9" fill="#7A4D2D"/>
+      <path d="M50 160 Q74 158 90 138" fill="none" stroke="#7A4D2D" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="91" cy="134" rx="7" ry="9" fill="#6E4527"/>
+    </g>
+  </g>
+  <!-- A hairline edge so the light icon doesn't dissolve into a light Dock. -->
+  <rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="#000000" stroke-opacity="0.10" stroke-width="3"/>
+</svg>

@@ -17,7 +17,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		995A62B43049DDE80054B8A9 /* NetworkObservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkObservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		995A62B43049DDE80054B8A9 /* Peeky Monkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peeky Monkey.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		995A62C33049DDEA0054B8A9 /* NetworkObservationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkObservationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,7 +64,7 @@
 		995A62B53049DDE80054B8A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				995A62B43049DDE80054B8A9 /* NetworkObservation.app */,
+				995A62B43049DDE80054B8A9 /* Peeky Monkey.app */,
 				995A62C33049DDEA0054B8A9 /* NetworkObservationTests.xctest */,
 			);
 			name = Products;
@@ -92,7 +92,7 @@
 			packageProductDependencies = (
 			);
 			productName = NetworkObservation;
-			productReference = 995A62B43049DDE80054B8A9 /* NetworkObservation.app */;
+			productReference = 995A62B43049DDE80054B8A9 /* Peeky Monkey.app */;
 			productType = "com.apple.product-type.application";
 		};
 		995A62C23049DDEA0054B8A9 /* NetworkObservationTests */ = {
@@ -336,7 +336,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NetworkObserver;
+				INFOPLIST_KEY_CFBundleDisplayName = "Peeky Monkey";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Used to check whether your local network (gateway) is reachable, for connection health diagnostics.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -345,7 +345,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.msg.groceriesTracker.NetworkObservation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = NetworkObservation;
+				PRODUCT_NAME = "Peeky Monkey";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -370,7 +371,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NetworkObserver;
+				INFOPLIST_KEY_CFBundleDisplayName = "Peeky Monkey";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Used to check whether your local network (gateway) is reachable, for connection health diagnostics.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -379,7 +380,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.msg.groceriesTracker.NetworkObservation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = NetworkObservation;
+				PRODUCT_NAME = "Peeky Monkey";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -406,7 +408,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetworkObservation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NetworkObservation";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peeky Monkey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Peeky Monkey";
 			};
 			name = Debug;
 		};
@@ -426,7 +428,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetworkObservation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NetworkObservation";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peeky Monkey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Peeky Monkey";
 			};
 			name = Release;
 		};

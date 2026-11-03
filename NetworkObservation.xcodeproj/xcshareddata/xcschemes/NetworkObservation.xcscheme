@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "995A62B33049DDE80054B8A9"
-               BuildableName = "NetworkObservation.app"
+               BuildableName = "Peeky Monkey.app"
                BlueprintName = "NetworkObservation"
                ReferencedContainer = "container:NetworkObservation.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "995A62B33049DDE80054B8A9"
-            BuildableName = "NetworkObservation.app"
+            BuildableName = "Peeky Monkey.app"
             BlueprintName = "NetworkObservation"
             ReferencedContainer = "container:NetworkObservation.xcodeproj">
          </BuildableReference>
@@ -78,7 +78,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "995A62B33049DDE80054B8A9"
-            BuildableName = "NetworkObservation.app"
+            BuildableName = "Peeky Monkey.app"
             BlueprintName = "NetworkObservation"
             ReferencedContainer = "container:NetworkObservation.xcodeproj">
          </BuildableReference>
