@@ -9,12 +9,12 @@ import Foundation
 
 struct ConnectionHealthSettings {
     static let minimumProbeInterval: TimeInterval = 0.1
-    static let defaultProbeInterval: TimeInterval = 5
+    static let defaultProbeInterval: TimeInterval = 0.5
 
     /// AC-04/AC-04b hysteresis: how many consecutive cycles a candidate must hold before it
     /// becomes the displayed health state. 1 disables debouncing entirely.
     static let minimumHysteresisThreshold = 1
-    static let defaultHysteresisThreshold = 3
+    static let defaultHysteresisThreshold = 2
 
     /// AC-06: the gateway is classified degraded above this latency.
     static let minimumGatewayDegradedThresholdMs: Double = 1

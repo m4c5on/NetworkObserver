@@ -15,9 +15,14 @@ struct ConnectionHealthSettingsTests {
         return ConnectionHealthSettings(defaults: defaults)
     }
 
-    @Test func defaultsToFiveSecondsWhenNothingIsStored() {
+    @Test func defaultsToHalfASecondWhenNothingIsStored() {
         let settings = makeSettings()
-        #expect(settings.probeInterval == 5)
+        #expect(settings.probeInterval == 0.5)
+    }
+
+    @Test func hysteresisDefaultsToTwoCyclesWhenNothingIsStored() {
+        let settings = makeSettings()
+        #expect(settings.hysteresisThreshold == 2)
     }
 
     @Test func aValueAtTheMinimumPersists() {
