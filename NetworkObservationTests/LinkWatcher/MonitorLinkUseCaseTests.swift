@@ -14,13 +14,13 @@ struct MonitorLinkUseCaseTests {
         let sleeps = SleepRecorder()
         let useCase = DefaultMonitorLinkUseCase(
             checker: checker,
-            policy: WatchPolicy(pollInterval: .seconds(15), confirmationDelay: .seconds(3)),
+            policy: WatchPolicy(confirmationDelay: .seconds(3)),
             sleep: { duration in
                 if await sleeps.record(duration) >= 4 { throw CancellationError() }
             }
         )
 
-        let updates = await collect(useCase.execute(url: url, request: .default))
+        let updates = await collect(useCase.execute(url: url, request: .default, pollInterval: .seconds(15)))
 
         #expect(updates.map(\.state) == [.unknown, .online, .online, .offline])
         #expect(updates.map(\.isVerifying) == [true, false, true, false])
@@ -34,7 +34,7 @@ struct MonitorLinkUseCaseTests {
         let checker = CheckerStub([.responded(statusCode: 204, latency: .milliseconds(10))])
         let useCase = DefaultMonitorLinkUseCase(checker: checker, sleep: { _ in throw CancellationError() })
 
-        let updates = await collect(useCase.execute(url: url, request: .default))
+        let updates = await collect(useCase.execute(url: url, request: .default, pollInterval: .seconds(15)))
 
         #expect(updates.map(\.result) == [.down(.httpStatus(204))])
     }
@@ -51,14 +51,14 @@ struct MonitorLinkUseCaseTests {
         let sleeps = SleepRecorder()
         let useCase = DefaultMonitorLinkUseCase(
             checker: checker,
-            policy: WatchPolicy(pollInterval: .seconds(15), confirmationDelay: .seconds(3)),
+            policy: WatchPolicy(confirmationDelay: .seconds(3)),
             internetReachable: { await internet.next() },
             sleep: { duration in
                 if await sleeps.record(duration) >= 4 { throw CancellationError() }
             }
         )
 
-        let updates = await collect(useCase.execute(url: url, request: .default))
+        let updates = await collect(useCase.execute(url: url, request: .default, pollInterval: .seconds(15)))
 
         #expect(updates.map(\.state) == [.unknown, .online])
         #expect(updates.map(\.transition) == [nil, nil])
@@ -78,14 +78,14 @@ struct MonitorLinkUseCaseTests {
         let sleeps = SleepRecorder()
         let useCase = DefaultMonitorLinkUseCase(
             checker: checker,
-            policy: WatchPolicy(pollInterval: .seconds(15), confirmationDelay: .seconds(3)),
+            policy: WatchPolicy(confirmationDelay: .seconds(3)),
             internetReachable: { await internet.next() },
             sleep: { duration in
                 if await sleeps.record(duration) >= 5 { throw CancellationError() }
             }
         )
 
-        let updates = await collect(useCase.execute(url: url, request: .default))
+        let updates = await collect(useCase.execute(url: url, request: .default, pollInterval: .seconds(15)))
 
         #expect(updates.map(\.state) == [.unknown, .online, .online, .offline])
         #expect(updates.map(\.transition) == [nil, nil, nil, .wentOffline])
@@ -107,11 +107,33 @@ struct MonitorLinkUseCaseTests {
 
         let updates = await collect(useCase.execute(
             url: url,
-            request: RequestSettings(method: .patch, acceptedStatusCodes: [200, 401])
+            request: RequestSettings(method: .patch, acceptedStatusCodes: [200, 401]),
+            pollInterval: .seconds(15)
         ))
 
         #expect(updates.map(\.result) == [.up(statusCode: 401, latency: .milliseconds(30)), .down(.httpStatus(500))])
         #expect(await checker.methods == [.patch, .patch])
+    }
+
+    @Test func waitsTheGivenPollIntervalBetweenChecks() async throws {
+        let url = try #require(URL(string: "https://example.com"))
+        let checker = CheckerStub([
+            .responded(statusCode: 200, latency: .milliseconds(10)),
+            .responded(statusCode: 200, latency: .milliseconds(10)),
+            .responded(statusCode: 200, latency: .milliseconds(10)),
+        ])
+        let sleeps = SleepRecorder()
+        let useCase = DefaultMonitorLinkUseCase(
+            checker: checker,
+            policy: WatchPolicy(confirmationDelay: .seconds(3)),
+            sleep: { duration in
+                if await sleeps.record(duration) >= 3 { throw CancellationError() }
+            }
+        )
+
+        _ = await collect(useCase.execute(url: url, request: .default, pollInterval: .seconds(60)))
+
+        #expect(await sleeps.durations == [.seconds(3), .seconds(60), .seconds(60)])
     }
 
     private func collect(_ stream: AsyncStream<MonitorUpdate>) async -> [MonitorUpdate] {

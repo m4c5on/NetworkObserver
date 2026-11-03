@@ -6,6 +6,7 @@ final class UserDefaultsWatchlistRepository: WatchlistRepository {
     private enum Key {
         static let links = "watchlist.links"
         static let browserAppURL = "watchlist.browserAppURL"
+        static let checkInterval = "watchlist.checkInterval"
     }
 
     private let defaults: UserDefaults
@@ -43,5 +44,13 @@ final class UserDefaultsWatchlistRepository: WatchlistRepository {
         } else {
             defaults.removeObject(forKey: Key.browserAppURL)
         }
+    }
+
+    func loadCheckInterval() -> Int? {
+        defaults.object(forKey: Key.checkInterval) as? Int
+    }
+
+    func saveCheckInterval(_ seconds: Int) {
+        defaults.set(seconds, forKey: Key.checkInterval)
     }
 }

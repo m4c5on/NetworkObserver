@@ -3,27 +3,81 @@
   "strings": {
     "%@ is down": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ недаступны"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ nie działa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ недоступен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ недоступний"
           }
         }
       }
     },
     "%@ is up": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ даступны"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ działa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ доступен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ доступний"
           }
         }
       }
     },
     "%@ s": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ с"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ s"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ с"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ с"
@@ -33,16 +87,94 @@
     },
     "%lld checking": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на праверцы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld w trakcie sprawdzania"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld на проверке"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на перевірці"
           }
         }
       }
     },
     "%lld failed checks": {
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld няўдалая праверка"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld няўдалыя праверкі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld няўдалых праверак"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld няўдалай праверкі"
+                }
+              }
+            }
+          }
+        },
+        "pl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nieudane sprawdzenie"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nieudane sprawdzenia"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nieudanych sprawdzeń"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nieudanego sprawdzenia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -72,12 +204,60 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld невдала перевірка"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld невдалі перевірки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld невдалих перевірок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld невдалої перевірки"
+                }
+              }
+            }
+          }
         }
       }
     },
     "%lld ms": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld мс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ms"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld мс"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld мс"
@@ -87,7 +267,25 @@
     },
     "%lld offline": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld афлайн"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld offline"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld офлайн"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld офлайн"
@@ -97,7 +295,25 @@
     },
     "%lld online": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld анлайн"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld online"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld онлайн"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld онлайн"
@@ -107,107 +323,305 @@
     },
     "%lld paused": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на паўзе"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld wstrzymanych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld на паузе"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld на паузі"
           }
         }
       }
     },
     "1 failed check": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 няўдалая праверка"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 nieudane sprawdzenie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "1 неудачная проверка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 невдала перевірка"
           }
         }
       }
     },
     "A joke code from an April Fools' RFC; some servers use it to reject bots.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жартоўны код з першакрасавіцкага RFC; некаторыя серверы адказваюць ім ботам."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żartobliwy kod z prima aprilisowego RFC; niektóre serwery odpowiadają nim botom."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Шуточный код из первоапрельского RFC; некоторые серверы отвечают им ботам."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жартівливий код із першоквітневого RFC; деякі сервери відповідають ним ботам."
           }
         }
       }
     },
     "A permanent redirect that keeps the same method and body.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пастаяннае перанакіраванне з тым жа метадам і целам."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stałe przekierowanie z tą samą metodą i treścią."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Постоянное перенаправление с тем же методом и телом."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Постійне перенаправлення з тим самим методом і тілом."
           }
         }
       }
     },
     "A proxy or gateway in front of the service didn't get an answer from it in time — the service is hanging or very slow.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проксі або шлюз перад сэрвісам не дачакаўся ад яго адказу — сэрвіс завіс або вельмі павольны."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proxy lub brama przed usługą nie doczekała się od niej odpowiedzi — usługa się zawiesiła lub działa bardzo wolno."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Прокси или шлюз перед сервисом не дождался от него ответа — сервис завис или очень медленный."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проксі або шлюз перед сервісом не дочекався від нього відповіді — сервіс завис або дуже повільний."
           }
         }
       }
     },
     "A proxy or gateway in front of the service got an invalid answer from it — the service behind it is often down or restarting.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проксі або шлюз перад сэрвісам атрымаў ад яго некарэктны адказ — часта сэрвіс за ім ляжыць або перазапускаецца."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proxy lub brama przed usługą otrzymała od niej niepoprawną odpowiedź — usługa za nią często nie działa lub się restartuje."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Прокси или шлюз перед сервисом получил от него некорректный ответ — часто сервис за ним лежит или перезапускается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проксі або шлюз перед сервісом отримав від нього некоректну відповідь — часто сервіс за ним лежить або перезапускається."
           }
         }
       }
     },
     "A site goes down": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт упаў"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strona przestaje działać"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сайт упал"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт упав"
           }
         }
       }
     },
     "A site is back up": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт зноў даступны"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strona znowu działa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сайт снова доступен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайт знову доступний"
           }
         }
       }
     },
     "A temporary redirect that keeps the same method and body.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часовае перанакіраванне з тым жа метадам і целам."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tymczasowe przekierowanie z tą samą metodą i treścią."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Временное перенаправление с тем же методом и телом."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тимчасове перенаправлення з тим самим методом і тілом."
           }
         }
       }
     },
     "A temporary redirect to another address — often to a login page.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Часовае перанакіраванне на іншы адрас — часта на старонку ўваходу."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tymczasowe przekierowanie pod inny adres — często na stronę logowania."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Временное перенаправление на другой адрес — часто на страницу входа."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тимчасове перенаправлення на іншу адресу — часто на сторінку входу."
           }
         }
       }
     },
     "Accepted": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepted"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepted"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepted"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Accepted"
@@ -217,77 +631,221 @@
     },
     "Accepted status codes": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дапушчальныя коды адказу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Akceptowane kody odpowiedzi"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Допустимые коды ответа"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Допустимі коди відповіді"
           }
         }
       }
     },
     "Add a site to watch — example.com": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадайце сайт для адсочвання — example.com"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dodaj stronę do obserwowania — example.com"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте сайт для отслеживания — example.com"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте сайт для відстеження — example.com"
+          }
         }
       }
     },
-    "Add a website or API URL. It's checked every 15 seconds — you'll be notified when it goes down or comes back up.": {
+    "Add a website or API URL — you'll be notified when it goes down or comes back up.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадайце сайт або адрас API — вы атрымаеце апавяшчэнне, калі ён упадзе або зноў стане даступным."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dodaj stronę lub adres API — dostaniesz powiadomienie, gdy przestanie działać lub znowu zacznie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добавьте сайт или адрес API. Он проверяется каждые 15 секунд — вы получите уведомление, когда он упадёт или снова станет доступен."
+            "value": "Добавьте сайт или адрес API — вы получите уведомление, когда он упадёт или снова станет доступен."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте сайт або адресу API — ви отримаєте сповіщення, коли він упаде або знову стане доступним."
           }
         }
       }
     },
     "An interim response: the server received the request and is still working on it.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прамежкавы адказ: сервер атрымаў запыт і яшчэ апрацоўвае яго."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odpowiedź pośrednia: serwer otrzymał żądanie i nadal je przetwarza."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Промежуточный ответ: сервер получил запрос и ещё обрабатывает его."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проміжна відповідь: сервер отримав запит і ще його обробляє."
           }
         }
       }
     },
     "Any other response counts as down. For a protected API checked without a token, add 401. POST, PUT and PATCH are sent without a body.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Любы іншы адказ лічыцца падзеннем. Для абароненага API, які правяраецца без токена, дадайце 401. POST, PUT і PATCH адпраўляюцца без цела."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Każda inna odpowiedź liczy się jako awaria. Dla chronionego API sprawdzanego bez tokena dodaj 401. POST, PUT i PATCH są wysyłane bez treści."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Любой другой ответ считается падением. Для защищённого API, который проверяется без токена, добавьте 401. POST, PUT и PATCH отправляются без тела."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будь-яка інша відповідь вважається падінням. Для захищеного API, який перевіряється без токена, додайте 401. POST, PUT і PATCH надсилаються без тіла."
           }
         }
       }
     },
     "Avg": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сярэд."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Śr."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сред."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сер."
           }
         }
       }
     },
     "Back online after %@": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зноў анлайн праз %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Znowu online po %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Снова онлайн через %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знову онлайн через %@"
           }
         }
       }
     },
     "Bad Gateway": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Gateway"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Gateway"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Gateway"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Bad Gateway"
@@ -297,7 +855,25 @@
     },
     "Bad Request": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Request"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Request"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad Request"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Bad Request"
@@ -307,77 +883,249 @@
     },
     "Bad color": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колер «дрэнна»"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolor „źle”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цвет «плохо»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колір «погано»"
           }
         }
       }
     },
     "Can't connect": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдаецца падключыцца"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można połączyć"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удаётся подключиться"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдається підключитися"
           }
         }
       }
     },
     "Cancel": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скасаваць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anuluj"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отменить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скасувати"
+          }
+        }
+      }
+    },
+    "Check every": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правяраць кожныя"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdzaj co"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверять каждые"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевіряти кожні"
           }
         }
       }
     },
     "Checking…": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праверка…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdzanie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проверка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірка…"
           }
         }
       }
     },
     "Checks": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праверкі"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdzenia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проверки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірки"
           }
         }
       }
     },
     "Client Error": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Памылка кліента"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Błąd klienta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ошибка клиента"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помилка клієнта"
           }
         }
       }
     },
     "Colors": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колеры"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolory"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цвета"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кольори"
           }
         }
       }
     },
     "Conflict": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflict"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflict"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflict"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Conflict"
@@ -387,47 +1135,137 @@
     },
     "Connection is badly degraded.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злучэнне моцна пагоршана."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Połączenie jest mocno pogorszone."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Соединение сильно ухудшено."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З'єднання сильно погіршене."
           }
         }
       }
     },
     "Connection is degraded.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злучэнне пагоршана."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Połączenie jest pogorszone."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Соединение ухудшено."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З'єднання погіршене."
           }
         }
       }
     },
     "Connection is healthy.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злучэнне ў парадку."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Połączenie działa poprawnie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Соединение в порядке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З'єднання в порядку."
           }
         }
       }
     },
     "Connection is unreachable.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злучэнне недаступнае."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Połączenie jest niedostępne."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Соединение недоступно."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З'єднання недоступне."
           }
         }
       }
     },
     "Content Too Large": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content Too Large"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content Too Large"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content Too Large"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Content Too Large"
@@ -437,7 +1275,25 @@
     },
     "Continue": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Continue"
@@ -447,27 +1303,81 @@
     },
     "Counted as down for this link. Accepted codes can be changed in the link's request settings.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для гэтай спасылкі лічыцца падзеннем. Дапушчальныя коды можна змяніць у наладах запыту спасылкі."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dla tego linku liczone jako awaria. Akceptowane kody można zmienić w ustawieniach żądania linku."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Для этой ссылки считается падением. Допустимые коды можно изменить в настройках запроса ссылки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для цього посилання вважається падінням. Допустимі коди можна змінити в налаштуваннях запиту посилання."
           }
         }
       }
     },
     "Counted as online for this link.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для гэтай спасылкі лічыцца «анлайн»."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dla tego linku liczone jako „online”."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Для этой ссылки считается «онлайн»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для цього посилання вважається «онлайн»."
           }
         }
       }
     },
     "Created": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Created"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Created"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Created"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Created"
@@ -477,47 +1387,137 @@
     },
     "Degraded color": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колер «пагоршана»"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolor „pogorszone”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цвет «ухудшено»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колір «погіршено»"
           }
         }
       }
     },
     "Enter a valid http(s) URL": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увядзіце карэктны адрас http(s)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz poprawny adres http(s)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите корректный адрес http(s)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть коректну адресу http(s)"
           }
         }
       }
     },
     "Enter status codes from 100 to 599, separated by commas.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увядзіце коды ад 100 да 599 праз коску."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz kody od 100 do 599, oddzielone przecinkami."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите коды от 100 до 599 через запятую."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть коди від 100 до 599 через кому."
           }
         }
       }
     },
     "Everything worked: the server handled the request and returned a result.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усё спрацавала: сервер апрацаваў запыт і вярнуў вынік."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wszystko zadziałało: serwer obsłużył żądanie i zwrócił wynik."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Всё сработало: сервер обработал запрос и вернул результат."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усе спрацювало: сервер обробив запит і повернув результат."
           }
         }
       }
     },
     "Forbidden": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forbidden"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forbidden"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forbidden"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Forbidden"
@@ -527,7 +1527,25 @@
     },
     "Found": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Found"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Found"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Found"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Found"
@@ -537,7 +1555,25 @@
     },
     "Gateway Timeout": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gateway Timeout"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gateway Timeout"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gateway Timeout"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Gateway Timeout"
@@ -545,9 +1581,55 @@
         }
       }
     },
+    "General": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Агульныя"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ogólne"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основные"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Загальні"
+          }
+        }
+      }
+    },
     "Gone": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gone"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gone"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gone"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Gone"
@@ -557,17 +1639,53 @@
     },
     "Good color": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колер «добра»"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolor „dobrze”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цвет «хорошо»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колір «добре»"
           }
         }
       }
     },
     "HTTP %lld": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTP %lld"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTP %lld"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTP %lld"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "HTTP %lld"
@@ -577,27 +1695,109 @@
     },
     "Host not found — VPN?": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хост не знойдзены — VPN?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie znaleziono hosta — VPN?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хост не найден — VPN?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хост не знайдено — VPN?"
+          }
+        }
+      }
+    },
+    "How often each site is checked. A failed check is repeated after 3 seconds before the site counts as down.": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як часта правяраецца кожны сайт. Няўдалая праверка паўтараецца праз 3 секунды, перш чым сайт будзе лічыцца ўпаўшым."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak często sprawdzana jest każda strona. Nieudane sprawdzenie jest powtarzane po 3 sekundach, zanim strona zostanie uznana za niedziałającą."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как часто проверяется каждый сайт. Неудачная проверка повторяется через 3 секунды, прежде чем сайт будет считаться упавшим."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як часто перевіряється кожен сайт. Невдала перевірка повторюється через 3 секунди, перш ніж сайт вважатиметься таким, що впав."
           }
         }
       }
     },
     "Hysteresis (cycles)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гістэрэзіс (цыклы)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histereza (cykle)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гистерезис (циклы)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гістерезис (цикли)"
           }
         }
       }
     },
     "I'm a Teapot": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm a Teapot"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm a Teapot"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm a Teapot"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "I'm a Teapot"
@@ -607,17 +1807,53 @@
     },
     "Informational": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інфармацыйны"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informacyjny"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Информационный"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інформаційний"
           }
         }
       }
     },
     "Internal Server Error": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Internal Server Error"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Internal Server Error"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Internal Server Error"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Internal Server Error"
@@ -627,77 +1863,249 @@
     },
     "Internet": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтэрнэт"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Internet"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Интернет"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтернет"
           }
         }
       }
     },
     "Internet badly threshold (ms)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моцны парог інтэрнэту (мс)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wysoki próg internetu (ms)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сильный порог интернета (мс)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сильний поріг інтернету (мс)"
           }
         }
       }
     },
     "Internet connection lost": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтэрнэт знік"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utracono połączenie z internetem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Интернет пропал"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтернет зник"
           }
         }
       }
     },
     "Internet connection restored": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтэрнэт адноўлены"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przywrócono połączenie z internetem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Интернет восстановлен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтернет відновлено"
           }
         }
       }
     },
     "Internet threshold (ms)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Парог інтэрнэту (мс)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próg internetu (ms)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Порог интернета (мс)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поріг інтернету (мс)"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мова"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Język"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мова"
           }
         }
       }
     },
     "Last %lld checks": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апошнія праверкі: %lld"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatnie sprawdzenia: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последние проверки: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останні перевірки: %lld"
           }
         }
       }
     },
     "Local Network permission is required. Grant it in System Settings > Privacy & Security > Local Network.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Патрэбны доступ да лакальнай сеткі. Дазвольце яго ў Сістэмных наладах > Прыватнасць і бяспека > Лакальная сетка."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wymagany jest dostęp do sieci lokalnej. Przyznaj go w Ustawieniach systemowych > Prywatność i ochrona > Sieć lokalna."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нужен доступ к локальной сети. Разрешите его в Системных настройках > Конфиденциальность и безопасность > Локальная сеть."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібен доступ до локальної мережі. Надайте його в Системних параметрах > Приватність і безпека > Локальна мережа."
           }
         }
       }
     },
     "Max": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Макс."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maks."
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Макс."
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Макс."
@@ -707,7 +2115,25 @@
     },
     "Method": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Метад"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metoda"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Метод"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Метод"
@@ -717,7 +2143,25 @@
     },
     "Method Not Allowed": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Method Not Allowed"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Method Not Allowed"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Method Not Allowed"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Method Not Allowed"
@@ -727,77 +2171,221 @@
     },
     "Min": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мін."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Min."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Мин."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мін."
           }
         }
       }
     },
     "Minimum elapsed badly threshold is %lldms": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны моцны парог інтэрнэту — %lld мс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalny wysoki próg internetu to %lld ms"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный сильный порог интернета — %lld мс"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний сильний поріг інтернету — %lld мс"
           }
         }
       }
     },
     "Minimum elapsed threshold is %lldms": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны парог інтэрнэту — %lld мс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalny próg internetu to %lld ms"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный порог интернета — %lld мс"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний поріг інтернету — %lld мс"
           }
         }
       }
     },
     "Minimum gateway badly threshold is %lldms": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны моцны парог роўтара — %lld мс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalny wysoki próg routera to %lld ms"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный сильный порог роутера — %lld мс"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний сильний поріг роутера — %lld мс"
           }
         }
       }
     },
     "Minimum gateway threshold is %lldms": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны парог роўтара — %lld мс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalny próg routera to %lld ms"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный порог роутера — %lld мс"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний поріг роутера — %lld мс"
           }
         }
       }
     },
     "Minimum hysteresis is %lld cycle(s)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны гістэрэзіс — %lld цыкл(аў)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalna histereza to %lld cykl(e)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный гистерезис — %lld цикл(ов)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний гістерезис — %lld цикл(ів)"
           }
         }
       }
     },
     "Minimum probe interval is %@s": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальны інтэрвал праверкі — %@ с"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimalny odstęp sprawdzania to %@ s"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Минимальный интервал проверки — %@ с"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мінімальний інтервал перевірки — %@ с"
           }
         }
       }
     },
     "Moved Permanently": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moved Permanently"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moved Permanently"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moved Permanently"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Moved Permanently"
@@ -807,37 +2395,109 @@
     },
     "Mute Notifications": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключыць апавяшчэнні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wycisz powiadomienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выключить уведомления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вимкнути сповіщення"
           }
         }
       }
     },
     "Mute notifications": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключыць апавяшчэнні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wycisz powiadomienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выключить уведомления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вимкнути сповіщення"
           }
         }
       }
     },
     "Network": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сетка"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieć"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сеть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мережа"
           }
         }
       }
     },
     "No Content": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Content"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Content"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Content"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "No Content"
@@ -847,57 +2507,165 @@
     },
     "No active network interface (Wi-Fi/Ethernet).": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма актыўнага сеткавага інтэрфейсу (Wi-Fi/Ethernet)."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak aktywnego interfejsu sieciowego (Wi-Fi/Ethernet)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет активного сетевого интерфейса (Wi-Fi/Ethernet)."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає активного мережевого інтерфейсу (Wi-Fi/Ethernet)."
           }
         }
       }
     },
     "No internet": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма інтэрнэту"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak internetu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет интернета"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає інтернету"
           }
         }
       }
     },
     "No internet connection — site checks are paused": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма падключэння да інтэрнэту — праверкі сайтаў на паўзе"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak połączenia z internetem — sprawdzanie stron wstrzymane"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет подключения к интернету — проверки сайтов на паузе"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає підключення до інтернету — перевірки сайтів на паузі"
           }
         }
       }
     },
     "No response": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма адказу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak odpowiedzi"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет ответа"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає відповіді"
           }
         }
       }
     },
     "No sites yet": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайтаў пакуль няма"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak stron"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сайтов пока нет"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайтів поки немає"
           }
         }
       }
     },
     "Not Acceptable": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Acceptable"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Acceptable"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Acceptable"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Not Acceptable"
@@ -907,7 +2675,25 @@
     },
     "Not Found": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Found"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Found"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Found"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Not Found"
@@ -917,7 +2703,25 @@
     },
     "Not Implemented": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Implemented"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Implemented"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Implemented"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Not Implemented"
@@ -927,7 +2731,25 @@
     },
     "Not Modified": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Modified"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Modified"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Modified"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Not Modified"
@@ -937,37 +2759,109 @@
     },
     "Not an HTTP response": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адказ не па HTTP"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To nie jest odpowiedź HTTP"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ответ не по HTTP"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відповідь не за HTTP"
           }
         }
       }
     },
     "Not responding — verifying…": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не адказвае — правяраем яшчэ раз…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie odpowiada — sprawdzam ponownie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не отвечает — перепроверка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не відповідає — перевіряємо ще раз…"
           }
         }
       }
     },
     "Notifications": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апавяшчэнні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Powiadomienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Уведомления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сповіщення"
           }
         }
       }
     },
     "OK": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
@@ -977,7 +2871,25 @@
     },
     "Offline for %@": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Афлайн %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline od %@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Офлайн %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Офлайн %@"
@@ -987,7 +2899,25 @@
     },
     "Online for %@": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Анлайн %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Online od %@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Онлайн %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Онлайн %@"
@@ -997,47 +2927,137 @@
     },
     "Open": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити"
           }
         }
       }
     },
     "Open in browser": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрыць у браўзеры"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz w przeglądarce"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть в браузере"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити в браузері"
           }
         }
       }
     },
     "Open links with": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адкрываць спасылкі ў"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwieraj linki w"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открывать ссылки в"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкривати посилання в"
           }
         }
       }
     },
     "Outages": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падзенні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Awarie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Падения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падіння"
           }
         }
       }
     },
     "Pause": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паўза"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstrzymaj"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Пауза"
@@ -1047,27 +3067,81 @@
     },
     "Pause monitoring": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спыніць маніторынг"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstrzymaj monitorowanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приостановить мониторинг"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Призупинити моніторинг"
           }
         }
       }
     },
     "Paused": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На паўзе"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstrzymano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "На паузе"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На паузі"
           }
         }
       }
     },
     "Permanent Redirect": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanent Redirect"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanent Redirect"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanent Redirect"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Permanent Redirect"
@@ -1077,67 +3151,193 @@
     },
     "Probe interval (s)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтэрвал праверкі (с)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odstęp sprawdzania (s)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Интервал проверки (с)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інтервал перевірки (с)"
           }
         }
       }
     },
     "Probing": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праверка"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdzanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проверка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірка"
           }
         }
       }
     },
     "Rate limit: too many requests in a short time. The server is up but asks to slow down.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт запытаў: занадта шмат запытаў за кароткі час. Сервер працуе, але просіць зменшыць тэмп."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit żądań: za dużo żądań w krótkim czasie. Serwer działa, ale prosi o zwolnienie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Лимит запросов: слишком много запросов за короткое время. Сервер работает, но просит сбавить темп."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт запитів: забагато запитів за короткий час. Сервер працює, але просить зменшити темп."
           }
         }
       }
     },
     "Redirection": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перанакіраванне"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekierowanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенаправление"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенаправлення"
           }
         }
       }
     },
     "Remove": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити"
           }
         }
       }
     },
     "Request Settings…": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налады запыту…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustawienia żądania…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Настройки запроса…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налаштування запиту…"
           }
         }
       }
     },
     "Request Timeout": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request Timeout"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request Timeout"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request Timeout"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Request Timeout"
@@ -1147,67 +3347,249 @@
     },
     "Request settings": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налады запыту"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustawienia żądania"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Настройки запроса"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налаштування запиту"
           }
         }
       }
     },
     "Reset Statistics": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скінуць статыстыку"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyzeruj statystyki"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сбросить статистику"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скинути статистику"
           }
         }
       }
     },
     "Responding again — verifying…": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зноў адказвае — правяраем яшчэ раз…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Znowu odpowiada — sprawdzam ponownie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Снова отвечает — перепроверка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знову відповідає — перевіряємо ще раз…"
           }
         }
       }
     },
     "Responding — verifying…": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адказвае — правяраем яшчэ раз…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odpowiada — sprawdzam ponownie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отвечает — перепроверка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відповідає — перевіряємо ще раз…"
+          }
+        }
+      }
+    },
+    "Restart Now": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перазапусціць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uruchom ponownie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустити"
+          }
+        }
+      }
+    },
+    "Restart the app to switch the language.": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перазапусціце праграму, каб змяніць мову."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uruchom aplikację ponownie, aby zmienić język."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустите приложение, чтобы сменить язык."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустіть застосунок, щоб змінити мову."
           }
         }
       }
     },
     "Resume": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Працягнуць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wznów"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Продолжить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити"
           }
         }
       }
     },
     "Resume monitoring": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Працягнуць маніторынг"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wznów monitorowanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Продолжить мониторинг"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити моніторинг"
           }
         }
       }
     },
     "Router": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Роўтар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Router"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Роутер"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Роутер"
@@ -1217,37 +3599,109 @@
     },
     "Router badly threshold (ms)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моцны парог роўтара (мс)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wysoki próg routera (ms)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сильный порог роутера (мс)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сильний поріг роутера (мс)"
           }
         }
       }
     },
     "Router threshold (ms)": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Парог роўтара (мс)"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próg routera (ms)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Порог роутера (мс)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поріг роутера (мс)"
           }
         }
       }
     },
     "Save": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захаваць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти"
           }
         }
       }
     },
     "See Other": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Other"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Other"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Other"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "See Other"
@@ -1257,17 +3711,53 @@
     },
     "Server Error": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Памылка сервера"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Błąd serwera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ошибка сервера"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помилка сервера"
           }
         }
       }
     },
     "Service Unavailable": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service Unavailable"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service Unavailable"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service Unavailable"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Service Unavailable"
@@ -1277,57 +3767,165 @@
     },
     "Settings": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налады"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustawienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Настройки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налаштування"
           }
         }
       }
     },
     "Site checks are paused until the connection is back.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праверкі сайтаў спынены, пакуль злучэнне не адновіцца."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdzanie stron wstrzymano do czasu przywrócenia połączenia."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Проверки сайтов приостановлены до восстановления соединения."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірки сайтів призупинено, доки з'єднання не відновиться."
           }
         }
       }
     },
     "Sites": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайты"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strony"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сайты"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сайти"
           }
         }
       }
     },
     "Start watching": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пачаць адсочванне"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zacznij obserwować"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Начать отслеживание"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почати відстеження"
           }
         }
       }
     },
     "Success": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поспех"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sukces"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Успех"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Успіх"
           }
         }
       }
     },
     "Switching Protocols": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switching Protocols"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switching Protocols"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switching Protocols"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Switching Protocols"
@@ -1335,29 +3933,111 @@
         }
       }
     },
+    "System": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як у сістэме"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak w systemie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как в системе"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як у системі"
+          }
+        }
+      }
+    },
     "System Default": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Браўзер па змаўчанні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domyślna przeglądarka"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Браузер по умолчанию"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Браузер за замовчуванням"
           }
         }
       }
     },
     "TLS error": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Памылка TLS"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Błąd TLS"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ошибка TLS"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помилка TLS"
           }
         }
       }
     },
     "Temporary Redirect": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporary Redirect"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporary Redirect"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporary Redirect"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Temporary Redirect"
@@ -1367,297 +4047,837 @@
     },
     "The address changed for good; the response points to the new one. Update the link to the new address.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адрас зменены назаўжды; адказ паказвае новы. Абнавіце спасылку на новы адрас."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adres zmienił się na stałe; odpowiedź wskazuje nowy. Zaktualizuj link na nowy adres."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Адрес изменился навсегда; ответ указывает новый. Обновите ссылку на новый адрес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адресу змінено назавжди; відповідь вказує нову. Оновіть посилання на нову адресу."
           }
         }
       }
     },
     "The cached copy is still valid, so the server sent no body.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія ў кэшы яшчэ актуальная, таму сервер не адправіў цела."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia w pamięci podręcznej jest wciąż aktualna, więc serwer nie wysłał treści."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия в кэше всё ещё актуальна, поэтому сервер не прислал тело."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія в кеші досі актуальна, тому сервер не надіслав тіло."
           }
         }
       }
     },
     "The path exists but doesn't accept this HTTP method — e.g. sending GET to an endpoint that only takes POST.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шлях існуе, але не прымае гэты HTTP-метад — напрыклад, GET на endpoint, які прымае толькі POST."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ścieżka istnieje, ale nie przyjmuje tej metody HTTP — np. GET do endpointu, który przyjmuje tylko POST."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Путь существует, но не принимает этот HTTP-метод — например, GET на endpoint, который принимает только POST."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шлях існує, але не приймає цей HTTP-метод — наприклад, GET на endpoint, який приймає лише POST."
           }
         }
       }
     },
     "The request body is bigger than the server allows.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цела запыту большае, чым дазваляе сервер."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Treść żądania jest większa, niż pozwala serwer."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Тело запроса больше, чем разрешает сервер."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тіло запиту більше, ніж дозволяє сервер."
           }
         }
       }
     },
     "The request conflicts with the current state of the resource, e.g. a duplicate or an edit clash.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт канфліктуе з бягучым станам рэсурсу, напрыклад дублікат або адначасовая змена."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie jest sprzeczne z bieżącym stanem zasobu, np. duplikat lub równoczesna edycja."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос конфликтует с текущим состоянием ресурса, например дубликат или одновременное изменение."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит конфліктує з поточним станом ресурсу, наприклад дублікат або одночасна зміна."
           }
         }
       }
     },
     "The request reached the server, but the server failed while handling it. The problem is on the service side.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт дайшоў да сервера, але сервер зламаўся падчас яго апрацоўкі. Праблема на баку сэрвісу."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie dotarło do serwera, ale serwer zawiódł podczas jego obsługi. Problem leży po stronie usługi."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос дошёл до сервера, но сервер сломался при его обработке. Проблема на стороне сервиса."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит дійшов до сервера, але сервер зламався під час його обробки. Проблема на боці сервісу."
           }
         }
       }
     },
     "The request succeeded and created a new resource. Usual for POST.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт выкананы, створаны новы рэсурс. Звычайна для POST."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie się powiodło i utworzyło nowy zasób. Typowe dla POST."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос выполнен и создал новый ресурс. Обычно для POST."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит виконано, створено новий ресурс. Зазвичай для POST."
           }
         }
       }
     },
     "The request succeeded and there is intentionally nothing in the response body. Usual for PATCH, PUT and DELETE.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт выкананы, а цела адказу наўмысна пустое. Звычайна для PATCH, PUT і DELETE."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie się powiodło, a treść odpowiedzi jest celowo pusta. Typowe dla PATCH, PUT i DELETE."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос выполнен, а тело ответа намеренно пустое. Обычно для PATCH, PUT и DELETE."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит виконано, а тіло відповіді навмисно порожнє. Зазвичай для PATCH, PUT і DELETE."
           }
         }
       }
     },
     "The request was accepted for processing, which will finish later.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт прыняты ў апрацоўку, яна завершыцца пазней."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie przyjęto do przetworzenia, które zakończy się później."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос принят в обработку, она завершится позже."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит прийнято в обробку, вона завершиться пізніше."
           }
         }
       }
     },
     "The request was well-formed but failed validation — e.g. a required field was missing. The endpoint itself is working.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запыт карэктны па форме, але не прайшоў праверку — напрыклад, не хапае абавязковага поля. Сам endpoint працуе."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żądanie ma poprawną formę, ale nie przeszło walidacji — np. brakuje wymaganego pola. Sam endpoint działa."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запрос корректный по форме, но не прошёл валидацию — например, не хватает обязательного поля. Сам endpoint работает."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит коректний за формою, але не пройшов валідацію — наприклад, бракує обов'язкового поля. Сам endpoint працює."
           }
         }
       }
     },
     "The resource lives somewhere else; the response points to the new location.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэсурс знаходзіцца ў іншым месцы; адказ паказвае новы адрас."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zasób jest gdzie indziej; odpowiedź wskazuje nowy adres."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ресурс находится в другом месте; ответ указывает новый адрес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ресурс розташований деінде; відповідь вказує нову адресу."
           }
         }
       }
     },
     "The resource was here but has been removed for good.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэсурс быў тут, але выдалены назаўжды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zasób tu był, ale został usunięty na stałe."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ресурс был здесь, но удалён навсегда."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ресурс був тут, але його видалено назавжди."
           }
         }
       }
     },
     "The result should be fetched from another address with GET.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вынік трэба забраць па іншым адрасе праз GET."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wynik należy pobrać spod innego adresu metodą GET."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Результат нужно забрать по другому адресу через GET."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Результат треба забрати за іншою адресою через GET."
           }
         }
       }
     },
     "The server can't produce a response in the format the request asked for.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не можа вярнуць адказ у фармаце, які запытаў кліент."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer nie może zwrócić odpowiedzi w formacie, o który prosi żądanie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер не может вернуть ответ в формате, который запросил клиент."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не може повернути відповідь у форматі, який запросив клієнт."
           }
         }
       }
     },
     "The server crashed or hit an unhandled error while handling the request. The bug is in the service.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер упаў або атрымаў неапрацаваную памылку падчас апрацоўкі запыту. Памылка ў самім сэрвісе."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer uległ awarii lub trafił na nieobsłużony błąd podczas obsługi żądania. Błąd jest w samej usłudze."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер упал или получил необработанную ошибку при обработке запроса. Ошибка в самом сервисе."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер упав або отримав необроблену помилку під час обробки запиту. Помилка в самому сервісі."
           }
         }
       }
     },
     "The server doesn't accept the body's format — usually a wrong or missing Content-Type.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не прымае фармат цела — звычайна няправільны або адсутны Content-Type."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer nie przyjmuje formatu treści — zwykle błędny lub brakujący Content-Type."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер не принимает формат тела — обычно неверный или отсутствующий Content-Type."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не приймає формат тіла — зазвичай неправильний або відсутній Content-Type."
           }
         }
       }
     },
     "The server doesn't support what the request needs, e.g. this method.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не падтрымлівае тое, што патрэбна запыту, напрыклад гэты метад."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer nie obsługuje tego, czego wymaga żądanie, np. tej metody."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер не поддерживает то, что нужно запросу, например этот метод."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не підтримує те, що потрібно запиту, наприклад цей метод."
           }
         }
       }
     },
     "The server got the request headers and the client can send the body.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер атрымаў загалоўкі запыту, кліент можа адпраўляць цела."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer otrzymał nagłówki żądania, klient może wysłać treść."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер получил заголовки запроса, клиент может отправлять тело."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер отримав заголовки запиту, клієнт може надсилати тіло."
           }
         }
       }
     },
     "The server got tired of waiting for the request to finish arriving.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не дачакаўся, пакуль запыт прыйдзе цалкам."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer nie doczekał się, aż żądanie dotrze w całości."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер не дождался, пока запрос придёт полностью."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер не дочекався, поки запит надійде повністю."
           }
         }
       }
     },
     "The server is switching to another protocol, e.g. WebSocket.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер пераключаецца на іншы пратакол, напрыклад WebSocket."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer przełącza się na inny protokół, np. WebSocket."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер переключается на другой протокол, например WebSocket."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер перемикається на інший протокол, наприклад WebSocket."
           }
         }
       }
     },
     "The server is up and knows who you are (or doesn't care), but access to this resource is not allowed.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працуе і ведае, хто вы (або яму гэта не важна), але доступ да гэтага рэсурсу забаронены."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer działa i wie, kim jesteś (lub go to nie obchodzi), ale dostęp do tego zasobu jest zabroniony."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер работает и знает, кто вы (или ему это не важно), но доступ к этому ресурсу запрещён."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працює і знає, хто ви (або йому це не важливо), але доступ до цього ресурсу заборонено."
           }
         }
       }
     },
     "The server is up but couldn't understand the request: a required parameter or body is missing or malformed.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працуе, але не зразумеў запыт: абавязковага параметра ці цела няма або яно некарэктнае."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer działa, ale nie zrozumiał żądania: brakuje wymaganego parametru lub treści albo są niepoprawne."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер работает, но не понял запрос: обязательный параметр или тело отсутствует либо некорректно."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працює, але не зрозумів запит: обов'язкового параметра чи тіла немає або воно некоректне."
           }
         }
       }
     },
     "The server is up but rejected the request itself — something about the request (URL, method, headers or body) is wrong for this endpoint.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працуе, але адхіліў сам запыт — нешта ў запыце (адрас, метад, загалоўкі ці цела) не падыходзіць для гэтага endpoint."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer działa, ale odrzucił samo żądanie — coś w żądaniu (adres, metoda, nagłówki lub treść) nie pasuje do tego endpointu."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер работает, но отклонил сам запрос — что-то в запросе (адрес, метод, заголовки или тело) не подходит для этого endpoint."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працює, але відхилив сам запит — щось у запиті (адреса, метод, заголовки чи тіло) не підходить для цього endpoint."
           }
         }
       }
     },
     "The server is up, but nothing exists at this path. Check the URL, or the route was removed or renamed.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працуе, але па гэтым шляху нічога няма. Праверце адрас — або маршрут выдалілі ці перайменавалі."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer działa, ale pod tą ścieżką nic nie ma. Sprawdź adres — albo trasę usunięto lub zmieniono jej nazwę."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер работает, но по этому пути ничего нет. Проверьте адрес — или маршрут удалили либо переименовали."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працює, але за цим шляхом нічого немає. Перевірте адресу — або маршрут видалили чи перейменували."
           }
         }
       }
     },
     "The server is up, but the endpoint needs authentication and the request had no valid token or credentials. Without a token this is the normal answer for a protected API — add 401 to the accepted codes to treat it as \"online\".": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працуе, але endpoint патрабуе аўтарызацыі, а ў запыце няма сапраўднага токена ці ўліковых даных. Без токена гэта нармальны адказ абароненага API — дадайце 401 у дапушчальныя коды, каб лічыць яго «анлайн»."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer działa, ale endpoint wymaga uwierzytelnienia, a żądanie nie miało ważnego tokena ani danych logowania. Bez tokena to normalna odpowiedź chronionego API — dodaj 401 do akceptowanych kodów, aby traktować ją jako „online”."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер работает, но endpoint требует авторизацию, а в запросе нет действительного токена или учётных данных. Без токена это нормальный ответ защищённого API — добавьте 401 в допустимые коды, чтобы считать его «онлайн»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер працює, але endpoint потребує авторизації, а в запиті немає дійсного токена чи облікових даних. Без токена це нормальна відповідь захищеного API — додайте 401 до допустимих кодів, щоб вважати його «онлайн»."
           }
         }
       }
     },
     "The server received and handled the request successfully.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер атрымаў і паспяхова апрацаваў запыт."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwer otrzymał i poprawnie obsłużył żądanie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервер получил и успешно обработал запрос."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер отримав і успішно обробив запит."
           }
         }
       }
     },
     "The service is temporarily unable to handle requests — overloaded, in maintenance or still starting.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сэрвіс часова не можа апрацоўваць запыты — перагружаны, на абслугоўванні або яшчэ запускаецца."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usługa chwilowo nie może obsługiwać żądań — jest przeciążona, w trakcie konserwacji lub jeszcze się uruchamia."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сервис временно не может обрабатывать запросы — перегружен, на обслуживании или ещё запускается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервіс тимчасово не може обробляти запити — перевантажений, на обслуговуванні або ще запускається."
           }
         }
       }
     },
     "This URL is already being watched": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэты адрас ужо адсочваецца"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ten adres jest już obserwowany"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Этот адрес уже отслеживается"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця адреса вже відстежується"
           }
         }
       }
     },
     "This is not a standard HTTP status code.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэта нестандартны HTTP-код."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To nie jest standardowy kod HTTP."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Это нестандартный HTTP-код."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це нестандартний HTTP-код."
           }
         }
       }
     },
     "Thresholds": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Парогі"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progi"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пороги"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Пороги"
@@ -1667,7 +4887,25 @@
     },
     "Timed out": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тайм-аўт"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekroczono limit czasu"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тайм-аут"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Тайм-аут"
@@ -1677,17 +4915,53 @@
     },
     "To silence a single site, use the bell on its card.": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каб выключыць апавяшчэнні аднаго сайта, націсніце званочак на яго картцы."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aby wyciszyć jedną stronę, kliknij dzwonek na jej karcie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Чтобы отключить уведомления одного сайта, нажмите колокольчик на его карточке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоб вимкнути сповіщення одного сайту, натисніть дзвіночок на його картці."
           }
         }
       }
     },
     "Too Many Requests": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too Many Requests"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too Many Requests"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too Many Requests"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Too Many Requests"
@@ -1697,7 +4971,25 @@
     },
     "Unauthorized": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unauthorized"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unauthorized"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unauthorized"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Unauthorized"
@@ -1707,37 +4999,109 @@
     },
     "Unknown": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невядомы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieznany"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Неизвестный"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невідомий"
           }
         }
       }
     },
     "Unmute Notifications": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыць апавяшчэнні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Włącz powiadomienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включить уведомления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути сповіщення"
           }
         }
       }
     },
     "Unmute notifications": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыць апавяшчэнні"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Włącz powiadomienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включить уведомления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути сповіщення"
           }
         }
       }
     },
     "Unprocessable Content": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprocessable Content"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprocessable Content"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprocessable Content"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Unprocessable Content"
@@ -1747,7 +5111,25 @@
     },
     "Unsupported Media Type": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsupported Media Type"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsupported Media Type"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsupported Media Type"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Unsupported Media Type"
@@ -1757,30 +5139,84 @@
     },
     "Uptime": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даступнасць"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dostępność"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Доступность"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступність"
           }
         }
       }
     },
     "What does HTTP %lld mean?": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што азначае HTTP %lld?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co oznacza HTTP %lld?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что означает HTTP %lld?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що означає HTTP %lld?"
           }
         }
       }
     },
     "offline for %@": {
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "быў афлайн %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "offline przez %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "был офлайн %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "був офлайн %@"
           }
         }
       }

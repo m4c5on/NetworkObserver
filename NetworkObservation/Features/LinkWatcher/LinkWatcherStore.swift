@@ -61,7 +61,8 @@ final class LinkWatcherStore {
         case .prepare:
             send(._loaded(
                 browsers: browserService.installedBrowsers(),
-                savedBrowserAppURL: repository.loadBrowserAppURL()
+                savedBrowserAppURL: repository.loadBrowserAppURL(),
+                checkInterval: repository.loadCheckInterval()
             ))
             for storedLink in repository.loadLinks() {
                 addLink(storedLink)
@@ -95,6 +96,13 @@ final class LinkWatcherStore {
 
         case .saveBrowser(let browser):
             repository.saveBrowserAppURL(browser?.appURL)
+
+        case .applyCheckInterval(let seconds):
+            repository.saveCheckInterval(seconds)
+            for link in state.links where !link.isPaused {
+                send(._monitoringResumed(linkID: link.id, at: now()))
+                startMonitorTask(linkID: link.id, url: link.url, request: link.request)
+            }
         }
     }
 
@@ -116,7 +124,7 @@ final class LinkWatcherStore {
     private func startMonitorTask(linkID: UUID, url: URL, request: RequestSettings) {
         monitorTasks[linkID]?.cancel()
 
-        let updates = monitorLink.execute(url: url, request: request)
+        let updates = monitorLink.execute(url: url, request: request, pollInterval: .seconds(state.checkInterval))
         monitorTasks[linkID] = Task { [weak self] in
             for await update in updates {
                 guard let self else { return }

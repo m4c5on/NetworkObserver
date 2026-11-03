@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  NetworkObservation
 //
-//  The Settings window (⌘,): network health, site checks and notifications tabs.
+//  The Settings window (⌘,): general, network health, site checks and notifications tabs.
 //
 
 import SwiftUI
@@ -14,6 +14,9 @@ struct SettingsView: View {
 
     var body: some View {
         TabView {
+            Tab("General", systemImage: "gearshape") {
+                GeneralSettingsView()
+            }
             Tab("Network", systemImage: "network") {
                 ConnectionHealthSettingsView(store: connectionHealthStore)
             }

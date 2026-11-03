@@ -24,4 +24,6 @@ protocol WatchlistRepository {
     func saveLinks(_ links: [StoredLink])
     func loadBrowserAppURL() -> URL?
     func saveBrowserAppURL(_ appURL: URL?)
+    func loadCheckInterval() -> Int?
+    func saveCheckInterval(_ seconds: Int)
 }

@@ -1,6 +1,10 @@
 import Foundation
 
 nonisolated enum LinkWatcherDomain {
+    /// Seconds between checks of each site, as offered in Settings > Sites.
+    static let checkIntervalOptions = [5, 10, 15, 30, 60, 120, 300]
+    static let defaultCheckInterval = 15
+
     struct State: Equatable {
         let links: [MonitoredLink]
         let inputText: String
@@ -11,6 +15,8 @@ nonisolated enum LinkWatcherDomain {
         /// False while this Mac has no internet: failed checks are ignored then (see
         /// `DefaultMonitorLinkUseCase`), and the window says the checks are paused.
         let isNetworkAvailable: Bool
+        /// Seconds between checks of each site; one of `checkIntervalOptions`.
+        let checkInterval: Int
     }
 
     enum InputError: Equatable {
@@ -33,12 +39,13 @@ nonisolated enum LinkWatcherDomain {
         /// Drag and drop: the moved link takes the target's position in the list.
         case linkMoved(linkID: UUID, toPositionOf: UUID)
         case requestSettingsChanged(linkID: UUID, RequestSettings)
+        case checkIntervalChanged(Int)
 
         // App
         case networkAvailabilityChanged(Bool)
 
         // Internal
-        case _loaded(browsers: [Browser], savedBrowserAppURL: URL?)
+        case _loaded(browsers: [Browser], savedBrowserAppURL: URL?, checkInterval: Int?)
         case _linkAdded(MonitoredLink)
         case _monitoringResumed(linkID: UUID, at: Date)
         case _monitorUpdated(linkID: UUID, update: MonitorUpdate, at: Date)
@@ -57,12 +64,14 @@ nonisolated enum LinkWatcherDomain {
         case notify(ConnectionAlert)
         case open(url: URL, browser: Browser?)
         case saveBrowser(Browser?)
+        /// Saves the interval and restarts monitoring of every active link with it.
+        case applyCheckInterval(Int)
     }
 }
 
 nonisolated extension LinkWatcherDomain.State {
     static var initial: Self {
-        Self(links: [], inputText: "", inputError: nil, browsers: [], selectedBrowser: nil, hasLoaded: false, isNetworkAvailable: true)
+        Self(links: [], inputText: "", inputError: nil, browsers: [], selectedBrowser: nil, hasLoaded: false, isNetworkAvailable: true, checkInterval: LinkWatcherDomain.defaultCheckInterval)
     }
 
     var canAdd: Bool {
@@ -84,7 +93,8 @@ nonisolated extension LinkWatcherDomain.State {
         browsers: [Browser]? = nil,
         selectedBrowser: Patch<Browser> = .keep,
         hasLoaded: Bool? = nil,
-        isNetworkAvailable: Bool? = nil
+        isNetworkAvailable: Bool? = nil,
+        checkInterval: Int? = nil
     ) -> Self {
         Self(
             links: links ?? self.links,
@@ -93,7 +103,8 @@ nonisolated extension LinkWatcherDomain.State {
             browsers: browsers ?? self.browsers,
             selectedBrowser: selectedBrowser.resolved(current: self.selectedBrowser),
             hasLoaded: hasLoaded ?? self.hasLoaded,
-            isNetworkAvailable: isNetworkAvailable ?? self.isNetworkAvailable
+            isNetworkAvailable: isNetworkAvailable ?? self.isNetworkAvailable,
+            checkInterval: checkInterval ?? self.checkInterval
         )
     }
 }

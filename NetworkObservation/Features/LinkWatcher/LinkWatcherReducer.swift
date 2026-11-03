@@ -65,12 +65,24 @@ nonisolated struct LinkWatcherReducer {
             // Results under the old settings can't be trusted, so monitoring starts over.
             return (newState, .resumeMonitoring(linkID: linkID, url: link.url, request: request))
 
+        case .checkIntervalChanged(let seconds):
+            guard seconds != state.checkInterval, Domain.checkIntervalOptions.contains(seconds) else { return (state, nil) }
+            return (state.copy(checkInterval: seconds), .applyCheckInterval(seconds))
+
         case .networkAvailabilityChanged(let isAvailable):
             return (state.copy(isNetworkAvailable: isAvailable), nil)
 
-        case ._loaded(let browsers, let savedBrowserAppURL):
+        case ._loaded(let browsers, let savedBrowserAppURL, let savedCheckInterval):
             let savedBrowser = browsers.first { $0.appURL == savedBrowserAppURL }
-            return (state.copy(browsers: browsers, selectedBrowser: .replacing(with: savedBrowser)), nil)
+            let checkInterval = savedCheckInterval.flatMap { Domain.checkIntervalOptions.contains($0) ? $0 : nil }
+            return (
+                state.copy(
+                    browsers: browsers,
+                    selectedBrowser: .replacing(with: savedBrowser),
+                    checkInterval: checkInterval
+                ),
+                nil
+            )
 
         case ._linkAdded(let link):
             return (state.copy(links: state.links + [link]), nil)

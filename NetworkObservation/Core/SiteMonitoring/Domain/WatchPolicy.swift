@@ -1,12 +1,8 @@
+/// The poll interval is a user setting (Settings > Sites) and is passed to each monitoring run.
 nonisolated struct WatchPolicy: Equatable, Sendable {
-    let pollInterval: Duration
     let confirmationDelay: Duration
 
-    init(
-        pollInterval: Duration = .seconds(15),
-        confirmationDelay: Duration = .seconds(3)
-    ) {
-        self.pollInterval = pollInterval
+    init(confirmationDelay: Duration = .seconds(3)) {
         self.confirmationDelay = confirmationDelay
     }
 

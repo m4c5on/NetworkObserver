@@ -52,7 +52,7 @@ struct LinkWatcherView: View {
             ContentUnavailableView(
                 "No sites yet",
                 systemImage: "waveform.path.ecg",
-                description: Text("Add a website or API URL. It's checked every 15 seconds — you'll be notified when it goes down or comes back up.")
+                description: Text("Add a website or API URL — you'll be notified when it goes down or comes back up.")
             )
         } else {
             ScrollView {

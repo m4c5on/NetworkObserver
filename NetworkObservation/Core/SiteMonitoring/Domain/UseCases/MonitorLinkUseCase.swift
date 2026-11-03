@@ -2,7 +2,7 @@ import Foundation
 
 nonisolated protocol MonitorLinkUseCase: Sendable {
     /// Polls `url` indefinitely. Cancelling the consuming task stops polling immediately.
-    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate>
+    func execute(url: URL, request: RequestSettings, pollInterval: Duration) -> AsyncStream<MonitorUpdate>
 }
 
 nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
@@ -25,17 +25,22 @@ nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
         self.sleep = sleep
     }
 
-    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate> {
+    func execute(url: URL, request: RequestSettings, pollInterval: Duration) -> AsyncStream<MonitorUpdate> {
         let (stream, continuation) = AsyncStream.makeStream(of: MonitorUpdate.self)
         let task = Task {
-            await run(url: url, request: request, continuation: continuation)
+            await run(url: url, request: request, pollInterval: pollInterval, continuation: continuation)
             continuation.finish()
         }
         continuation.onTermination = { _ in task.cancel() }
         return stream
     }
 
-    private func run(url: URL, request: RequestSettings, continuation: AsyncStream<MonitorUpdate>.Continuation) async {
+    private func run(
+        url: URL,
+        request: RequestSettings,
+        pollInterval: Duration,
+        continuation: AsyncStream<MonitorUpdate>.Continuation
+    ) async {
         var machine = ConnectionStateMachine()
 
         while !Task.isCancelled {
@@ -43,7 +48,7 @@ nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
             guard !Task.isCancelled else { return }
 
             if !result.isUp, !(await internetReachable()) {
-                guard await pause(for: policy.pollInterval) else { return }
+                guard await pause(for: pollInterval) else { return }
                 continue
             }
 
@@ -55,7 +60,7 @@ nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
                 transition: transition
             ))
 
-            let delay = machine.isVerifying ? policy.confirmationDelay : policy.pollInterval
+            let delay = machine.isVerifying ? policy.confirmationDelay : pollInterval
             guard await pause(for: delay) else { return }
         }
     }

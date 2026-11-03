@@ -23,7 +23,7 @@ struct LinkWatcherReducerTests {
     @Test func restoresSavedBrowserWhenStillInstalled() {
         let (state, _) = reducer.reduce(
             state: .initial,
-            intent: ._loaded(browsers: [firefox], savedBrowserAppURL: firefox.appURL)
+            intent: ._loaded(browsers: [firefox], savedBrowserAppURL: firefox.appURL, checkInterval: nil)
         )
 
         #expect(state.selectedBrowser == firefox)
@@ -32,7 +32,7 @@ struct LinkWatcherReducerTests {
     @Test func dropsSavedBrowserThatIsNoLongerInstalled() {
         let (state, _) = reducer.reduce(
             state: .initial,
-            intent: ._loaded(browsers: [], savedBrowserAppURL: firefox.appURL)
+            intent: ._loaded(browsers: [], savedBrowserAppURL: firefox.appURL, checkInterval: nil)
         )
 
         #expect(state.selectedBrowser == nil)
@@ -302,6 +302,45 @@ struct LinkWatcherReducerTests {
         let (newState, effect) = reducer.reduce(state: state, intent: .requestSettingsChanged(linkID: linkID, .default))
 
         #expect(newState == state)
+        #expect(effect == nil)
+    }
+
+    // MARK: - Check interval
+
+    @Test func sitesAreCheckedEvery15SecondsByDefault() {
+        #expect(Domain.State.initial.checkInterval == 15)
+    }
+
+    @Test func restoresTheSavedCheckInterval() {
+        let (state, _) = reducer.reduce(
+            state: .initial,
+            intent: ._loaded(browsers: [], savedBrowserAppURL: nil, checkInterval: 60)
+        )
+
+        #expect(state.checkInterval == 60)
+    }
+
+    @Test func ignoresASavedCheckIntervalThatIsNoLongerOffered() {
+        let (state, _) = reducer.reduce(
+            state: .initial,
+            intent: ._loaded(browsers: [], savedBrowserAppURL: nil, checkInterval: 7)
+        )
+
+        #expect(state.checkInterval == 15)
+    }
+
+    @Test func changingTheCheckIntervalAppliesIt() {
+        let (state, effect) = reducer.reduce(state: .initial, intent: .checkIntervalChanged(30))
+
+        #expect(state.checkInterval == 30)
+        #expect(effect == .applyCheckInterval(30))
+    }
+
+    @Test(arguments: [15, 7, 0])
+    func unchangedOrUnofferedCheckIntervalDoesNothing(_ seconds: Int) {
+        let (state, effect) = reducer.reduce(state: .initial, intent: .checkIntervalChanged(seconds))
+
+        #expect(state == .initial)
         #expect(effect == nil)
     }
 

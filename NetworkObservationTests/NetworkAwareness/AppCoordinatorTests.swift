@@ -48,7 +48,7 @@ private final class NetworkNotifierSpy: NetworkNotifier {
 }
 
 private struct MonitorLinkDummy: MonitorLinkUseCase {
-    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate> {
+    func execute(url: URL, request: RequestSettings, pollInterval: Duration) -> AsyncStream<MonitorUpdate> {
         AsyncStream { $0.finish() }
     }
 }
@@ -72,4 +72,6 @@ private final class WatchlistRepositoryDummy: WatchlistRepository {
     func saveLinks(_ links: [StoredLink]) {}
     func loadBrowserAppURL() -> URL? { nil }
     func saveBrowserAppURL(_ appURL: URL?) {}
+    func loadCheckInterval() -> Int? { nil }
+    func saveCheckInterval(_ seconds: Int) {}
 }
