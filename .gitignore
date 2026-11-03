@@ -64,3 +64,6 @@ playground.xcworkspace
 # Swift Package Manager
 # Package.resolved
 NetworkObserver
+
+# Coverage profiling output
+*.profraw
