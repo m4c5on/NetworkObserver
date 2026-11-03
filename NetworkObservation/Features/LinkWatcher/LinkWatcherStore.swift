@@ -72,12 +72,12 @@ final class LinkWatcherStore {
             await notifier.clearBadge()
 
         case .startMonitoring(let url):
-            addLink(StoredLink(url: url, isPaused: false, isMuted: false))
+            addLink(StoredLink(url: url, isPaused: false, isMuted: false, request: .default))
             saveWatchlist()
 
-        case .resumeMonitoring(let linkID, let url):
+        case .resumeMonitoring(let linkID, let url, let request):
             send(._monitoringResumed(linkID: linkID, at: now()))
-            startMonitorTask(linkID: linkID, url: url)
+            startMonitorTask(linkID: linkID, url: url, request: request)
             saveWatchlist()
 
         case .stopMonitoring(let linkID):
@@ -104,18 +104,19 @@ final class LinkWatcherStore {
             url: storedLink.url,
             startedAt: now(),
             isPaused: storedLink.isPaused,
-            isMuted: storedLink.isMuted
+            isMuted: storedLink.isMuted,
+            request: storedLink.request
         )
         send(._linkAdded(link))
 
         guard !link.isPaused else { return }
-        startMonitorTask(linkID: link.id, url: link.url)
+        startMonitorTask(linkID: link.id, url: link.url, request: link.request)
     }
 
-    private func startMonitorTask(linkID: UUID, url: URL) {
+    private func startMonitorTask(linkID: UUID, url: URL, request: RequestSettings) {
         monitorTasks[linkID]?.cancel()
 
-        let updates = monitorLink.execute(url: url)
+        let updates = monitorLink.execute(url: url, request: request)
         monitorTasks[linkID] = Task { [weak self] in
             for await update in updates {
                 guard let self else { return }

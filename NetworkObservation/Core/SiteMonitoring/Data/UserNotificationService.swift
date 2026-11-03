@@ -8,10 +8,12 @@ final class UserNotificationService: NSObject, ConnectionNotifier, NetworkNotifi
     var onNotificationTapped: (@MainActor (UUID) -> Void)?
 
     private let center: UNUserNotificationCenter
+    private let preferences: NotificationPreferences
     private var unseenCount = 0
 
-    init(center: UNUserNotificationCenter = .current()) {
+    init(center: UNUserNotificationCenter = .current(), preferences: NotificationPreferences) {
         self.center = center
+        self.preferences = preferences
         super.init()
         center.delegate = self
     }
@@ -21,6 +23,7 @@ final class UserNotificationService: NSObject, ConnectionNotifier, NetworkNotifi
     }
 
     func notify(_ alert: ConnectionAlert) async {
+        guard preferences.isEnabled(alert.notificationKind) else { return }
         unseenCount += 1
 
         let host = alert.url.host() ?? alert.url.absoluteString
@@ -43,6 +46,7 @@ final class UserNotificationService: NSObject, ConnectionNotifier, NetworkNotifi
     }
 
     func notifyNetwork(_ event: NetworkOutageEvent) async {
+        guard preferences.isEnabled(event.notificationKind) else { return }
         unseenCount += 1
 
         let content = UNMutableNotificationContent()

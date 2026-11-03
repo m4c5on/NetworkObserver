@@ -32,7 +32,8 @@ struct NetworkObservationApp: App {
         Settings {
             SettingsView(
                 connectionHealthStore: coordinator.connectionHealthStore,
-                linkWatcherStore: coordinator.linkWatcherStore
+                linkWatcherStore: coordinator.linkWatcherStore,
+                notificationPreferences: coordinator.notificationPreferences
             )
         }
     }

@@ -35,7 +35,7 @@ nonisolated struct LinkWatcherReducer {
         case .pauseToggled(let linkID):
             guard let link = state.link(linkID) else { return (state, nil) }
             guard !link.isPaused else {
-                return (state, .resumeMonitoring(linkID: linkID, url: link.url))
+                return (state, .resumeMonitoring(linkID: linkID, url: link.url, request: link.request))
             }
             return (state.updatingLink(linkID) { $0.paused() }, .stopMonitoring(linkID: linkID))
 
@@ -57,6 +57,13 @@ nonisolated struct LinkWatcherReducer {
             var links = state.links
             links.insert(links.remove(at: from), at: to)
             return (state.copy(links: links), .saveWatchlist)
+
+        case .requestSettingsChanged(let linkID, let request):
+            guard let link = state.link(linkID), link.request != request else { return (state, nil) }
+            let newState = state.updatingLink(linkID) { $0.withRequest(request) }
+            guard !link.isPaused else { return (newState, .saveWatchlist) }
+            // Results under the old settings can't be trusted, so monitoring starts over.
+            return (newState, .resumeMonitoring(linkID: linkID, url: link.url, request: request))
 
         case .networkAvailabilityChanged(let isAvailable):
             return (state.copy(isNetworkAvailable: isAvailable), nil)

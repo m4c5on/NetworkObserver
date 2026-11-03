@@ -20,7 +20,7 @@ struct MonitorLinkUseCaseTests {
             }
         )
 
-        let updates = await collect(useCase.execute(url: url))
+        let updates = await collect(useCase.execute(url: url, request: .default))
 
         #expect(updates.map(\.state) == [.unknown, .online, .online, .offline])
         #expect(updates.map(\.isVerifying) == [true, false, true, false])
@@ -34,7 +34,7 @@ struct MonitorLinkUseCaseTests {
         let checker = CheckerStub([.responded(statusCode: 204, latency: .milliseconds(10))])
         let useCase = DefaultMonitorLinkUseCase(checker: checker, sleep: { _ in throw CancellationError() })
 
-        let updates = await collect(useCase.execute(url: url))
+        let updates = await collect(useCase.execute(url: url, request: .default))
 
         #expect(updates.map(\.result) == [.down(.httpStatus(204))])
     }
@@ -58,7 +58,7 @@ struct MonitorLinkUseCaseTests {
             }
         )
 
-        let updates = await collect(useCase.execute(url: url))
+        let updates = await collect(useCase.execute(url: url, request: .default))
 
         #expect(updates.map(\.state) == [.unknown, .online])
         #expect(updates.map(\.transition) == [nil, nil])
@@ -85,10 +85,33 @@ struct MonitorLinkUseCaseTests {
             }
         )
 
-        let updates = await collect(useCase.execute(url: url))
+        let updates = await collect(useCase.execute(url: url, request: .default))
 
         #expect(updates.map(\.state) == [.unknown, .online, .online, .offline])
         #expect(updates.map(\.transition) == [nil, nil, nil, .wentOffline])
+    }
+
+    @Test func usesTheLinksMethodAndAcceptedStatusCodes() async throws {
+        let url = try #require(URL(string: "https://example.com/account/details"))
+        let checker = CheckerStub([
+            .responded(statusCode: 401, latency: .milliseconds(30)),
+            .responded(statusCode: 500, latency: .milliseconds(30)),
+        ])
+        let sleeps = SleepRecorder()
+        let useCase = DefaultMonitorLinkUseCase(
+            checker: checker,
+            sleep: { duration in
+                if await sleeps.record(duration) >= 2 { throw CancellationError() }
+            }
+        )
+
+        let updates = await collect(useCase.execute(
+            url: url,
+            request: RequestSettings(method: .patch, acceptedStatusCodes: [200, 401])
+        ))
+
+        #expect(updates.map(\.result) == [.up(statusCode: 401, latency: .milliseconds(30)), .down(.httpStatus(500))])
+        #expect(await checker.methods == [.patch, .patch])
     }
 
     private func collect(_ stream: AsyncStream<MonitorUpdate>) async -> [MonitorUpdate] {
@@ -102,13 +125,15 @@ struct MonitorLinkUseCaseTests {
 
 private actor CheckerStub: ReachabilityChecker {
     private var outcomes: [CheckOutcome]
+    private(set) var methods: [HTTPMethod] = []
 
     init(_ outcomes: [CheckOutcome]) {
         self.outcomes = outcomes
     }
 
-    func check(_ url: URL) async -> CheckOutcome {
-        outcomes.isEmpty ? .failed(.other("No more stubbed outcomes")) : outcomes.removeFirst()
+    func check(_ url: URL, method: HTTPMethod) async -> CheckOutcome {
+        methods.append(method)
+        return outcomes.isEmpty ? .failed(.other("No more stubbed outcomes")) : outcomes.removeFirst()
     }
 }
 

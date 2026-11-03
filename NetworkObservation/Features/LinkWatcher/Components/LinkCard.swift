@@ -6,6 +6,7 @@ struct LinkCard: View {
     let onTogglePause: () -> Void
     let onToggleMute: () -> Void
     let onResetStatistics: () -> Void
+    let onEditRequest: () -> Void
     let onRemove: () -> Void
 
     private let cornerRadius: CGFloat = 20
@@ -32,6 +33,7 @@ struct LinkCard: View {
                 systemImage: link.isMuted ? "bell" : "bell.slash",
                 action: onToggleMute
             )
+            Button("Request Settings…", systemImage: "slider.horizontal.3", action: onEditRequest)
             Button("Reset Statistics", systemImage: "arrow.counterclockwise", action: onResetStatistics)
             Divider()
             Button("Remove", systemImage: "trash", role: .destructive, action: onRemove)
@@ -47,16 +49,34 @@ struct LinkCard: View {
                 StatusIndicator(state: link.state, isVerifying: link.isVerifying, isPaused: link.isPaused)
 
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(link.url.displayString)
-                        .font(.headline)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
+                    HStack(spacing: 6) {
+                        if link.request.method != .get {
+                            Text(link.request.method.rawValue)
+                                .font(.caption.weight(.semibold))
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 1)
+                                .background(.quaternary, in: .capsule)
+                        }
+                        Text(link.url.displayString)
+                            .font(.headline)
+                            .lineLimit(1)
+                            .truncationMode(.middle)
+                    }
 
-                    StatusLine(link: link)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .monospacedDigit()
-                        .lineLimit(1)
+                    HStack(spacing: 6) {
+                        StatusLine(link: link)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .monospacedDigit()
+                            .lineLimit(1)
+
+                        if let statusCode = link.lastResult?.statusCode {
+                            StatusCodeButton(
+                                statusCode: statusCode,
+                                isAccepted: link.lastResult?.isUp ?? false
+                            )
+                        }
+                    }
                 }
             }
             .opacity(contentOpacity)
@@ -64,6 +84,8 @@ struct LinkCard: View {
             Spacer(minLength: 8)
 
             CardIconButton(systemName: "xmark", label: "Remove", action: onRemove)
+
+            CardIconButton(systemName: "slider.horizontal.3", label: "Request settings", action: onEditRequest)
 
             CardIconButton(
                 systemName: link.isMuted ? "bell.slash.fill" : "bell.fill",
@@ -119,6 +141,47 @@ private struct CardIconButton: View {
         .buttonStyle(.plain)
         .help(label)
         .accessibilityLabel(label)
+    }
+}
+
+/// The last HTTP status code; clicking it explains what the code means.
+private struct StatusCodeButton: View {
+    let statusCode: Int
+    let isAccepted: Bool
+
+    @State private var isExplanationShown = false
+
+    var body: some View {
+        Button {
+            isExplanationShown.toggle()
+        } label: {
+            Label("HTTP \(statusCode)", systemImage: "info.circle")
+                .font(.caption.weight(.semibold))
+                .monospacedDigit()
+                .foregroundStyle(isAccepted ? AnyShapeStyle(.secondary) : AnyShapeStyle(.red))
+                .padding(.horizontal, 6)
+                .padding(.vertical, 1)
+                .background(.quaternary, in: .capsule)
+                .contentShape(.capsule)
+        }
+        .buttonStyle(.plain)
+        .help("What does HTTP \(statusCode) mean?")
+        .popover(isPresented: $isExplanationShown, arrowEdge: .bottom) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("\(statusCode) \(HTTPStatusDescription.name(for: statusCode))")
+                    .font(.headline)
+                Text(HTTPStatusDescription.explanation(for: statusCode))
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(isAccepted
+                    ? "Counted as online for this link."
+                    : "Counted as down for this link. Accepted codes can be changed in the link's request settings.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(14)
+            .frame(width: 300, alignment: .leading)
+        }
     }
 }
 

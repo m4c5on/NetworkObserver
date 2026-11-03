@@ -17,6 +17,7 @@ protocol NetworkNotifier {
 final class AppCoordinator {
     let connectionHealthStore: ConnectionHealthStore
     let linkWatcherStore: LinkWatcherStore
+    let notificationPreferences: NotificationPreferences
     /// Set by the status-bar label — the one SwiftUI view alive for the whole run — so the Dock
     /// icon can reopen the main window after it was closed.
     var openMainWindow: (() -> Void)?
@@ -29,17 +30,20 @@ final class AppCoordinator {
     init(
         connectionHealthStore: ConnectionHealthStore,
         linkWatcherStore: LinkWatcherStore,
+        notificationPreferences: NotificationPreferences,
         networkNotifier: any NetworkNotifier,
         now: @escaping () -> Date = { Date() }
     ) {
         self.connectionHealthStore = connectionHealthStore
         self.linkWatcherStore = linkWatcherStore
+        self.notificationPreferences = notificationPreferences
         self.networkNotifier = networkNotifier
         self.now = now
     }
 
     static func live() -> AppCoordinator {
-        let notifier = UserNotificationService()
+        let notificationPreferences = NotificationPreferences()
+        let notifier = UserNotificationService(preferences: notificationPreferences)
         let linkWatcherStore = LinkWatcherStore(
             monitorLink: DefaultMonitorLinkUseCase(
                 checker: URLSessionReachabilityChecker(),
@@ -55,6 +59,7 @@ final class AppCoordinator {
         return AppCoordinator(
             connectionHealthStore: ConnectionHealthStore(),
             linkWatcherStore: linkWatcherStore,
+            notificationPreferences: notificationPreferences,
             networkNotifier: notifier
         )
     }

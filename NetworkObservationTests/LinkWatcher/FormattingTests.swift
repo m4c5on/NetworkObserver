@@ -27,11 +27,22 @@ struct FormattingTests {
     @Test func offlineStatusLineShowsDurationFailuresAndReason() throws {
         let start = Date(timeIntervalSince1970: 0)
         let link = MonitoredLink.new(id: UUID(), url: try #require(URL(string: "https://dev.example.com")), startedAt: start)
+            .applying(MonitorUpdate(result: .down(.timeout), state: .offline, isVerifying: false, transition: nil), at: start)
+
+        let line = LinkWatcherFormatting.statusLine(for: link, now: start.addingTimeInterval(185))
+
+        #expect(line == "Offline for 3:05 · 1 failed check · Timed out")
+    }
+
+    /// The HTTP status code has its own button with an explanation next to the status line.
+    @Test func statusLineLeavesTheHTTPStatusCodeToItsButton() throws {
+        let start = Date(timeIntervalSince1970: 0)
+        let link = MonitoredLink.new(id: UUID(), url: try #require(URL(string: "https://dev.example.com")), startedAt: start)
             .applying(MonitorUpdate(result: .down(.httpStatus(503)), state: .offline, isVerifying: false, transition: nil), at: start)
 
         let line = LinkWatcherFormatting.statusLine(for: link, now: start.addingTimeInterval(185))
 
-        #expect(line == "Offline for 3:05 · 1 failed check · HTTP 503")
+        #expect(line == "Offline for 3:05 · 1 failed check")
     }
 
     @Test func summaryCountsPausedLinksSeparately() throws {

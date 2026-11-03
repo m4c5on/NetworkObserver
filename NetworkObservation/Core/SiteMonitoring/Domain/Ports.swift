@@ -1,7 +1,7 @@
 import Foundation
 
 nonisolated protocol ReachabilityChecker: Sendable {
-    func check(_ url: URL) async -> CheckOutcome
+    func check(_ url: URL, method: HTTPMethod) async -> CheckOutcome
 }
 
 @MainActor

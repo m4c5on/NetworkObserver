@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LinkWatcherView: View {
     @State var store: LinkWatcherStore
+    @State private var linkBeingEdited: MonitoredLink?
 
     var body: some View {
         ZStack {
@@ -38,6 +39,11 @@ struct LinkWatcherView: View {
             }
         }
         .task { store.send(.viewAppeared) }
+        .sheet(item: $linkBeingEdited) { link in
+            LinkRequestSettingsSheet(link: link) { request in
+                store.send(.requestSettingsChanged(linkID: link.id, request))
+            }
+        }
     }
 
     @ViewBuilder
@@ -59,6 +65,7 @@ struct LinkWatcherView: View {
                                 onTogglePause: { store.send(.pauseToggled(linkID: link.id)) },
                                 onToggleMute: { store.send(.muteToggled(linkID: link.id)) },
                                 onResetStatistics: { store.send(.resetStatisticsTapped(linkID: link.id)) },
+                                onEditRequest: { linkBeingEdited = link },
                                 onRemove: { store.send(.removeTapped(linkID: link.id)) }
                             )
                             // Drag a card onto another to reorder; the URL is the payload, so a

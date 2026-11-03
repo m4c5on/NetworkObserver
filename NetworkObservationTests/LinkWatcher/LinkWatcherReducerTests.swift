@@ -182,7 +182,7 @@ struct LinkWatcherReducerTests {
 
         let (_, effect) = reducer.reduce(state: state, intent: .pauseToggled(linkID: linkID))
 
-        #expect(effect == .resumeMonitoring(linkID: linkID, url: link.url))
+        #expect(effect == .resumeMonitoring(linkID: linkID, url: link.url, request: .default))
     }
 
     @Test func resumedLinkStartsFromUnknownState() throws {
@@ -267,6 +267,39 @@ struct LinkWatcherReducerTests {
         let state = Domain.State.initial.copy(links: [try makeLink()])
 
         let (newState, effect) = reducer.reduce(state: state, intent: .linkMoved(linkID: UUID(), toPositionOf: linkID))
+
+        #expect(newState == state)
+        #expect(effect == nil)
+    }
+
+    // MARK: - Request settings
+
+    @Test func changingRequestSettingsRestartsMonitoringWithThem() throws {
+        let state = Domain.State.initial.copy(links: [try makeLink(state: .online)])
+        let request = RequestSettings(method: .post, acceptedStatusCodes: [200, 401])
+
+        let (newState, effect) = reducer.reduce(state: state, intent: .requestSettingsChanged(linkID: linkID, request))
+
+        let link = try #require(newState.link(linkID))
+        #expect(link.request == request)
+        #expect(effect == .resumeMonitoring(linkID: linkID, url: link.url, request: request))
+    }
+
+    @Test func changingRequestSettingsOfAPausedLinkOnlySavesThem() throws {
+        let state = Domain.State.initial.copy(links: [try makeLink().paused()])
+        let request = RequestSettings(method: .head, acceptedStatusCodes: [200])
+
+        let (newState, effect) = reducer.reduce(state: state, intent: .requestSettingsChanged(linkID: linkID, request))
+
+        #expect(newState.link(linkID)?.request == request)
+        #expect(newState.link(linkID)?.isPaused == true)
+        #expect(effect == .saveWatchlist)
+    }
+
+    @Test func unchangedRequestSettingsDoNothing() throws {
+        let state = Domain.State.initial.copy(links: [try makeLink(state: .online)])
+
+        let (newState, effect) = reducer.reduce(state: state, intent: .requestSettingsChanged(linkID: linkID, .default))
 
         #expect(newState == state)
         #expect(effect == nil)

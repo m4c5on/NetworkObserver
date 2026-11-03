@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  NetworkObservation
 //
-//  The Settings window (⌘,): network health on one tab, site checks on the other.
+//  The Settings window (⌘,): network health, site checks and notifications tabs.
 //
 
 import SwiftUI
@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     let connectionHealthStore: ConnectionHealthStore
     let linkWatcherStore: LinkWatcherStore
+    let notificationPreferences: NotificationPreferences
 
     var body: some View {
         TabView {
@@ -18,6 +19,9 @@ struct SettingsView: View {
             }
             Tab("Sites", systemImage: "globe") {
                 LinkWatcherSettingsView(store: linkWatcherStore)
+            }
+            Tab("Notifications", systemImage: "bell") {
+                NotificationSettingsView(preferences: notificationPreferences)
             }
         }
     }

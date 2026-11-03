@@ -12,7 +12,11 @@ nonisolated enum LinkWatcherFormatting {
         guard !link.isPaused else { return "Paused" }
 
         let since = DisplayFormatting.elapsed(now.timeIntervalSince(link.stateSince))
-        let reason = link.lastResult?.offlineReason?.displayText
+        // An HTTP status code is shown by its own button (with an explanation), not in the text.
+        let reason = link.lastResult?.offlineReason.flatMap { reason -> String? in
+            if case .httpStatus = reason { return nil }
+            return reason.displayText
+        }
 
         let parts: [String?] = switch (link.state, link.isVerifying) {
         case (.unknown, false):

@@ -15,6 +15,7 @@ struct AppCoordinatorTests {
                 notifier: ConnectionNotifierDummy(),
                 repository: WatchlistRepositoryDummy()
             ),
+            notificationPreferences: NotificationPreferences(defaults: UserDefaults(suiteName: "AppCoordinatorTests-\(UUID().uuidString)")!),
             networkNotifier: notifier,
             now: { clock }
         )
@@ -47,7 +48,7 @@ private final class NetworkNotifierSpy: NetworkNotifier {
 }
 
 private struct MonitorLinkDummy: MonitorLinkUseCase {
-    func execute(url: URL) -> AsyncStream<MonitorUpdate> {
+    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate> {
         AsyncStream { $0.finish() }
     }
 }

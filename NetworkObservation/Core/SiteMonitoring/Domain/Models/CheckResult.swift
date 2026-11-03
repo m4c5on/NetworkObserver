@@ -4,7 +4,7 @@ nonisolated enum CheckOutcome: Equatable, Sendable {
     case failed(OfflineReason)
 }
 
-/// A probe interpreted against `WatchPolicy.acceptedStatusCodes`.
+/// A probe interpreted against the link's `RequestSettings.acceptedStatusCodes`.
 nonisolated enum CheckResult: Equatable, Sendable {
     case up(statusCode: Int, latency: Duration)
     case down(OfflineReason)
@@ -15,6 +15,15 @@ nonisolated enum CheckResult: Equatable, Sendable {
 
     var latency: Duration? {
         if case .up(_, let latency) = self { latency } else { nil }
+    }
+
+    /// The HTTP status code the server answered with, if it answered at all.
+    var statusCode: Int? {
+        switch self {
+        case .up(let statusCode, _): statusCode
+        case .down(.httpStatus(let statusCode)): statusCode
+        case .down: nil
+        }
     }
 
     var offlineReason: OfflineReason? {

@@ -32,6 +32,7 @@ nonisolated enum LinkWatcherDomain {
         case removeTapped(linkID: UUID)
         /// Drag and drop: the moved link takes the target's position in the list.
         case linkMoved(linkID: UUID, toPositionOf: UUID)
+        case requestSettingsChanged(linkID: UUID, RequestSettings)
 
         // App
         case networkAvailabilityChanged(Bool)
@@ -50,7 +51,7 @@ nonisolated enum LinkWatcherDomain {
         case prepare
         case clearBadge
         case startMonitoring(url: URL)
-        case resumeMonitoring(linkID: UUID, url: URL)
+        case resumeMonitoring(linkID: UUID, url: URL, request: RequestSettings)
         case stopMonitoring(linkID: UUID)
         case saveWatchlist
         case notify(ConnectionAlert)

@@ -2,7 +2,7 @@ import Foundation
 
 nonisolated protocol MonitorLinkUseCase: Sendable {
     /// Polls `url` indefinitely. Cancelling the consuming task stops polling immediately.
-    func execute(url: URL) -> AsyncStream<MonitorUpdate>
+    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate>
 }
 
 nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
@@ -25,21 +25,21 @@ nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
         self.sleep = sleep
     }
 
-    func execute(url: URL) -> AsyncStream<MonitorUpdate> {
+    func execute(url: URL, request: RequestSettings) -> AsyncStream<MonitorUpdate> {
         let (stream, continuation) = AsyncStream.makeStream(of: MonitorUpdate.self)
         let task = Task {
-            await run(url: url, continuation: continuation)
+            await run(url: url, request: request, continuation: continuation)
             continuation.finish()
         }
         continuation.onTermination = { _ in task.cancel() }
         return stream
     }
 
-    private func run(url: URL, continuation: AsyncStream<MonitorUpdate>.Continuation) async {
+    private func run(url: URL, request: RequestSettings, continuation: AsyncStream<MonitorUpdate>.Continuation) async {
         var machine = ConnectionStateMachine()
 
         while !Task.isCancelled {
-            let result = evaluate(await checker.check(url))
+            let result = evaluate(await checker.check(url, method: request.method), acceptedStatusCodes: request.acceptedStatusCodes)
             guard !Task.isCancelled else { return }
 
             if !result.isUp, !(await internetReachable()) {
@@ -60,9 +60,9 @@ nonisolated struct DefaultMonitorLinkUseCase: MonitorLinkUseCase {
         }
     }
 
-    private func evaluate(_ outcome: CheckOutcome) -> CheckResult {
+    private func evaluate(_ outcome: CheckOutcome, acceptedStatusCodes: [Int]) -> CheckResult {
         switch outcome {
-        case .responded(let statusCode, let latency) where policy.acceptedStatusCodes.contains(statusCode):
+        case .responded(let statusCode, let latency) where acceptedStatusCodes.contains(statusCode):
             .up(statusCode: statusCode, latency: latency)
         case .responded(let statusCode, _):
             .down(.httpStatus(statusCode))

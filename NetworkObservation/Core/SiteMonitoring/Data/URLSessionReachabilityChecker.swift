@@ -12,9 +12,9 @@ nonisolated struct URLSessionReachabilityChecker: ReachabilityChecker {
         session = URLSession(configuration: configuration)
     }
 
-    func check(_ url: URL) async -> CheckOutcome {
+    func check(_ url: URL, method: HTTPMethod) async -> CheckOutcome {
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = method.rawValue
 
         let clock = ContinuousClock()
         let start = clock.now

@@ -5,6 +5,7 @@ nonisolated struct MonitoredLink: Identifiable, Equatable, Sendable {
     let url: URL
     let isPaused: Bool
     let isMuted: Bool
+    let request: RequestSettings
     let state: ConnectionState
     let isVerifying: Bool
     let lastResult: CheckResult?
@@ -17,12 +18,20 @@ nonisolated struct MonitoredLink: Identifiable, Equatable, Sendable {
 }
 
 nonisolated extension MonitoredLink {
-    static func new(id: UUID, url: URL, startedAt: Date, isPaused: Bool = false, isMuted: Bool = false) -> Self {
+    static func new(
+        id: UUID,
+        url: URL,
+        startedAt: Date,
+        isPaused: Bool = false,
+        isMuted: Bool = false,
+        request: RequestSettings = .default
+    ) -> Self {
         MonitoredLink(
             id: id,
             url: url,
             isPaused: isPaused,
             isMuted: isMuted,
+            request: request,
             state: .unknown,
             isVerifying: false,
             lastResult: nil,
@@ -34,7 +43,7 @@ nonisolated extension MonitoredLink {
     }
 
     var stored: StoredLink {
-        StoredLink(url: url, isPaused: isPaused, isMuted: isMuted)
+        StoredLink(url: url, isPaused: isPaused, isMuted: isMuted, request: request)
     }
 
     func applying(_ update: MonitorUpdate, at date: Date) -> Self {
@@ -72,6 +81,10 @@ nonisolated extension MonitoredLink {
         copy(isMuted: !isMuted)
     }
 
+    func withRequest(_ request: RequestSettings) -> Self {
+        copy(request: request)
+    }
+
     func resettingStatistics() -> Self {
         copy(statistics: .empty)
     }
@@ -79,6 +92,7 @@ nonisolated extension MonitoredLink {
     private func copy(
         isPaused: Bool? = nil,
         isMuted: Bool? = nil,
+        request: RequestSettings? = nil,
         state: ConnectionState? = nil,
         isVerifying: Bool? = nil,
         lastResult: Patch<CheckResult> = .keep,
@@ -92,6 +106,7 @@ nonisolated extension MonitoredLink {
             url: url,
             isPaused: isPaused ?? self.isPaused,
             isMuted: isMuted ?? self.isMuted,
+            request: request ?? self.request,
             state: state ?? self.state,
             isVerifying: isVerifying ?? self.isVerifying,
             lastResult: lastResult.resolved(current: self.lastResult),
@@ -108,6 +123,24 @@ nonisolated struct StoredLink: Codable, Equatable, Sendable {
     let url: URL
     let isPaused: Bool
     let isMuted: Bool
+    let request: RequestSettings
+
+    private enum CodingKeys: String, CodingKey {
+        case url, isPaused, isMuted, request
+    }
+}
+
+nonisolated extension StoredLink {
+    /// Links saved before request settings existed have no `request` and load with the defaults.
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(
+            url: try container.decode(URL.self, forKey: .url),
+            isPaused: try container.decode(Bool.self, forKey: .isPaused),
+            isMuted: try container.decode(Bool.self, forKey: .isMuted),
+            request: try container.decodeIfPresent(RequestSettings.self, forKey: .request) ?? .default
+        )
+    }
 }
 
 nonisolated struct ConnectionAlert: Equatable, Sendable {
